@@ -80,7 +80,7 @@ public class UserMapperTest {
         // Can we create a new user - Notice, if login fails, this will fail
         // but so would login01, so this is OK
         User original = new User( "king@kong.com", "uhahvorhemmeligt", "konge" );
-        UserMapper.createUser( original );
+        UserMapper.createUserCustomer( original );
         User retrieved = UserMapper.login( "king@kong.com", "uhahvorhemmeligt" );
         assertEquals( "konge", retrieved.getRole() );
     }
