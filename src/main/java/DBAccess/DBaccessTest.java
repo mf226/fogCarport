@@ -6,6 +6,7 @@
 package DBAccess;
 
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.Role;
 import FunctionLayer.User;
 
 /**
@@ -18,7 +19,7 @@ public class DBaccessTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws LoginSampleException {
-        User user = new User("madstester@test.com","testthisshit","Customer");
+        User user = new User("madstester@test.com","testthisshit", Role.CUSTOMER);
         UserMapper.createUserCustomer(user);
         
     }

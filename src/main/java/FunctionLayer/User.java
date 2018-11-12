@@ -6,16 +6,19 @@ package FunctionLayer;
  */
 public class User {
 
-    public User( String email, String password, String role ) {
+    public User( String email, String password, Role role) {
+        //set default role as Customer
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role = Role.CUSTOMER;
+       
     }
+
 
     private int id; // just used to demo retrieval of autogen keys in UserMapper
     private String email;
     private String password; // Should be hashed and secured
-    private String role;
+    private Role role;
 
     public String getEmail() {
         return email;
@@ -33,11 +36,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole( String role ) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
