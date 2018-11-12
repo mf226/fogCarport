@@ -25,6 +25,7 @@ public class Connector {
         if ( singleton == null ) {
             Class.forName( "com.mysql.cj.jdbc.Driver" );
             singleton = DriverManager.getConnection( URL, USERNAME, PASSWORD );
+            System.out.println("abekat");
         }
         return singleton;
     }
