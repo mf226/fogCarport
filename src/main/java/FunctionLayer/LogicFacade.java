@@ -25,7 +25,7 @@ public class LogicFacade {
      * @return
      * @throws Exception
      */
-    public static User getUser(String email, String password) throws Exception {
+    public static User getUser(String email, String password) throws LoginSampleException {
         return UserMapper.getUser(email, password);
     }
 
