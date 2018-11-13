@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HTMLGenerator {
 
-    String html = "<div class=\"topnav\">\n"
+    private String html = "<div class=\"topnav\">\n"
             + "        <form id=\"Home\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"home\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Home\">\n"
@@ -34,29 +34,29 @@ public class HTMLGenerator {
             + "        </form>\n"
             + "        </div>";
 
-    String active = "class=\"active\"";
+    private String active = "class=\"active\"";
 
-    String home = "<form id=\"Home\" action=\"FrontController\" method=\"POST\">\n"
+    private String home = "<form id=\"Home\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"home\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Home\">\n"
             + "        </form>";
-    String createHouse = "<form id=\"createHouse\" action=\"FrontController\" method=\"POST\">\n"
+    private String createHouse = "<form id=\"createHouse\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"createHouse\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Create House\">\n"
             + "        </form>";
-    String register = "<form id=\"register\" action=\"FrontController\" method=\"POST\">\n"
+    private String register = "<form id=\"register\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"registerpage\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Register\">\n"
             + "        </form>";
-    String login = "<form id=\"login\" action=\"FrontController\" method=\"POST\">\n"
+    private String login = "<form id=\"login\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"loginpage\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Login\">\n"
             + "        </form>";
-    String logout = "<form id=\"logout\" action=\"FrontController\" method=\"POST\">\n"
+    private String logout = "<form id=\"logout\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"logout\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Logout\">\n"
             + "        </form>";
-    String employee = "<form id=\"employee\" action=\"FrontController\" method=\"POST\">\n"
+    private String employee = "<form id=\"employee\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"employee\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"View all orders\">\n"
             + "        </form>";
@@ -66,7 +66,7 @@ public class HTMLGenerator {
         if (request.getSession(false) != null) {
             try {
                 user = (User) request.getSession(false).getAttribute("user");
-                if ("EMPLOYEE".equals(user.getRole())) {
+                if (Role.EMPLOYEE.equals(user.getRole())) {
                     return "<!-- Logged In as employee--><div class=\"topnav\">\n"
                             + home + "\n"
                             + createHouse + "\n"
