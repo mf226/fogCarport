@@ -1,0 +1,90 @@
+body {
+}
+
+.topnav {
+    background-color: #618685;
+    overflow: hidden;
+    text-align: center;
+    height: 50px;
+
+}
+.topnav #btn {
+    border: 0px solid black;
+    height: 50px;
+    background-color: #618685;
+    color: #deeaee;
+}
+
+.topnav #btn:hover {
+    background-color: #d5f4e6;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+}
+.topnav #btn.active {
+    background-color: #d5f4e6;
+    color: black;
+}
+
+.topnav #Home{
+    float:left;
+    border: 1px; 
+}
+
+.topnav #createHouse{
+    float: left;
+    
+    display: inline-block;
+}
+
+.topnav #register{
+    float: right;
+    
+    display: inline-block;
+}
+
+.topnav #login{
+    float: right;
+
+    display: inline-block;
+}
+
+.topnav #logout{
+    float: right;
+
+    display: inline-block;
+}
+.topnav #employee{
+    float: right;
+
+    display: inline-block;
+}
+
+.topnav #user{
+    color: #deeaee;
+    float: right;
+    overflow: hidden;
+    padding-right: 20px;
+    padding-top: 7px;
+    display: inline-block;
+
+}
+
+
+.topnav #header{
+    float: center;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:last-child {
+    background-color: #a9a9a9;
+}
+
+
+﻿

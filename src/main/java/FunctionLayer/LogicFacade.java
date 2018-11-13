@@ -17,5 +17,16 @@ public class LogicFacade {
         UserMapper.createUserCustomer( user );
         return user;
     }
+    
+    /**
+     *
+     * @param email
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    public static User getUser(String email, String password) throws Exception {
+        return UserMapper.getUser(email, password);
+    }
 
 }
