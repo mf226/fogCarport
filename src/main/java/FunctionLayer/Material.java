@@ -10,7 +10,8 @@ public class Material {
     private String name, unit;
     private double price;
 
-    public Material(String name, String unit, double price) {
+    public Material(int itemNumber, String name, String unit, double price) {
+        this.itemNumber = itemNumber;
         this.name = name;
         this.unit = unit;
         this.price = price;
