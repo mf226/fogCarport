@@ -20,6 +20,7 @@ abstract class Command {
         commands.put("logout", new Logout());
         commands.put("measurementFlat", new MeasurementFlat());
         commands.put("measurementAngled", new MeasurementAngled());
+        commands.put("SelectFlat", new FlatBOM());
 
     }
 

@@ -120,4 +120,28 @@ public class HTMLGenerator {
                 + "</div>";
     }
 
+    public String generateBOM(ArrayList<Material> materials) {
+
+        String table = "<table id=\"BillOfMaterials\">\n"
+                + "            <tr>\n"
+                + "                <th>Name</th>\n"
+                + "                <th>Item Number</th>\n"
+                + "                <th>Unit</th>\n"
+                + "                <th>Amount</th>\n"
+                + "               <th>Price</th>\n"
+                + "            </tr>\n";
+
+        for (int i = 0; i < materials.size(); i++) {
+            table += "<tr>";
+                table += "<td>" + materials.get(i).getName() + "</td>";
+                table += "<td>" + materials.get(i).getItemNumber() + "</td>";
+                table += "<td>" + materials.get(i).getUnit() + "</td>";
+                table += "<td>" + materials.get(i).getAmount() + "</td>";
+                table += "<td>" + materials.get(i).getPrice()+ "</td>";
+            table += "</tr>";
+        }
+        table += "</table>";
+        return table;
+    }
+
 }

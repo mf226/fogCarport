@@ -49,6 +49,14 @@ public class Material {
         this.price = price;
     }
     
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+    
     
     
     
