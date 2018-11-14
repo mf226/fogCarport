@@ -20,7 +20,7 @@ public class DBaccessTest {
      */
     public static void main(String[] args) throws LoginSampleException {
         User user = new User("madstester@test.com","testthisshit", Role.CUSTOMER);
-        UserMapper.createUserCustomer(user);
+        UserMapper.createUser(user);
         
     }
     
