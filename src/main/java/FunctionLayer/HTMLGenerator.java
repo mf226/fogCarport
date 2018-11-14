@@ -20,10 +20,18 @@ public class HTMLGenerator {
             + "            <input type=\"hidden\" name=\"command\" value=\"home\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Home\">\n"
             + "        </form>\n"
-            + "        <form id=\"createHouse\" action=\"FrontController\" method=\"POST\">\n"
-            + "            <input type=\"hidden\" name=\"command\" value=\"createHouse\">\n"
-            + "            <input id=\"btn\" type=\"submit\" value=\"Create House\">\n"
-            + "        </form>\n"
+            + "     <div class=\"dropdown\">\n"
+            + "     <button class=\"dropbtn\">Dropdown \n"
+            + "         <i class=\"fa fa-caret-down\"></i>\n"
+            + "     </button>\n"
+            + "         <div class=\"dropdown-content\">\n"
+            + "             <form id=\"createHouse\" action=\"FrontController\" method=\"POST\">\n"
+            + "                 <input type=\"hidden\" name=\"command\" value=\"createHouse\">\n"
+            + "                 <input id=\"btn\" type=\"submit\" value=\"Create House\">\n"
+            + "             </form>"
+            + "             </div>\n"
+            + "         </div> \n"
+            + "     </div>"
             + "        <form id=\"register\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"registerpage\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Register\">\n"
@@ -44,6 +52,17 @@ public class HTMLGenerator {
             + "            <input type=\"hidden\" name=\"command\" value=\"createHouse\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Create House\">\n"
             + "        </form>";
+
+    private String designDropdown = "  <div class=\"dropdown\">\n"
+            + "             <button class=\"dropbtn\">Design Carport\n"
+            + "                <i class=\"fa fa-caret-down\"></i>\n"
+            + "                </button>\n"
+            + "                <div class=\"dropdown-content\">\n"
+            + "                  <input type=\"hidden\" name=\"command\" value=\"flat\">\n"
+            + "                  <input type=\"submit\" value=\"Med fladt tag\">\n"
+            + "                  <input type=\"submit\" value=\"Med skråt tag\">\n"
+            + "                </div>\n"
+            + "              </div>";
     private String register = "<form id=\"register\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"registerpage\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Register\">\n"
@@ -69,7 +88,7 @@ public class HTMLGenerator {
                 if (Role.EMPLOYEE.equals(user.getRole())) {
                     return "<!-- Logged In as employee--><div class=\"topnav\">\n"
                             + home + "\n"
-                            + createHouse + "\n"
+                            + designDropdown + "\n"
                             + employee + "\n"
                             + logout + "\n"
                             + "<h5 id=\"user\">Logged in as: " + user.getEmail() + "</h5>\n"
@@ -79,7 +98,7 @@ public class HTMLGenerator {
                     return "<!-- Logged In as customer --><div class=\"topnav\">\n"
                             + home + "\n"
                             + logout + "\n"
-                            + createHouse + "\n"
+                            + designDropdown + "\n"
                             + "<h5 id=\"user\">Logged in as: " + user.getEmail() + "</h5>\n"
                             + "</div>";
                 }
@@ -90,7 +109,7 @@ public class HTMLGenerator {
         }
         return "<!--Not Logged In --><div class=\"topnav\">\n"
                 + home + "\n"
-                + createHouse + "\n"
+                + designDropdown + "\n"
                 + login + "\n"
                 + register + "\n"
                 + "</div>";
