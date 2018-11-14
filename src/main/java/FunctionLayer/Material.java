@@ -6,7 +6,7 @@
 package FunctionLayer;
 
 public class Material {
-    private int itemNumber;
+    private int itemNumber, amount;
     private String name, unit;
     private double price;
 
