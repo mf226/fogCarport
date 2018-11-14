@@ -11,9 +11,5 @@ package FunctionLayer;
  */
 public class Calculators {
 
-    public static postsCalc
 
-    {
-      
-    }
 }
