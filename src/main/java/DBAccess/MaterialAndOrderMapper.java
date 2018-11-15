@@ -42,8 +42,8 @@ public class MaterialAndOrderMapper {
         try {
 
             Connection con = Connector.connection();
-            String SQL = "SELECT materialName, unit, price FROM FogDB.Materials"
-                    + "WHERE itemNumber= ?;";
+            String SQL = "SELECT materialName, unit, price FROM FogDB.Materials "
+                    + "WHERE itemNumber = ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, itemNumber);
 
