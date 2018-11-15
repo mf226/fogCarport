@@ -7,6 +7,7 @@ package FunctionLayer;
 
 import FunctionLayer.User;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -120,7 +121,7 @@ public class HTMLGenerator {
                 + "</div>";
     }
 
-    public String generateBOM(ArrayList<Material> materials) {
+    public String generateBOM(List<Material> materials) {
 
         String table = "<table id=\"BillOfMaterials\">\n"
                 + "            <tr>\n"

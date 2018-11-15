@@ -23,8 +23,8 @@
         <h4>Fladt tag</h4>
         <h4>Venligst vælg den ønskede størrelse af din carport.</h4>
         <h5>Højde:</h5>
-        <form name="carportDesignFlat" action="FrontController" method="POST">
-            <select>
+        <form action="FrontController" method="POST">
+            <select name="height">
                 <option value="200">200 cm</option>
                 <option value="220" selected>220 cm</option>
                 <option value="240">240 cm</option>
@@ -34,7 +34,7 @@
             </select>
 
             <h5>Bredde:</h5>
-            <select>
+            <select name="width">
                 <option value="200">300 cm</option>
                 <option value="220">320 cm</option>
                 <option value="240"selected>340 cm</option>
@@ -48,8 +48,8 @@
                 <option value="300">500 cm</option>            
             </select>
 
-            <h5>Dybde:</h5>
-            <select>
+            <h5>Længde:</h5>
+            <select name="length">
                 <option value="200">400 cm</option>
                 <option value="220">420 cm</option>
                 <option value="240">440 cm</option>
