@@ -136,6 +136,7 @@ public class HTMLGenerator {
         List<MaterialDetails> materials = order.getMaterials();
         String table = "<table id=\"BillOfMaterials\">\n"
                 + "            <tr>\n"
+                + "                <th>Vare</th>\n"
                 + "                <th>Beskrivelse</th>\n"
                 + "                <th>Længde</th>\n"
                 + "                <th>Varenummer</th>\n"
@@ -154,10 +155,9 @@ public class HTMLGenerator {
             table += "<td>" + materials.get(i).getMaterial().getPrice() + "  kr </td>";
             table += "<td>" + materials.get(i).getAmount() + "</td>";
             table += "<td>" + materials.get(i).getTotalItemPrice() + "  kr </td>";
-
             table += "</tr>";
         }
-        table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td>"+order.getTotalOrderPrice()+" kr </td></tr>";
+        table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
         return table;
     }
