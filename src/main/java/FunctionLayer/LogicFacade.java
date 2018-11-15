@@ -25,15 +25,27 @@ public class LogicFacade {
         return MaterialAndOrderMapper.getAllMaterials();
     }
     
-    public static List<Material> createCarport(int length, int width, int height) throws LoginSampleException {
+    public static Order createCarport(int length, int width, int height) throws LoginSampleException {
         Order order = new Order(length, width, height);
-        Material posts = MaterialAndOrderMapper.getMaterial(2);
-        posts.setAmount(Calculators.postsCalc(length, width));
-        order.getMaterials().add(posts);
+        createPosts(order);        
+        createRafters(order);
         
-        Material rafters = MaterialAndOrderMapper.getMaterial(1);
-        rafters.setAmount(Calculators.rafterCalc(length));
-        order.getMaterials().add(rafters);
-        return order.getMaterials();
+        return order;
     }
+
+    private static void createRafters(Order order) throws LoginSampleException {
+        Material rafter = MaterialAndOrderMapper.getMaterial(1);
+        int raftersAmount = Calculators.rafterAmountCalc(order.getLength());
+        int cmLengthEach = Calculators.rafterLengthCalc(order.getWidth());
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEach, raftersAmount));
+    }
+
+    private static void createPosts(Order order) throws LoginSampleException {
+        Material post = MaterialAndOrderMapper.getMaterial(2);
+        int postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
+        int cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
+        order.getMaterials().add(new MaterialDetails(post, cmLengthEach, postsAmount));
+    }
+    
+    
 }

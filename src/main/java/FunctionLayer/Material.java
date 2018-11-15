@@ -6,7 +6,7 @@
 package FunctionLayer;
 
 public class Material {
-    private int itemNumber, amount;
+    private int itemNumber;
     private String name, unit;
     private double price;
 
@@ -48,16 +48,6 @@ public class Material {
     public void setPrice(double price) {
         this.price = price;
     }
-    
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-    
-    
-    
+     
     
 }

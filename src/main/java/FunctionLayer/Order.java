@@ -11,7 +11,7 @@ public class Order {
     private int width;
     private int height;
     private String description;
-    private ArrayList<Material> materials;
+    private ArrayList<MaterialDetails> materials;
 
     public Order(int length, int width, int height) {
         this.length = length;
@@ -21,6 +21,22 @@ public class Order {
         this.materials = new ArrayList();
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getTotalOrderPrice() {
+        double totalOrderPrice = 0;      
+        for (int i = 0; i < materials.size(); i++) {
+            totalOrderPrice += materials.get(i).getTotalItemPrice();
+        }
+        return totalOrderPrice;
+    }
+ 
     public int getLength() {
         return length;
     }
@@ -45,11 +61,11 @@ public class Order {
         this.height = height;
     }
 
-    public ArrayList<Material> getMaterials() {
+    public ArrayList<MaterialDetails> getMaterials() {
         return materials;
     }
 
-    public void setMaterials(ArrayList<Material> materials) {
+    public void setMaterials(ArrayList<MaterialDetails> materials) {
         this.materials = materials;
     }
     
