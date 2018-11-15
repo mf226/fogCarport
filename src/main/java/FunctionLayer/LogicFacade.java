@@ -37,14 +37,14 @@ public class LogicFacade {
         Material rafter = MaterialAndOrderMapper.getMaterial(1);
         int raftersAmount = Calculators.rafterAmountCalc(order.getLength());
         int cmLengthEach = Calculators.rafterLengthCalc(order.getWidth());
-        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEach, raftersAmount));
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEach, raftersAmount, "Spær"));
     }
 
     private static void createPosts(Order order) throws LoginSampleException {
         Material post = MaterialAndOrderMapper.getMaterial(2);
         int postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
         int cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
-        order.getMaterials().add(new MaterialDetails(post, cmLengthEach, postsAmount));
+        order.getMaterials().add(new MaterialDetails(post, cmLengthEach, postsAmount, "Stolper"));
     }
     
     
