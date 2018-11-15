@@ -2,22 +2,27 @@ body {
 }
 
 .topnav {
-    background-color: #618685;
+    background-color: #004687;
     overflow: visible;
     text-align: center;
     height: 50px;
 
 }
+
+.topnav img {
+    float: left;
+    overflow: hidden;
+    position: relative;
+}
 .topnav #btn {
     border: 0px solid black;
     height: 50px;
-    background-color: #618685;
+    background-color: #004687;
     color: #deeaee;
 }
 
 .topnav #btn:hover {
-    background-color: #d5f4e6;
-    color: black;
+    color: #0085a2;
     text-decoration: none;
     display: inline-block;
 }
@@ -102,8 +107,8 @@ body {
 
 /* Add a red background color to navbar links on hover */
 .topnav input:hover, .dropdown:hover .dropbtn {
-    background-color: #d5f4e6;
-    color: black;
+    background-color: #004687;
+    color: #0085a2;
 }
 
 /* Dropdown content (hidden by default) */
@@ -120,7 +125,7 @@ body {
     border: 0px solid black;
     height: 50px;
     width: 96%;
-    background-color: #618685;
+    background-color: #004687;
     color: #deeaee;
     float: none;
     padding: 12px 16px;
@@ -131,7 +136,7 @@ body {
 
 /* Add a grey background color to dropdown links on hover */
 .dropdown-content input:hover {
-    background-color: #d5f4e6;
+    color: #0085a2;
 }
 
 /* Show the dropdown menu on hover */
