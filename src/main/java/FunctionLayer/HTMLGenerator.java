@@ -148,6 +148,7 @@ public class HTMLGenerator {
 
         for (int i = 0; i < materials.size(); i++) {
             table += "<tr>";
+            table += "<td>" + materials.get(i).getUseDescription() + "</td>";
             table += "<td>" + materials.get(i).getMaterial().getName() + "</td>";
             table += "<td>" + materials.get(i).getCmLengthEach() + "</td>";
             table += "<td>" + materials.get(i).getMaterial().getItemNumber() + "</td>";
@@ -157,7 +158,7 @@ public class HTMLGenerator {
             table += "<td>" + materials.get(i).getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
         }
-        table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
+        table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
         return table;
     }

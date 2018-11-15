@@ -144,6 +144,10 @@ body {
     display: block;
 }
 
+img .header-background{
+    height: 50px;
+    overflow:hidden;
+}
 
 /*Table*/
 table, th, td {
