@@ -1,5 +1,18 @@
 body {
+
+    background-image: url('images/woodpanel.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top; 
+    background-size: 100%;
 }
+
+body #measurementForm {
+    background: rgba(200, 54, 54, 0.5);
+    overflow: hidden;
+    float: left;
+}
+
 
 .topnav {
     background-color: #004687;
@@ -144,9 +157,15 @@ body {
     display: block;
 }
 
-img .header-background{
-    height: 50px;
-    overflow:hidden;
+img {
+    height: 300px;
+    width: 100%;
+    position: relative;
+    overflow:visible;
+    border-top: 1px solid red;
+    display: block;
+    opacity: 0.8;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
 }
 
 /*Table*/

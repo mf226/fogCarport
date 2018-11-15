@@ -21,7 +21,6 @@
     </head>
     <body>
         <%=request.getAttribute("menu")%>
-        <img class="header-background" src="images/woody.jpg">
         
     </body>
 </html>

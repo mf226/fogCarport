@@ -44,7 +44,8 @@ public class HTMLGenerator {
             + "        </div>";
 
     private String active = "class=\"active\"";
-
+    
+    private String headerBackground = "        <img class=\"header-background\" src=\"images/woody.jpg\">";
     private String home = "<form id=\"Home\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"home\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Home\">\n"
