@@ -1,6 +1,7 @@
 package FunctionLayer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -61,7 +62,7 @@ public class Order {
         this.height = height;
     }
 
-    public ArrayList<MaterialDetails> getMaterials() {
+    public List<MaterialDetails> getMaterials() {
         return materials;
     }
 

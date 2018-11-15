@@ -85,6 +85,11 @@ public class HTMLGenerator {
             + "            <input type=\"hidden\" name=\"command\" value=\"employee\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"View all orders\">\n"
             + "        </form>";
+    private String fogIcon = "<form action=\"FrontController\" method=\"POST\">\n"
+            + "             <input type=\"image\" src=\"images/fogIcon.png\" alt=\"Fog Icon\">"
+            + "             <input type=\"hidden\" name=\"command\" value=\"home\">\n"
+            + "             </img>"
+            + "             </form>";
 
     public String generateMenu(HttpServletRequest request) {
         User user;
@@ -93,8 +98,10 @@ public class HTMLGenerator {
                 user = (User) request.getSession(false).getAttribute("user");
                 if (Role.EMPLOYEE.equals(user.getRole())) {
                     return "<!-- Logged In as employee--><div class=\"topnav\">\n"
-                            + home + "\n"
+                            + fogIcon + "\n"
+                            //                            + home + "\n"
                             + designDropdown + "\n"
+                            //                            + fogIcon + "\n"
                             + employee + "\n"
                             + logout + "\n"
                             + "<h5 id=\"user\">Logged in as: " + user.getEmail() + "</h5>\n"
@@ -102,7 +109,9 @@ public class HTMLGenerator {
                 }
                 if (user.getEmail() != null) {
                     return "<!-- Logged In as customer --><div class=\"topnav\">\n"
-                            + home + "\n"
+                            + fogIcon + "\n"
+                            //                            + home + "\n"
+                            //                            + fogIcon + "\n"
                             + logout + "\n"
                             + designDropdown + "\n"
                             + "<h5 id=\"user\">Logged in as: " + user.getEmail() + "</h5>\n"
@@ -114,33 +123,41 @@ public class HTMLGenerator {
 
         }
         return "<!--Not Logged In --><div class=\"topnav\">\n"
-                + home + "\n"
+                + fogIcon + "\n"
+                //                + home + "\n"
                 + designDropdown + "\n"
+                //                + fogIcon + "\n"
                 + login + "\n"
                 + register + "\n"
                 + "</div>";
     }
 
-    public String generateBOM(List<Material> materials) {
-
+    public String generateBOM(Order order) {
+        List<MaterialDetails> materials = order.getMaterials();
         String table = "<table id=\"BillOfMaterials\">\n"
                 + "            <tr>\n"
-                + "                <th>Name</th>\n"
-                + "                <th>Item Number</th>\n"
-                + "                <th>Unit</th>\n"
-                + "                <th>Amount</th>\n"
-                + "               <th>Price</th>\n"
+                + "                <th>Beskrivelse</th>\n"
+                + "                <th>Længde</th>\n"
+                + "                <th>Varenummer</th>\n"
+                + "                <th>Enhed</th>\n"
+                + "                <th>Pris pr. enhed</th>\n"
+                + "                <th>Antal</th>\n"
+                + "                <th>Samlet pris</th>\n"
                 + "            </tr>\n";
 
         for (int i = 0; i < materials.size(); i++) {
             table += "<tr>";
-                table += "<td>" + materials.get(i).getName() + "</td>";
-                table += "<td>" + materials.get(i).getItemNumber() + "</td>";
-                table += "<td>" + materials.get(i).getUnit() + "</td>";
-                table += "<td>" + materials.get(i).getAmount() + "</td>";
-                table += "<td>" + materials.get(i).getPrice()+ "</td>";
+            table += "<td>" + materials.get(i).getMaterial().getName() + "</td>";
+            table += "<td>" + materials.get(i).getCmLengthEach() + "</td>";
+            table += "<td>" + materials.get(i).getMaterial().getItemNumber() + "</td>";
+            table += "<td>" + materials.get(i).getMaterial().getUnit() + "</td>";
+            table += "<td>" + materials.get(i).getMaterial().getPrice() + "  kr </td>";
+            table += "<td>" + materials.get(i).getAmount() + "</td>";
+            table += "<td>" + materials.get(i).getTotalItemPrice() + "  kr </td>";
+
             table += "</tr>";
         }
+        table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td>"+order.getTotalOrderPrice()+" kr </td></tr>";
         table += "</table>";
         return table;
     }

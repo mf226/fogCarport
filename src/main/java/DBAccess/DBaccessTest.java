@@ -25,10 +25,10 @@ public class DBaccessTest {
     public static void main(String[] args) throws LoginSampleException {
 //        User user = new User("madstester@test.com","testthisshit", Role.CUSTOMER);
 //        UserMapper.createUser(user);
-        List<Material> l = LogicFacade.createCarport(450, 300, 400);
-        HTMLGenerator gen = new HTMLGenerator();
-        String table = gen.generateBOM(l);
-        System.out.println(table);
+//        List<Material> l = LogicFacade.createCarport(450, 300, 400);
+//        HTMLGenerator gen = new HTMLGenerator();
+//        String table = gen.generateBOM(l);
+//        System.out.println(table);
         
     }
     

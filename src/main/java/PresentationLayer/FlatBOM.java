@@ -8,6 +8,8 @@ package PresentationLayer;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Material;
+import FunctionLayer.MaterialDetails;
+import FunctionLayer.Order;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +29,8 @@ public class FlatBOM extends Command {
         int w = Integer.parseInt(width);
         String length = request.getParameter("length");
         int l = Integer.parseInt(length);
-        ArrayList<Material> materials = (ArrayList<Material>) LogicFacade.createCarport(l, w, h);
-        String table = gen.generateBOM(materials);
+        Order order = LogicFacade.createCarport(l, w, h);
+        String table = gen.generateBOM(order);
         request.setAttribute("table", table);
         return "BOMpage";
     }
