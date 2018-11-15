@@ -5,9 +5,13 @@
  */
 package DBAccess;
 
+import FunctionLayer.HTMLGenerator;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.Material;
 import FunctionLayer.Role;
 import FunctionLayer.User;
+import java.util.List;
 
 /**
  *
@@ -19,8 +23,12 @@ public class DBaccessTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws LoginSampleException {
-        User user = new User("madstester@test.com","testthisshit", Role.CUSTOMER);
-        UserMapper.createUser(user);
+//        User user = new User("madstester@test.com","testthisshit", Role.CUSTOMER);
+//        UserMapper.createUser(user);
+        List<Material> l = LogicFacade.createCarport(450, 300, 400);
+        HTMLGenerator gen = new HTMLGenerator();
+        String table = gen.generateBOM(l);
+        System.out.println(table);
         
     }
     

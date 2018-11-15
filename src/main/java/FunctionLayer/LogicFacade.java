@@ -24,5 +24,16 @@ public class LogicFacade {
     public static List<Material> getAllMaterials() throws LoginSampleException {
         return MaterialAndOrderMapper.getAllMaterials();
     }
-
+    
+    public static List<Material> createCarport(int length, int width, int height) throws LoginSampleException {
+        Order order = new Order(length, width, height);
+        Material posts = MaterialAndOrderMapper.getMaterial(2);
+        posts.setAmount(Calculators.postsCalc(length, width));
+        order.getMaterials().add(posts);
+        
+        Material rafters = MaterialAndOrderMapper.getMaterial(1);
+        rafters.setAmount(Calculators.rafterCalc(length));
+        order.getMaterials().add(rafters);
+        return order.getMaterials();
+    }
 }

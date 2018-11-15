@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jonab
  */
-public class Measurementpage extends Command {
+public class MeasurementAngled extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-        return "measurements";
+        return "measurementsAngled";
     }
 
 }

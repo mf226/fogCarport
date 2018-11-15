@@ -7,6 +7,7 @@ package FunctionLayer;
 
 import FunctionLayer.User;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -58,9 +59,14 @@ public class HTMLGenerator {
             + "                <i class=\"fa fa-caret-down\"></i>\n"
             + "                </button>\n"
             + "                <div class=\"dropdown-content\">\n"
-            + "                  <input type=\"hidden\" name=\"command\" value=\"flat\">\n"
-            + "                  <input type=\"submit\" value=\"Med fladt tag\">\n"
-            + "                  <input type=\"submit\" value=\"Med skråt tag\">\n"
+            + "                 <form action=\"FrontController\" method=\"POST\">\n"
+            + "                     <input type=\"submit\" value=\"Med fladt tag\">\n"
+            + "                     <input type=\"hidden\" name=\"command\" value=\"measurementFlat\">\n"
+            + "                 </form>"
+            + "                 <form action=\"FrontController\" method=\"POST\">\n"
+            + "                     <input type=\"submit\" value=\"Med skråt tag\">\n"
+            + "                     <input type=\"hidden\" name=\"command\" value=\"measurementAngled\">\n"
+            + "                 </form>"
             + "                </div>\n"
             + "              </div>";
     private String register = "<form id=\"register\" action=\"FrontController\" method=\"POST\">\n"
@@ -113,6 +119,30 @@ public class HTMLGenerator {
                 + login + "\n"
                 + register + "\n"
                 + "</div>";
+    }
+
+    public String generateBOM(List<Material> materials) {
+
+        String table = "<table id=\"BillOfMaterials\">\n"
+                + "            <tr>\n"
+                + "                <th>Name</th>\n"
+                + "                <th>Item Number</th>\n"
+                + "                <th>Unit</th>\n"
+                + "                <th>Amount</th>\n"
+                + "               <th>Price</th>\n"
+                + "            </tr>\n";
+
+        for (int i = 0; i < materials.size(); i++) {
+            table += "<tr>";
+                table += "<td>" + materials.get(i).getName() + "</td>";
+                table += "<td>" + materials.get(i).getItemNumber() + "</td>";
+                table += "<td>" + materials.get(i).getUnit() + "</td>";
+                table += "<td>" + materials.get(i).getAmount() + "</td>";
+                table += "<td>" + materials.get(i).getPrice()+ "</td>";
+            table += "</tr>";
+        }
+        table += "</table>";
+        return table;
     }
 
 }
