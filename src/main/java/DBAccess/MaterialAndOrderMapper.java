@@ -79,7 +79,7 @@ public class MaterialAndOrderMapper {
                 int price = rs.getInt("price");
                 int userID = rs.getInt("User_UserID");
                 Date orderDate = rs.getDate("orderDate");
-                orders.add(new Order(orderID, orderDescription, price, userID, orderDate));
+                //orders.add(new Order(orderID, orderDescription, price, userID, orderDate));
             }
             return orders;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -101,7 +101,7 @@ public class MaterialAndOrderMapper {
                 String orderDescription = rs.getString("orderDescription");
                 int price = rs.getInt("price");
                 Date orderDate = rs.getDate("orderDate");
-                orders.add(new Order(orderID, orderDescription, price, user.getId(), orderDate));
+                //orders.add(new Order(orderID, orderDescription, price, user.getId(), orderDate));
                 
             }
             return orders;
