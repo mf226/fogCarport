@@ -21,6 +21,8 @@
     </head>
     <body>
         <%=request.getAttribute("menu")%>
-        
+        <div class ="pageHeader">
+            <h2>UMAGE betaler sig</h2>
+        </div>
     </body>
 </html>

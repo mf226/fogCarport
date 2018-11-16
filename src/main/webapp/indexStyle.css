@@ -13,6 +13,20 @@ body #measurementForm {
     float: left;
 }
 
+body .pageContent {
+    padding-top: 80px;
+    width: 100%;
+    position: fixed;
+}
+
+body .pageHeader {
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding-right: 150px;
+    padding-top: 15px;
+}
+
 
 .topnav {
     background-color: #004687;
@@ -28,6 +42,14 @@ body #measurementForm {
     position: relative;
 }
 .topnav #btn {
+    /*transition*/
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+
+    font-size: 16px; 
     border: 0px solid black;
     height: 50px;
     background-color: #004687;
@@ -35,6 +57,7 @@ body #measurementForm {
 }
 
 .topnav #btn:hover {
+
     color: #0085a2;
     text-decoration: none;
     display: inline-block;
@@ -135,6 +158,14 @@ body #measurementForm {
 
 /* Links inside the dropdown */
 .dropdown-content input {
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    /* ...and now for the proper property */
+    
+    transition:.5s;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border: 0px solid black;
     height: 50px;
     width: 96%;

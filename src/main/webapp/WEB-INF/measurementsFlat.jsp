@@ -20,10 +20,10 @@
     </head>
     <body>
         <%=request.getAttribute("menu")%>
-        <div class="wrapper">
-            <div class="blur"></div>
-            <div class="content">
-                <h4>Fladt tag</h4>
+        <div class ="pageHeader">
+            <h2>Fladt tag</h2>
+        </div>
+            <div class="pageContent">
                 <h4>Venligst vælg den ønskede størrelse af din carport.</h4>
                 <h5>Højde:</h5>
                 <form action="FrontController" method="POST">
@@ -65,6 +65,5 @@
                     <input type="hidden" name="command" value="SelectFlat">
                 </form>
             </div>
-        </div>
     </body>
 </html>

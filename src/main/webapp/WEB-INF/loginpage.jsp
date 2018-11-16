@@ -20,17 +20,22 @@
     </head>
     <body>
         <%=request.getAttribute("menu")%>
+        <div class ="pageHeader">
+            <h2>Login</h2>
+        </div>
 
-        <form name="login" action="FrontController" method="POST">
-            <input type="hidden" name="command" value="login">
-            Email:<br>
-            <input type="text" name="email" placeholder="Enter email">
-            <br>
-            Password:<br>
-            <input type="password" name="password" value="sesam">
-            <br>
-            <input type="submit" value="Submit">
-        </form>
+        <div class="pageContent">
+            <form name="login" action="FrontController" method="POST">
+                <input type="hidden" name="command" value="login">
+                Email:<br>
+                <input type="text" name="email" placeholder="Enter email">
+                <br>
+                Password:<br>
+                <input type="password" name="password" placeholder="Enter password">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
 
     </body>
 </html>
