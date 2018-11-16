@@ -57,9 +57,14 @@ public class Calculators {
     }
     
     public static int angledRoofRafterSidesLengthCalc(int carportWidth, int roofAngle) {
-        int rafterSideLength = (int) ((rafterBottomLengthCalc(carportWidth)/2) / Math.cos(roofAngle)); // Cosinus relation for retviklet trekant
+        int rafterSideLength = (int) ((rafterBottomLengthCalc(carportWidth)/2) / Math.cos(degreesToRad(roofAngle))); // Cosinus relation for retviklet trekant
         
         return rafterSideLength; 
+    }
+    
+    public static double degreesToRad(int deg){
+        double rad = (deg*Math.PI) / 180;
+        return rad;
     }
     
     

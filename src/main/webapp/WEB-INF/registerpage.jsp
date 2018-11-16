@@ -20,15 +20,19 @@
     </head>
     <body>
         <%=request.getAttribute("menu")%>
-
-        <form name="register" action="FrontController" method="POST">
-            <input type="hidden" name="command" value="register">
-            <input type="text" name="email" placeholder="Enter email">
-            <br>
-            <input type="password" name="password" palceholder="Enter password">
-            <br>
-            <input type="password" name="password1" palceholder="Confirm password">
-            <input type="submit" value="Submit">
-        </form>
+        <div class ="pageHeader">
+            <h2>Register</h2>
+        </div>
+        <div class="pageContent">
+            <form name="register" action="FrontController" method="POST">
+                <input type="hidden" name="command" value="register">
+                <input type="text" name="email" placeholder="Enter email">
+                <br>
+                <input type="password" name="password" placeholder="Enter password">
+                <br>
+                <input type="password" name="password1" placeholder="Confirm password">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
     </body>
 </html>

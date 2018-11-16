@@ -45,6 +45,7 @@ public class HTMLGenerator {
 
     private String active = "class=\"active\"";
 
+    private String headerBackground = "        <img class=\"header-background\" src=\"images/woody.jpg\">";
     private String home = "<form id=\"Home\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"home\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Home\">\n"
@@ -85,11 +86,32 @@ public class HTMLGenerator {
             + "            <input type=\"hidden\" name=\"command\" value=\"employee\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"View all orders\">\n"
             + "        </form>";
+
     private String fogIcon = "<form action=\"FrontController\" method=\"POST\">\n"
             + "             <input type=\"image\" src=\"images/fogIcon.png\" alt=\"Fog Icon\">"
             + "             <input type=\"hidden\" name=\"command\" value=\"home\">\n"
             + "             </img>"
             + "             </form>";
+
+    private String userDropdown(User user) {
+        String role = user.getRole().toString().toLowerCase();
+        String userDropdown = "  <div class=\"userdropdown\">\n"
+                + "             <button class=\"userdropbtn\">Logged in as " + user.getEmail() + "\n"
+                + "                <i class=\"fa fa-caret-down\"></i>\n"
+                + "                </button>\n"
+                + "                <div class=\"userdropdown-content\">\n"
+                + "                 <form action=\"FrontController\" method=\"POST\">\n"
+                + "                     <input type=\"submit\" value=\""+role+"page\">\n"
+                + "                     <input type=\"hidden\" name=\"command\" value=\""+role+"page\">\n"
+                + "                 </form>"
+                + "                 <form id=\"logout\" action=\"FrontController\" method=\"POST\">\n"
+                + "                     <input type=\"hidden\" name=\"command\" value=\"logout\">\n"
+                + "                     <input id=\"btn\" type=\"submit\" value=\"Logout\">\n"
+                + "                 </form>"
+                + "                </div>\n"
+                + "              </div>";
+        return userDropdown;
+    }
 
     public String generateMenu(HttpServletRequest request) {
         User user;
@@ -99,22 +121,15 @@ public class HTMLGenerator {
                 if (Role.EMPLOYEE.equals(user.getRole())) {
                     return "<!-- Logged In as employee--><div class=\"topnav\">\n"
                             + fogIcon + "\n"
-                            //                            + home + "\n"
                             + designDropdown + "\n"
-                            //                            + fogIcon + "\n"
-                            + employee + "\n"
-                            + logout + "\n"
-                            + "<h5 id=\"user\">Logged in as: " + user.getEmail() + "</h5>\n"
+                            + userDropdown(user)
                             + "</div>";
                 }
                 if (user.getEmail() != null) {
                     return "<!-- Logged In as customer --><div class=\"topnav\">\n"
                             + fogIcon + "\n"
-                            //                            + home + "\n"
-                            //                            + fogIcon + "\n"
-                            + logout + "\n"
                             + designDropdown + "\n"
-                            + "<h5 id=\"user\">Logged in as: " + user.getEmail() + "</h5>\n"
+                            + userDropdown(user)
                             + "</div>";
                 }
             } catch (NullPointerException ne) {
@@ -124,9 +139,7 @@ public class HTMLGenerator {
         }
         return "<!--Not Logged In --><div class=\"topnav\">\n"
                 + fogIcon + "\n"
-                //                + home + "\n"
                 + designDropdown + "\n"
-                //                + fogIcon + "\n"
                 + login + "\n"
                 + register + "\n"
                 + "</div>";

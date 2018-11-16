@@ -20,6 +20,11 @@
     </head>
     <body>
         <%=request.getAttribute("menu")%>
-        <%=request.getAttribute("table")%>
+        <div class ="pageHeader">
+            <h2>Stykliste</h2>
+        </div>
+        <div class ="pageContent">
+            <%=request.getAttribute("table")%>
+        </div>
     </body>
 </html>

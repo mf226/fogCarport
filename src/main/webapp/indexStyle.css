@@ -1,5 +1,32 @@
 body {
+
+    background-image: url('images/woodpanel.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top; 
+    background-size: 100%;
 }
+
+body #measurementForm {
+    background: rgba(200, 54, 54, 0.5);
+    overflow: hidden;
+    float: left;
+}
+
+body .pageContent {
+    padding-top: 80px;
+    width: 100%;
+    position: fixed;
+}
+
+body .pageHeader {
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding-right: 150px;
+    padding-top: 15px;
+}
+
 
 .topnav {
     background-color: #004687;
@@ -15,6 +42,14 @@ body {
     position: relative;
 }
 .topnav #btn {
+    /*transition*/
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+
+    font-size: 16px; 
     border: 0px solid black;
     height: 50px;
     background-color: #004687;
@@ -22,6 +57,7 @@ body {
 }
 
 .topnav #btn:hover {
+
     color: #0085a2;
     text-decoration: none;
     display: inline-block;
@@ -112,7 +148,7 @@ body {
 }
 
 /* Dropdown content (hidden by default) */
-.dropdown-content {
+.dropdown-content{
     display: none;
     position: absolute;
     background-color: inherit;
@@ -122,6 +158,14 @@ body {
 
 /* Links inside the dropdown */
 .dropdown-content input {
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    /* ...and now for the proper property */
+    
+    transition:.5s;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border: 0px solid black;
     height: 50px;
     width: 96%;
@@ -144,9 +188,74 @@ body {
     display: block;
 }
 
-img .header-background{
+
+/*USERDROPDOWN*/
+/* The dropdown container */
+.userdropdown {
+    float: right;
+    overflow: visible;
+}
+
+/* Dropdown button */
+.userdropdown .userdropbtn {
+    font-size: 16px; 
+    border: none;
+    outline: none;
+    color: #deeaee;
+    padding: 13px 16px;
+    background-color: inherit;
+    margin: 0; /* Important for vertical align on mobile phones */
+}
+.userdropdown-content{
+    display: none;
+    position: absolute;
+    background-color: inherit;
+    min-width: 160px;
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.userdropdown-content input {
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;    
+    transition:.5s;
+    
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 0px solid black;
     height: 50px;
-    overflow:hidden;
+    width: 100%;
+    background-color: #004687;
+    color: #deeaee;
+    float: right;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.userdropdown-content input:hover {
+    color: #0085a2;
+}
+
+/* Show the dropdown menu on hover */
+.userdropdown:hover .userdropdown-content {
+    display: block;
+}
+
+
+
+img {
+    height: 300px;
+    width: 100%;
+    position: relative;
+    overflow:visible;
+    border-top: 1px solid red;
+    display: block;
+    opacity: 0.8;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
 }
 
 /*Table*/

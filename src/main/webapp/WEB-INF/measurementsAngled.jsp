@@ -20,47 +20,57 @@
     </head>
     <body>
         <%=request.getAttribute("menu")%>
-        <h4>tag</h4>
+        <div class ="pageHeader">
+            <h2>Skråt tag</h2>
+        </div>
+        <div class="pageContent">
 
-        <h4>Venligst vælg den ønskede størrelse af din carport.</h4>
-        <h5>Højde:</h5>
-                <form name="carportDesignFlat" action="FrontController" method="POST">
-            <select>
-                <option value="200">200 cm</option>
-                <option value="220" selected>220 cm</option>
-                <option value="240">240 cm</option>
-                <option value="260">260 cm</option>
-                <option value="280">280 cm</option>
-                <option value="300">300 cm</option>
-            </select>
+            <h4>Venligst vælg den ønskede størrelse af din carport.</h4>
+            <h5>Højde:</h5>
+            <form action="FrontController" method="POST">
+                    <select name="height">
+                        <option value="200">200 cm</option>
+                        <option value="220" selected>220 cm</option>
+                        <option value="240">240 cm</option>
+                        <option value="260">260 cm</option>
+                        <option value="280">280 cm</option>
+                        <option value="300">300 cm</option>
+                    </select>
 
-            <h5>Bredde:</h5>
-            <select>
-                <option value="200">300 cm</option>
-                <option value="220">320 cm</option>
-                <option value="240"selected>340 cm</option>
-                <option value="260">360 cm</option>
-                <option value="280">380 cm</option>
-                <option value="300">400 cm</option>
-                <option value="300">420 cm</option>
-                <option value="300">440 cm</option>
-                <option value="300">460 cm</option>
-                <option value="300">480 cm</option>
-                <option value="300">500 cm</option>            
-            </select>
+                    <h5>Bredde:</h5>
+                    <select name="width">
+                        <option value="200">300 cm</option>
+                        <option value="220">320 cm</option>
+                        <option value="240"selected>340 cm</option>
+                        <option value="260">360 cm</option>
+                        <option value="280">380 cm</option>
+                        <option value="300">400 cm</option>
+                        <option value="300">420 cm</option>
+                        <option value="300">440 cm</option>
+                        <option value="300">460 cm</option>
+                        <option value="300">480 cm</option>
+                        <option value="300">500 cm</option>            
+                    </select>
 
-            <h5>Dybde:</h5>
-            <select>
-                <option value="200">400 cm</option>
-                <option value="220">420 cm</option>
-                <option value="240">440 cm</option>
-                <option value="260">460 cm</option>
-                <option value="280">480 cm</option>
-                <option value="300"selected>500 cm</option>
-            </select>
-            <h5></h5>
-            <input type="submit" value="Submit">
-            <input type="hidden" name="command" value="SelectAngled">
-        </form>
+                    <h5>Længde:</h5>
+                    <select name="length">
+                        <option value="200">400 cm</option>
+                        <option value="220">420 cm</option>
+                        <option value="240">440 cm</option>
+                        <option value="260">460 cm</option>
+                        <option value="280">480 cm</option>
+                        <option value="300"selected>500 cm</option>
+                    </select>
+                    <h5>Vinkel: </h5>
+                    <select name="angle">
+                        <option value="10" selected>10 grader</option>
+                        <option value="20">20 grader</option>
+                        <option value="30">30 grader</option>
+                        <option value="40">40 grader</option>
+                    </select>
+                    <input type="submit" value="Submit">
+                    <input type="hidden" name="command" value="SelectAngled">
+                </form>
+        </div>
     </body>
 </html>

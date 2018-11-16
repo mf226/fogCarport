@@ -19,7 +19,9 @@
     </head>
     <body>
         <%=request.getAttribute("menu")%>
-
+        <div class ="pageHeader">
+            <h2>Error</h2>
+        </div>
         <%=request.getAttribute("error")%>
     </body>
 </html>
