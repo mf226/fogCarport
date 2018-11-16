@@ -25,18 +25,25 @@ public class LogicFacade {
         return MaterialAndOrderMapper.getAllMaterials();
     }
     
-    public static Order createCarport(int length, int width, int height) throws LoginSampleException {
+    public static Order createFlatRoofCarport(int length, int width, int height) throws LoginSampleException {
         Order order = new Order(length, width, height);
         createPosts(order);        
-        createRafters(order);
+        createFlatRoofRafters(order);
         
         return order;
     }
+    
+    public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
+        Order order = new Order(length, width, height);
+        createPosts(order);
+        createAngledRoofRafters(order, roofAngle);
+        return order;
+    }
 
-    private static void createRafters(Order order) throws LoginSampleException {
+    private static void createFlatRoofRafters(Order order) throws LoginSampleException {
         Material rafter = MaterialAndOrderMapper.getMaterial(1);
-        int raftersAmount = Calculators.rafterAmountCalc(order.getLength());
-        int cmLengthEach = Calculators.rafterLengthCalc(order.getWidth());
+        int raftersAmount = Calculators.flatRoofRafterAmountCalc(order.getLength());
+        int cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
         order.getMaterials().add(new MaterialDetails(rafter, cmLengthEach, raftersAmount, "Spær"));
     }
 
@@ -45,6 +52,17 @@ public class LogicFacade {
         int postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
         int cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
         order.getMaterials().add(new MaterialDetails(post, cmLengthEach, postsAmount, "Stolper"));
+    }
+
+    private static void createAngledRoofRafters(Order order, int roofAngle) throws LoginSampleException {
+        Material rafter = MaterialAndOrderMapper.getMaterial(1);
+        int bottomRafterAmount = Calculators.angledRoofRafterBottomAmountCalc(order.getLength());
+        int cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachBottomRafter, bottomRafterAmount, "Bund spær"));
+        
+        int sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
+        int cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), roofAngle);
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachSideRafter, sideRafterAmount, "Side spær"));
     }
     
     
