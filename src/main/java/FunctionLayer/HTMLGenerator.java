@@ -194,7 +194,7 @@ public class HTMLGenerator {
     }
 
     public String createSketchSideView(Order order) {
-        String sketch = "<svg \"width=\"" + order.getWidth() + "\" height=\"" + order.getHeight() + "\" scale>";
+        String sketch = "<svg width=\"" + order.getWidth() + "\" height=\"" + order.getHeight()*2 + "\" scale>\n" ;
         String style = "style=\"\n"
                 + "                  fill:white;\n"
                 + "                  stroke-width:1;\n"
@@ -205,14 +205,15 @@ public class HTMLGenerator {
         for (int i = 0; i < list.size(); i++) {
             //Stolper
             if (list.get(i).getUseDescription().equals("Stolper")) {
-                amount = list.get(i).getAmount();
+                amount = (list.get(i).getAmount()-2)/2; //Stolperne fra forsiden og bagsiden fratrækkes
+                int spacing = 0;
                 for (int j = 0; j < amount; j++) {
-                    sketch += "            <rect class=\"Stolper\" width=\"9.7\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
-                    
+                    sketch += "<rect x=\""+spacing+"\" width=\"9.7\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
+                    spacing+= 50;
                 }
             }
         }
-        sketch += "            </svg>";
+        sketch += "</svg>";
         return sketch;
     }
 
