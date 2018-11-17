@@ -21,8 +21,13 @@
     <body>
         <%=request.getAttribute("menu")%>
         <div class ="pageHeader">
-            <h2>Stykliste</h2>
+            <h2 class="header">Stykliste</h2>
         </div>
+        <div class="sketch">
+            <%=request.getAttribute("sketch")%>
+
+        </div>
+
         <div class ="pageContent">
             <%=request.getAttribute("table")%>
         </div>

@@ -1,31 +1,32 @@
-body {
+body .pageHeader{
 
     background-image: url('images/woodpanel.png');
     background-repeat: no-repeat;
-    background-attachment: fixed;
     background-position: top; 
     background-size: 100%;
-}
-
-body #measurementForm {
-    background: rgba(200, 54, 54, 0.5);
-    overflow: hidden;
-    float: left;
+    height: 76px;
+    position: absolute;
+    z-index: -1;
+    color: white;
+    width: 100%;
+    text-align: center;
 }
 
 body .pageContent {
     padding-top: 80px;
-    width: 100%;
-    position: fixed;
+    width: 49%;
+    position: relative;
+    float: left;
 }
 
-body .pageHeader {
-    color: white;
-    width: 100%;
-    text-align: center;
-    padding-right: 150px;
-    padding-top: 15px;
+
+.sketch {
+    padding-top: 100px;
+    float: right;    
+    width: 50%;
+    margin: 1px;    
 }
+
 
 
 .topnav {
@@ -142,7 +143,7 @@ body .pageHeader {
 }
 
 /* Add a red background color to navbar links on hover */
-.topnav input:hover, .dropdown:hover .dropbtn {
+.topnav input:hover, .dropdown:hover .dropbtn, .userdropdown:hover .userdropbtn{
     background-color: #004687;
     color: #0085a2;
 }
@@ -156,14 +157,13 @@ body .pageHeader {
     z-index: 1;
 }
 
-/* Links inside the dropdown */
 .dropdown-content input {
     -o-transition:.5s;
     -ms-transition:.5s;
     -moz-transition:.5s;
     -webkit-transition:.5s;
     /* ...and now for the proper property */
-    
+
     transition:.5s;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border: 0px solid black;
@@ -178,7 +178,6 @@ body .pageHeader {
     text-align: left;
 }
 
-/* Add a grey background color to dropdown links on hover */
 .dropdown-content input:hover {
     color: #0085a2;
 }
@@ -221,7 +220,7 @@ body .pageHeader {
     -moz-transition:.5s;
     -webkit-transition:.5s;    
     transition:.5s;
-    
+
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border: 0px solid black;
     height: 50px;
@@ -236,9 +235,7 @@ body .pageHeader {
 }
 
 /* Add a grey background color to dropdown links on hover */
-.userdropdown-content input:hover {
-    color: #0085a2;
-}
+
 
 /* Show the dropdown menu on hover */
 .userdropdown:hover .userdropdown-content {
@@ -260,7 +257,19 @@ img {
 
 /*Table*/
 table, th, td {
+    table-layout: fixed;
     border: 1px solid black;
+    text-align: left;
+    margin: 3px;
+}
+
+tfoot, td {
+    font-family: 'Rock Salt', cursive;
+    text-align: center;
+}
+
+thead {
+
 }
 
 tr:nth-child(even) {

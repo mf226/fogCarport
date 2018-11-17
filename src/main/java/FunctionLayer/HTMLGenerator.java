@@ -7,6 +7,7 @@ package FunctionLayer;
 
 import FunctionLayer.User;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,7 +46,7 @@ public class HTMLGenerator {
 
     private String active = "class=\"active\"";
 
-    private String headerBackground = "        <img class=\"header-background\" src=\"images/woody.jpg\">";
+    private String headerBackground = "<img class=\"header-background\" src=\"images/woody.jpg\">";
     private String home = "<form id=\"Home\" action=\"FrontController\" method=\"POST\">\n"
             + "            <input type=\"hidden\" name=\"command\" value=\"home\">\n"
             + "            <input id=\"btn\" type=\"submit\" value=\"Home\">\n"
@@ -94,15 +95,16 @@ public class HTMLGenerator {
             + "             </form>";
 
     private String userDropdown(User user) {
-        String role = user.getRole().toString().toLowerCase();
+        String roleLC = user.getRole().toString().toLowerCase() + "page";
+        String role = roleLC.substring(0, 1).toUpperCase() + roleLC.substring(1, roleLC.length());
         String userDropdown = "  <div class=\"userdropdown\">\n"
                 + "             <button class=\"userdropbtn\">Logged in as " + user.getEmail() + "\n"
                 + "                <i class=\"fa fa-caret-down\"></i>\n"
                 + "                </button>\n"
                 + "                <div class=\"userdropdown-content\">\n"
                 + "                 <form action=\"FrontController\" method=\"POST\">\n"
-                + "                     <input type=\"submit\" value=\""+role+"page\">\n"
-                + "                     <input type=\"hidden\" name=\"command\" value=\""+role+"page\">\n"
+                + "                     <input type=\"submit\" value=\"" + role + "\">\n"
+                + "                     <input type=\"hidden\" name=\"command\" value=\"" + role + "\">\n"
                 + "                 </form>"
                 + "                 <form id=\"logout\" action=\"FrontController\" method=\"POST\">\n"
                 + "                     <input type=\"hidden\" name=\"command\" value=\"logout\">\n"
@@ -148,16 +150,18 @@ public class HTMLGenerator {
     public String generateBOM(Order order) {
         List<MaterialDetails> materials = order.getMaterials();
         String table = "<table id=\"BillOfMaterials\">\n"
+                + "            <thead>\n"
                 + "            <tr>\n"
                 + "                <th>Vare</th>\n"
                 + "                <th>Beskrivelse</th>\n"
-                + "                <th>Længde</th>\n"
+                + "                <th>Længde i cm</th>\n"
                 + "                <th>Varenummer</th>\n"
-                + "                <th>Enhed</th>\n"
                 + "                <th>Pris pr. enhed</th>\n"
+                + "                <th>Enhed</th>\n"
                 + "                <th>Antal</th>\n"
                 + "                <th>Samlet pris</th>\n"
-                + "            </tr>\n";
+                + "            </tr>\n"
+                + "            </thead>\n";
 
         for (int i = 0; i < materials.size(); i++) {
             table += "<tr>";
@@ -165,8 +169,8 @@ public class HTMLGenerator {
             table += "<td>" + materials.get(i).getMaterial().getName() + "</td>";
             table += "<td>" + materials.get(i).getCmLengthEach() + "</td>";
             table += "<td>" + materials.get(i).getMaterial().getItemNumber() + "</td>";
-            table += "<td>" + materials.get(i).getMaterial().getUnit() + "</td>";
             table += "<td>" + materials.get(i).getMaterial().getPrice() + "  kr </td>";
+            table += "<td>" + materials.get(i).getMaterial().getUnit() + "</td>";
             table += "<td>" + materials.get(i).getAmount() + "</td>";
             table += "<td>" + materials.get(i).getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
@@ -174,6 +178,42 @@ public class HTMLGenerator {
         table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
         return table;
+    }
+
+    public HashMap convertToMap(List<MaterialDetails> materials) {
+        HashMap<String, MaterialDetails> map = new HashMap();
+        for (int i = 0; i < materials.size(); i++) {
+            if (materials.get(i).getUseDescription().equals("Stolper")) {
+                map.put("Stolper", materials.get(i));
+            }
+            if (materials.get(i).getUseDescription().equals("Spær")) {
+                map.put("Spær", materials.get(i));
+            }
+        }
+        return map;
+    }
+
+    public String createSketchSideView(Order order) {
+        String sketch = "<svg \"width=\"" + order.getWidth() + "\" height=\"" + order.getHeight() + "\" scale>";
+        String style = "style=\"\n"
+                + "                  fill:white;\n"
+                + "                  stroke-width:1;\n"
+                + "                  stroke:rgb(0,0,0)\" />\n";
+
+        List<MaterialDetails> list = order.getMaterials();
+        int amount = 0;
+        for (int i = 0; i < list.size(); i++) {
+            //Stolper
+            if (list.get(i).getUseDescription().equals("Stolper")) {
+                amount = list.get(i).getAmount();
+                for (int j = 0; j < amount; j++) {
+                    sketch += "            <rect class=\"Stolper\" width=\"9.7\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
+                    
+                }
+            }
+        }
+        sketch += "            </svg>";
+        return sketch;
     }
 
 }

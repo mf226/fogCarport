@@ -31,7 +31,9 @@ public class FlatBOM extends Command {
         int l = Integer.parseInt(length);
         Order order = LogicFacade.createFlatRoofCarport(l, w, h);
         String table = gen.generateBOM(order);
+        String sketch = gen.createSketchSideView(order);
         request.setAttribute("table", table);
+        request.setAttribute("sketch", sketch);
         return "BOMpage";
     }
 
