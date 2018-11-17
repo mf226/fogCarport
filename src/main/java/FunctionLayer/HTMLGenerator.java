@@ -194,7 +194,7 @@ public class HTMLGenerator {
     }
 
     public String createSketchSideView(Order order) {
-        String sketch = "<svg width=\"" + order.getWidth() + "\" height=\"" + order.getHeight()*2 + "\" scale>\n" ;
+        String sketch = "<svg width=\"" + order.getWidth() + "\" height=\"" + order.getHeight() * 2 + "\" scale>\n";
         String style = "style=\"\n"
                 + "                  fill:white;\n"
                 + "                  stroke-width:1;\n"
@@ -205,11 +205,14 @@ public class HTMLGenerator {
         for (int i = 0; i < list.size(); i++) {
             //Stolper
             if (list.get(i).getUseDescription().equals("Stolper")) {
-                amount = (list.get(i).getAmount()-2)/2; //Stolperne fra forsiden og bagsiden fratrækkes
-                int spacing = 0;
+                amount = (list.get(i).getAmount() - 2) / 2; //Stolperne fra forsiden og bagsiden fratrækkes
+                int xSpacing = 0;
+                int underground = list.get(i).getCmLengthEach() - 90;
+
                 for (int j = 0; j < amount; j++) {
-                    sketch += "<rect x=\""+spacing+"\" width=\"9.7\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
-                    spacing+= 50;
+                    sketch += "<rect x=\"" + xSpacing + "\" width=\"9.7\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
+                    sketch += "<rect x=\"" + xSpacing + "\" width=\"9.7\" height=\"" + underground + "\"" + style;
+                    xSpacing += 50;
                 }
             }
         }
@@ -217,4 +220,53 @@ public class HTMLGenerator {
         return sketch;
     }
 
+    public String createSketchHindSight(Order order) {
+        String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
+        String style = "style=\"\n"
+                + "                  fill:white;\n"
+                + "                  stroke-width:1;\n"
+                + "                  stroke:rgb(0,0,0)\" />\n";
+
+        List<MaterialDetails> list = order.getMaterials();
+        int amount = 0;
+        for (int i = 0; i < list.size(); i++) {
+            //Stolper
+            if (list.get(i).getUseDescription().equals("Stolper")) {
+                amount = list.get(i).getAmount();
+                int xSpacing = 25;
+                int x = 0;
+                int y = 50;
+                int ySpacing = (order.getWidth() / 4) + 50;
+                for (int j = 0; j < amount; j++) {
+                    if (j < (amount - 2) / 2) {
+                        sketch += "<rect x=\"" + xSpacing + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
+                        x = xSpacing;
+                        xSpacing += 100;
+                    }
+                    if (j == amount / 2 || j == amount / 2 + 1) {
+                        sketch += "<rect x=\"" + x + "\"y=\"" + ySpacing + "\" width=\"9.7\" height=\"9.7\"" + style;
+                        ySpacing += 100;
+                        y = ySpacing;
+                        xSpacing = x;
+                    }
+                    if (j > amount / 2) {
+                        sketch += "<rect x=\"" + xSpacing + "\"y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
+                        xSpacing -= 100;
+                    }
+                }
+            }
+            //Spær
+            if (list.get(i).getUseDescription().equals("Spær")) {
+                int xSpacing = order.getLength() / list.get(i).getAmount();
+                int x = 0;
+                for (int j = 0; j < list.get(i).getAmount(); j++) {
+                    sketch += "<rect x=\"" + x + "\" width=\"4.5\" height=\""+list.get(i).getCmLengthEach()+"\"" + style;
+                    x += xSpacing;
+                }
+            }
+        }
+
+        sketch += "</svg>";
+        return sketch;
+    }
 }
