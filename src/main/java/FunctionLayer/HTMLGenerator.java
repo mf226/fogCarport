@@ -233,34 +233,32 @@ public class HTMLGenerator {
             //Stolper
             if (list.get(i).getUseDescription().equals("Stolper")) {
                 amount = list.get(i).getAmount();
-                int xSpacing = 25;
+                int xSpacing = 100;
                 int x = 0;
-                int y = 50;
-                int ySpacing = (order.getWidth() / 4) + 50;
+                int x1 = 0;
+                int y = 25;
                 for (int j = 0; j < amount; j++) {
-                    if (j < (amount - 2) / 2) {
-                        sketch += "<rect x=\"" + xSpacing + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
-                        x = xSpacing;
-                        xSpacing += 100;
+                    //Horizontal-North
+                    if (j < amount / 2) {
+                        y = 25;
+                        sketch += "<--! horizontal N-->\n<rect x=\"" + x + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
+                        x += xSpacing;
                     }
-                    if (j == amount / 2 || j == amount / 2 + 1) {
-                        sketch += "<rect x=\"" + x + "\"y=\"" + ySpacing + "\" width=\"9.7\" height=\"9.7\"" + style;
-                        ySpacing += 100;
-                        y = ySpacing;
-                        xSpacing = x;
-                    }
-                    if (j > amount / 2) {
-                        sketch += "<rect x=\"" + xSpacing + "\"y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
-                        xSpacing -= 100;
+
+                    //Horizontal-South
+                    y = order.getWidth()+25;
+                    if (j >= amount / 2) {
+                        sketch += "<--! horizontal S-->\n<rect x=\"" + x1 + "\"y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
+                        x1 += xSpacing;
                     }
                 }
             }
             //Spær
             if (list.get(i).getUseDescription().equals("Spær")) {
-                int xSpacing = order.getLength() / list.get(i).getAmount();
+                int xSpacing = 50;
                 int x = 0;
                 for (int j = 0; j < list.get(i).getAmount(); j++) {
-                    sketch += "<rect x=\"" + x + "\" width=\"4.5\" height=\""+list.get(i).getCmLengthEach()+"\"" + style;
+                    sketch += "<rect x=\"" + x + "\" width=\"4.5\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
                     x += xSpacing;
                 }
             }
