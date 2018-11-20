@@ -25,6 +25,46 @@ public class Calculators {
 //        }
         return posts * 2; //both sides
     }
+
+    public static int getDISTANCE_BETWEEN_POSTS() {
+        return DISTANCE_BETWEEN_POSTS;
+    }
+
+    public static void setDISTANCE_BETWEEN_POSTS(int DISTANCE_BETWEEN_POSTS) {
+        Calculators.DISTANCE_BETWEEN_POSTS = DISTANCE_BETWEEN_POSTS;
+    }
+
+    public static int getDISTANCE_BETWEEN_FLATROOF_RAFTERS() {
+        return DISTANCE_BETWEEN_FLATROOF_RAFTERS;
+    }
+
+    public static void setDISTANCE_BETWEEN_FLATROOF_RAFTERS(int DISTANCE_BETWEEN_FLATROOF_RAFTERS) {
+        Calculators.DISTANCE_BETWEEN_FLATROOF_RAFTERS = DISTANCE_BETWEEN_FLATROOF_RAFTERS;
+    }
+
+    public static int getDISTANCE_BETWEEN_ANGLEDROOF_RAFTERS() {
+        return DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS;
+    }
+
+    public static void setDISTANCE_BETWEEN_ANGLEDROOF_RAFTERS(int DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS) {
+        Calculators.DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS = DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS;
+    }
+
+    public static int getLENGTH_UNDER_GROUND() {
+        return LENGTH_UNDER_GROUND;
+    }
+
+    public static void setLENGTH_UNDER_GROUND(int LENGTH_UNDER_GROUND) {
+        Calculators.LENGTH_UNDER_GROUND = LENGTH_UNDER_GROUND;
+    }
+
+    public static int getROOF_WIDTH_EXTRA() {
+        return ROOF_WIDTH_EXTRA;
+    }
+
+    public static void setROOF_WIDTH_EXTRA(int ROOF_WIDTH_EXTRA) {
+        Calculators.ROOF_WIDTH_EXTRA = ROOF_WIDTH_EXTRA;
+    }
     
     public static int postsLengthCalc(int carportHeight) {
         int postLength = carportHeight + LENGTH_UNDER_GROUND;

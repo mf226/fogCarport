@@ -29,10 +29,12 @@ public class AngledBOM extends Command {
         String angle = request.getParameter("angle");
         int a = Integer.parseInt(angle);
         Order order = LogicFacade.createAngledRoofCarport(l, w, h, a);
-        String table = gen.generateBOM(order);
-        String sketch = gen.createSketchHindSight(order);
-        request.setAttribute("table", table);
-        request.setAttribute("sketch", sketch);
-        return "BOMpage";    }
+//        String table = gen.generateBOM(order);
+//        String sketch = gen.createSketchHindSight(order);
+//        request.setAttribute("table", table);
+//        request.setAttribute("sketch", sketch);
+        String shedOptions = gen.generateShedMeasurements(order);
+        request.setAttribute("shedOptions", shedOptions);
+        return "shedpage";    }
 
 }
