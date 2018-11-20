@@ -5,20 +5,30 @@ package FunctionLayer;
  * @author kasper
  */
 public class User {
+    
+    private int id; // just used to demo retrieval of autogen keys in UserMapper
+    private String email;
+    private String password; // Should be hashed and secured
+    private Role role;
+    
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(int id, String email, String password, Role role) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     public User( String email, String password, Role role) {
         //set default role as Customer
         this.email = email;
         this.password = password;
-        this.role = Role.CUSTOMER;
-       
+        this.role = role;       
     }
-
-
-    private int id; // just used to demo retrieval of autogen keys in UserMapper
-    private String email;
-    private String password; // Should be hashed and secured
-    private Role role;
 
     public String getEmail() {
         return email;

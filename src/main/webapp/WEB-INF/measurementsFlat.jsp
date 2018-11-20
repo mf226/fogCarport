@@ -20,46 +20,52 @@
     </head>
     <body>
         <%=request.getAttribute("menu")%>
-        <h4>Fladt tag</h4>
-        <h4>Venligst vælg den ønskede størrelse af din carport.</h4>
-        <h5>Højde:</h5>
-        <form action="FrontController" method="POST">
-            <select name="height">
-                <option value="200">200 cm</option>
-                <option value="220" selected>220 cm</option>
-                <option value="240">240 cm</option>
-                <option value="260">260 cm</option>
-                <option value="280">280 cm</option>
-                <option value="300">300 cm</option>
-            </select>
+        <div class ="pageHeader">
+            <h2>Fladt tag</h2>
+        </div>
+        <div class="sketch">
+        </div>
+        <div class="pageContent">
+            <h4>Venligst vælg den ønskede størrelse af din carport.</h4>
+            <h5>Højde:</h5>
+            <form action="FrontController" method="POST">
+                <select name="height">
+                    <option value="200">200 cm</option>
+                    <option value="220" selected>220 cm</option>
+                    <option value="240">240 cm</option>
+                    <option value="260">260 cm</option>
+                    <option value="280">280 cm</option>
+                    <option value="300">300 cm</option>
+                </select>
 
-            <h5>Bredde:</h5>
-            <select name="width">
-                <option value="200">300 cm</option>
-                <option value="220">320 cm</option>
-                <option value="240"selected>340 cm</option>
-                <option value="260">360 cm</option>
-                <option value="280">380 cm</option>
-                <option value="300">400 cm</option>
-                <option value="300">420 cm</option>
-                <option value="300">440 cm</option>
-                <option value="300">460 cm</option>
-                <option value="300">480 cm</option>
-                <option value="300">500 cm</option>            
-            </select>
+                <h5>Bredde:</h5>
+                <select name="width">
+                    <option value="300">300 cm</option>
+                    <option value="320">320 cm</option>
+                    <option value="340"selected>340 cm</option>
+                    <option value="360">360 cm</option>
+                    <option value="380">380 cm</option>
+                    <option value="400">400 cm</option>
+                    <option value="420">420 cm</option>
+                    <option value="440">440 cm</option>
+                    <option value="460">460 cm</option>
+                    <option value="480">480 cm</option>
+                    <option value="500">500 cm</option>            
+                </select>
 
-            <h5>Længde:</h5>
-            <select name="length">
-                <option value="200">400 cm</option>
-                <option value="220">420 cm</option>
-                <option value="240">440 cm</option>
-                <option value="260">460 cm</option>
-                <option value="280">480 cm</option>
-                <option value="300"selected>500 cm</option>
-            </select>
-            <h5></h5>
-            <input type="submit" value="Submit">
-            <input type="hidden" name="command" value="SelectFlat">
-        </form>
+                <h5>Længde:</h5>
+                <select name="length">
+                    <option value="400">400 cm</option>
+                    <option value="420">420 cm</option>
+                    <option value="440">440 cm</option>
+                    <option value="460">460 cm</option>
+                    <option value="480">480 cm</option>
+                    <option value="500"selected>500 cm</option>
+                </select>
+                <h5></h5>
+                <input type="submit" value="Submit">
+                <input type="hidden" name="command" value="SelectFlat">
+            </form>
+        </div>
     </body>
 </html>

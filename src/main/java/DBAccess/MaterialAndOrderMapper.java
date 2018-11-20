@@ -84,6 +84,7 @@ public class MaterialAndOrderMapper {
                 String status = rs.getString("status"); //How to convert enum to string?
                 //  orders.add(new Order(orderID, userID; length, width, height, finalizedPrice, orderDate, status));
 
+                //orders.add(new Order(orderID, orderDescription, price, userID, orderDate));
             }
             return orders;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -109,6 +110,7 @@ public class MaterialAndOrderMapper {
                 Date orderDate = rs.getDate("orderDate");
                 String status = rs.getString("status"); //How to convert enum to string?
                 // orders.add(new Order(orderID, user.getId(), length, width, height, finalizedPrice, orderDate, status));
+                //orders.add(new Order(orderID, orderDescription, price, user.getId(), orderDate));
 
             }
             return orders;

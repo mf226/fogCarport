@@ -13,7 +13,8 @@ public class Order {
     private int height;
     private String description;
     private ArrayList<MaterialDetails> materials;
-
+    private int userID;
+    
     public Order(int length, int width, int height) {
         this.length = length;
         this.width = width;

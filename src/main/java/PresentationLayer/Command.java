@@ -21,6 +21,7 @@ abstract class Command {
         commands.put("measurementFlat", new MeasurementFlat());
         commands.put("measurementAngled", new MeasurementAngled());
         commands.put("SelectFlat", new FlatBOM());
+        commands.put("SelectAngled", new AngledBOM());
 
     }
 
