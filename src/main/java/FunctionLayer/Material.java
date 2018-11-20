@@ -16,6 +16,16 @@ public class Material {
         this.unit = unit;
         this.price = price;
     }
+    
+    public int getTopsideLength() {
+        String size1 = name.split("x")[0];
+        return Integer.parseInt(size1);
+    }
+    
+    public int getTopsideWidth() {
+        String size2 = name.split("x")[1];
+        return Integer.parseInt(size2);
+    }
 
     public int getItemNumber() {
         return itemNumber;
