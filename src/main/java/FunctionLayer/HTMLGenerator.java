@@ -246,21 +246,28 @@ public class HTMLGenerator {
         return shed;
     }
 
-    public String createRoofTypes(List roofs) {
+    public String createRoofTypesFlat(List<Material> roofs) {
         String roof = "<h5>Tagtype:</h5>\n"
                 + "                <select name=\"roofType\">\n";
-        
+
         for (int i = 0; i < roofs.size(); i++) {
-            
+            roof += "<option value=\"" + roofs.get(i).getName() + "\">" + roofs.get(i).getName() + "</option>\n";
         }
-        roof
-                += "                    <option value=\"400\">400 cm</option>\n"
-                + "                    <option value=\"420\">420 cm</option>\n"
-                + "                    <option value=\"440\">440 cm</option>\n"
-                + "                    <option value=\"460\">460 cm</option>\n"
-                + "                    <option value=\"480\">480 cm</option>\n"
-                + "                    <option value=\"500\"selected>500 cm</option>\n"
-                + "                </select>";
+
+        roof += "</select>";
+
+        return roof;
+    }
+    
+    public String createRoofTypesAngled(List<Material> roofs) {
+        String roof = "<h5>Tagtype:</h5>\n"
+                + "                <select name=\"roofType\">\n";
+
+        for (int i = 0; i < roofs.size(); i++) {
+            roof += "<option value=\"" + roofs.get(i).getName() + "\">" + roofs.get(i).getName() + "</option>\n";
+        }
+
+        roof += "</select>";
 
         return roof;
     }
