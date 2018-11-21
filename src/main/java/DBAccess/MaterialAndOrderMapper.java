@@ -3,8 +3,6 @@ package DBAccess;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Material;
 import FunctionLayer.Order;
-import FunctionLayer.Roof;
-import FunctionLayer.Side;
 import FunctionLayer.User;
 import java.sql.Connection;
 import java.sql.Date;
