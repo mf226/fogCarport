@@ -221,7 +221,7 @@ public class HTMLGenerator {
     }
 
     public String generateShedMeasurements(Order order) {
-        String shed = "<h4>Venligst vælg den ønskede størrelse af din carport.</h4>\n"
+        String shed = "<h4>Venligst vælg den ønskede størrelse af dit skur.</h4>\n"
                 + "            <form action=\"FrontController\" method=\"POST\">\n"
                 + "                <h5>Længde: </h5>\n"
                 + "                <select name=\"shedLength\">";
@@ -239,10 +239,18 @@ public class HTMLGenerator {
             shed += "<option value=\"" + i + "\">" + i + " cm</option>";
 
         }
-        shed += "</select>\n"
-                + "                <input type=\"submit\" value=\"Submit\">\n"
-                + "                <input type=\"hidden\" name=\"command\" value=\"SelectFlat\">\n"
-                + "            </form>";
+        if (order.getAngle() == 0) {
+            shed += "</select>\n"
+                    + "                <input type=\"submit\" value=\"Submit\">\n"
+                    + "                <input type=\"hidden\" name=\"command\" value=\"addShed\">\n"
+                    + "            </form>";
+            return shed;
+        } else {
+            shed += "</select>\n"
+                    + "                <input type=\"submit\" value=\"Submit\">\n"
+                    + "                <input type=\"hidden\" name=\"command\" value=\"addShed\">\n"
+                    + "            </form>";
+        }
         return shed;
     }
 
@@ -258,7 +266,7 @@ public class HTMLGenerator {
 
         return roof;
     }
-    
+
     public String createRoofTypesAngled(List<Material> roofs) {
         String roof = "<h5>Tagtype:</h5>\n"
                 + "                <select name=\"roofType\">\n";

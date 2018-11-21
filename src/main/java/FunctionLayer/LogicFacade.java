@@ -27,8 +27,8 @@ public class LogicFacade {
         return MaterialAndOrderMapper.getAllMaterials();
     }
     
-    public static Order createFlatRoofCarport(int length, int width, int height) throws LoginSampleException {
-        Order order = new Order(length, width, height);
+    public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
+        Order order = new Order(length, width, height, roofAngle);
         createPosts(order);        
         createFlatRoofRafters(order);
         
@@ -36,7 +36,7 @@ public class LogicFacade {
     }
     
     public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
-        Order order = new Order(length, width, height);
+        Order order = new Order(length, width, height, roofAngle);
         createPosts(order);
         createAngledRoofRafters(order, roofAngle);
         return order;

@@ -23,8 +23,6 @@
         <div class ="pageHeader">
             <h2>Fladt tag</h2>
         </div>
-        <div class="sketch">
-        </div>
         <div class="pageContent">
             <h4>Venligst vælg den ønskede størrelse af din carport.</h4>
             <h5>Højde:</h5>
@@ -63,9 +61,13 @@
                     <option value="500"selected>500 cm</option>
                 </select>
                 <%=request.getAttribute("roof")%>
-                <h5></h5>
-                <input type="submit" value="Submit">
+                
+                <h5>Tilføj skur?</h5>
+                <input type="checkbox" name="skur" value=addShed>
+                <br>
+                <input type="submit" value="Fortsæt">
                 <input type="hidden" name="command" value="SelectFlat">
+
             </form>
         </div>
     </body>

@@ -29,14 +29,21 @@ public class FlatBOM extends Command {
         int w = Integer.parseInt(width);
         String length = request.getParameter("length");
         int l = Integer.parseInt(length);
-        Order order = LogicFacade.createFlatRoofCarport(l, w, h);
-//        String table = gen.generateBOM(order);
-//        String sketch = gen.createSketchHindSight(order);
-//        request.setAttribute("table", table);
-//        request.setAttribute("sketch", sketch);
-        String shedOptions = gen.generateShedMeasurements(order);
-        request.setAttribute("shedOptions", shedOptions);
-        return "shedpage";
+        Order order = LogicFacade.createFlatRoofCarport(l, w, h, 0);
+        String table = gen.generateBOM(order);
+        String sketch = gen.createSketchHindSight(order);
+        request.setAttribute("table", table);
+        request.setAttribute("sketch", sketch);
+
+        String check = request.getParameter("skur");
+
+        if (check != null) {
+            request.setAttribute("order", order);
+            String shedOptions = gen.generateShedMeasurements(order);
+            request.setAttribute("shedOptions", shedOptions);
+            return "shedpage";
+        }
+        return "BOMpage";
     }
 
 }

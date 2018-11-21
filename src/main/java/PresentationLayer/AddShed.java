@@ -7,9 +7,7 @@ package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
-import FunctionLayer.Material;
-import static PresentationLayer.Command.gen;
-import java.util.List;
+import FunctionLayer.Order;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,14 +15,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jonab
  */
-public class MeasurementAngled extends Command {
+public class AddShed extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-        List<Material> roofs = LogicFacade.getAngledroofs();
-        String roof = gen.createRoofTypesAngled(roofs);
-        request.setAttribute("roof", roof);
-        return "measurementsAngled";
+        Order order = (Order) request.getAttribute("order");
+        String table = gen.generateBOM(order);
+        String sketch = gen.createSketchHindSight(order);
+        request.setAttribute("table", table);
+        request.setAttribute("sketch", sketch);
+        return "BOMpage";
     }
 
+
+    
 }
