@@ -246,6 +246,25 @@ public class HTMLGenerator {
         return shed;
     }
 
+    public String createRoofTypes(List roofs) {
+        String roof = "<h5>Tagtype:</h5>\n"
+                + "                <select name=\"roofType\">\n";
+        
+        for (int i = 0; i < roofs.size(); i++) {
+            
+        }
+        roof
+                += "                    <option value=\"400\">400 cm</option>\n"
+                + "                    <option value=\"420\">420 cm</option>\n"
+                + "                    <option value=\"440\">440 cm</option>\n"
+                + "                    <option value=\"460\">460 cm</option>\n"
+                + "                    <option value=\"480\">480 cm</option>\n"
+                + "                    <option value=\"500\"selected>500 cm</option>\n"
+                + "                </select>";
+
+        return roof;
+    }
+
     public String createSketchHindSight(Order order) {
         String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
         String style = "style=\"\n"

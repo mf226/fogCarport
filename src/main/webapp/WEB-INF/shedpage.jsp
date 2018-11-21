@@ -25,7 +25,6 @@
         </div>
         <div class="pageContent">
             <%=request.getAttribute("shedOptions")%>
-
         </div>
     </body>
 </html>
