@@ -288,7 +288,7 @@ public class HTMLGenerator {
                 int xSpacing = 100;
                 int x = 0;
                 int x1 = 0;
-                int y = Calculators.getROOF_WIDTH_EXTRA() / 2;
+                int y = Rules.ROOF_WIDTH_EXTRA / 2;
                 for (int j = 0; j < amount; j++) {
                     //Horizontal-North
                     if (j < amount / 2) {
