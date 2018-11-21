@@ -3,8 +3,6 @@ package DBAccess;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Material;
 import FunctionLayer.Order;
-import FunctionLayer.Roof;
-import FunctionLayer.Side;
 import FunctionLayer.User;
 import java.sql.Connection;
 import java.sql.Date;
@@ -157,7 +155,7 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
-                material.add(new Side(itemNumber, materialName, unit, price));
+                material.add(new Material(itemNumber, materialName, unit, price));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -165,7 +163,7 @@ public class MaterialAndOrderMapper {
         }
     }
     
-    public static List<Material> getFlatRoofMAt() throws LoginSampleException {
+    public static List<Material> getFlatRoofMat() throws LoginSampleException {
         try {
             ArrayList<Material> material = new ArrayList();
             Connection con = Connector.connection();

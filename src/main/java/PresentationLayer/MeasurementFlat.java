@@ -5,7 +5,10 @@
  */
 package PresentationLayer;
 
+import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.Material;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +20,9 @@ public class MeasurementFlat extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+        List<Material> roofs = LogicFacade.getFlatroofs();
+        String roof = gen.createRoofTypesFlat(roofs);
+        request.setAttribute("roof", roof);
         return "measurementsFlat";
     }
 
