@@ -220,6 +220,58 @@ public class HTMLGenerator {
         return sketch;
     }
 
+    public String generateShedMeasurements(Order order) {
+        String shed = "<h4>Venligst vælg den ønskede størrelse af din carport.</h4>\n"
+                + "            <form action=\"FrontController\" method=\"POST\">\n"
+                + "                <h5>Længde: </h5>\n"
+                + "                <select name=\"shedLength\">";
+
+        //Shed Length        
+        for (int i = 100; i < order.getLength(); i += 100) {
+            shed += "<option value=\"" + i + "\">" + i + " cm</option>";
+        }
+        shed += "</select>\n"
+                + "\n"
+                + "                <h5>Bredde: </h5>\n"
+                + "                <select name=\"shedWidth\">";
+
+        for (int i = 100; i < order.getWidth(); i += 100) {
+            shed += "<option value=\"" + i + "\">" + i + " cm</option>";
+
+        }
+        shed += "</select>\n"
+                + "                <input type=\"submit\" value=\"Submit\">\n"
+                + "                <input type=\"hidden\" name=\"command\" value=\"SelectFlat\">\n"
+                + "            </form>";
+        return shed;
+    }
+
+    public String createRoofTypesFlat(List<Material> roofs) {
+        String roof = "<h5>Tagtype:</h5>\n"
+                + "                <select name=\"roofType\">\n";
+
+        for (int i = 0; i < roofs.size(); i++) {
+            roof += "<option value=\"" + roofs.get(i).getName() + "\">" + roofs.get(i).getName() + "</option>\n";
+        }
+
+        roof += "</select>";
+
+        return roof;
+    }
+    
+    public String createRoofTypesAngled(List<Material> roofs) {
+        String roof = "<h5>Tagtype:</h5>\n"
+                + "                <select name=\"roofType\">\n";
+
+        for (int i = 0; i < roofs.size(); i++) {
+            roof += "<option value=\"" + roofs.get(i).getName() + "\">" + roofs.get(i).getName() + "</option>\n";
+        }
+
+        roof += "</select>";
+
+        return roof;
+    }
+
     public String createSketchHindSight(Order order) {
         String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
         String style = "style=\"\n"
@@ -233,34 +285,32 @@ public class HTMLGenerator {
             //Stolper
             if (list.get(i).getUseDescription().equals("Stolper")) {
                 amount = list.get(i).getAmount();
-                int xSpacing = 25;
+                int xSpacing = 100;
                 int x = 0;
-                int y = 50;
-                int ySpacing = (order.getWidth() / 4) + 50;
+                int x1 = 0;
+                int y = Rules.ROOF_WIDTH_EXTRA / 2;
                 for (int j = 0; j < amount; j++) {
-                    if (j < (amount - 2) / 2) {
-                        sketch += "<rect x=\"" + xSpacing + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
-                        x = xSpacing;
-                        xSpacing += 100;
+                    //Horizontal-North
+                    if (j < amount / 2) {
+                        y = 25;
+                        sketch += "<--! horizontal N-->\n<rect x=\"" + x + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
+                        x += xSpacing;
                     }
-                    if (j == amount / 2 || j == amount / 2 + 1) {
-                        sketch += "<rect x=\"" + x + "\"y=\"" + ySpacing + "\" width=\"9.7\" height=\"9.7\"" + style;
-                        ySpacing += 100;
-                        y = ySpacing;
-                        xSpacing = x;
-                    }
-                    if (j > amount / 2) {
-                        sketch += "<rect x=\"" + xSpacing + "\"y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
-                        xSpacing -= 100;
+
+                    //Horizontal-South
+                    y = order.getWidth() + 25;
+                    if (j >= amount / 2) {
+                        sketch += "<--! horizontal S-->\n<rect x=\"" + x1 + "\"y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
+                        x1 += xSpacing;
                     }
                 }
             }
             //Spær
             if (list.get(i).getUseDescription().equals("Spær")) {
-                int xSpacing = order.getLength() / list.get(i).getAmount();
+                int xSpacing = 50;
                 int x = 0;
                 for (int j = 0; j < list.get(i).getAmount(); j++) {
-                    sketch += "<rect x=\"" + x + "\" width=\"4.5\" height=\""+list.get(i).getCmLengthEach()+"\"" + style;
+                    sketch += "<rect x=\"" + x + "\" width=\"4.5\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
                     x += xSpacing;
                 }
             }

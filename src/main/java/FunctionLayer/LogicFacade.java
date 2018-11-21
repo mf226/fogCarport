@@ -1,6 +1,8 @@
 package FunctionLayer;
 
 import DBAccess.MaterialAndOrderMapper;
+import static DBAccess.MaterialAndOrderMapper.getAngledRoofMat;
+import static DBAccess.MaterialAndOrderMapper.getFlatRoofMat;
 import DBAccess.UserMapper;
 import java.util.List;
 
@@ -65,5 +67,11 @@ public class LogicFacade {
         order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachSideRafter, sideRafterAmount, "Side spær"));
     }
     
+    public static List<Material> getAngledroofs() throws LoginSampleException{
+        return getAngledRoofMat();
+    }
+    public static List<Material> getFlatroofs() throws LoginSampleException{
+        return getFlatRoofMat();
+    }
     
 }

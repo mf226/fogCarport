@@ -30,11 +30,13 @@ public class FlatBOM extends Command {
         String length = request.getParameter("length");
         int l = Integer.parseInt(length);
         Order order = LogicFacade.createFlatRoofCarport(l, w, h);
-        String table = gen.generateBOM(order);
-        String sketch = gen.createSketchHindSight(order);
-        request.setAttribute("table", table);
-        request.setAttribute("sketch", sketch);
-        return "BOMpage";
+//        String table = gen.generateBOM(order);
+//        String sketch = gen.createSketchHindSight(order);
+//        request.setAttribute("table", table);
+//        request.setAttribute("sketch", sketch);
+        String shedOptions = gen.generateShedMeasurements(order);
+        request.setAttribute("shedOptions", shedOptions);
+        return "shedpage";
     }
 
 }

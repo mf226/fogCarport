@@ -62,6 +62,7 @@
                     <option value="480">480 cm</option>
                     <option value="500"selected>500 cm</option>
                 </select>
+                <%=request.getAttribute("roof")%>
                 <h5></h5>
                 <input type="submit" value="Submit">
                 <input type="hidden" name="command" value="SelectFlat">
