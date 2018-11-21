@@ -3,6 +3,8 @@ package DBAccess;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Material;
 import FunctionLayer.Order;
+import FunctionLayer.Roof;
+import FunctionLayer.Side;
 import FunctionLayer.User;
 import java.sql.Connection;
 import java.sql.Date;
@@ -120,4 +122,68 @@ public class MaterialAndOrderMapper {
 
     }
 
+    public static List<Material> getAngledRoofMat() throws LoginSampleException {
+        try {
+            ArrayList<Material> material = new ArrayList();
+            Connection con = Connector.connection();
+            String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Tagbelægning';";
+            PreparedStatement ps = con.prepareStatement(SQL);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int itemNumber = rs.getInt("itemNumber");
+                String materialName = rs.getString("materialName");
+                String unit = rs.getString("unit");
+                int price = rs.getInt("price");
+                material.add(new Material(itemNumber, materialName, unit, price));
+            }
+            return material;
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+
+    }
+    
+    public static List<Material> getSideMat() throws LoginSampleException{
+        try {
+            ArrayList<Material> material = new ArrayList();
+            Connection con = Connector.connection();
+            String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Beklædning'";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int itemNumber = rs.getInt("itemNumber");
+                String materialName = rs.getString("materialName");
+                String unit = rs.getString("unit");
+                int price = rs.getInt("price");
+                material.add(new Side(itemNumber, materialName, unit, price));
+            }
+            return material;
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+    
+    public static List<Material> getFlatRoofMAt() throws LoginSampleException {
+        try {
+            ArrayList<Material> material = new ArrayList();
+            Connection con = Connector.connection();
+            String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Tag';";
+            PreparedStatement ps = con.prepareStatement(SQL);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int itemNumber = rs.getInt("itemNumber");
+                String materialName = rs.getString("materialName");
+                String unit = rs.getString("unit");
+                int price = rs.getInt("price");
+                material.add(new Material(itemNumber, materialName, unit, price));
+            }
+            return material;
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+
+    }
 }
