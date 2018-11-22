@@ -27,7 +27,37 @@ body .pageContent {
     margin: 1px;    
 }
 
+.shedPlacements {
+    margin-top: 90px;
+    position: absolute;
+    margin-left: 60px;
 
+}
+
+.upperleft {
+    height: 20px;
+    display: inline-block;
+    width: 100px;
+
+}
+.upperright {
+    display: inline-block;
+    width: 100px;
+}
+.lowerleft {
+    display: inline-block;
+    height: 20px;
+    width: 150px;
+
+
+}
+.lowerright {
+    margin-left: 200px;
+    display: inline-block;
+    width: 100px;
+    height: 20px;
+
+}
 
 .topnav {
     background-color: #004687;
