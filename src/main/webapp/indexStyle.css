@@ -28,34 +28,38 @@ body .pageContent {
 }
 
 .shedPlacements {
-    margin-top: 90px;
+    display: inline-block;
+    margin-top: 75px;
     position: absolute;
-    margin-left: 60px;
+    margin-left: 50px;
 
 }
 
 .upperleft {
-    height: 20px;
-    display: inline-block;
-    width: 100px;
+    /*height: 20px;*/
+    /*width: 100px;*/
+    float: left;
+/*    background-color: yellow;*/
 
 }
 .upperright {
-    display: inline-block;
-    width: 100px;
+    float: left;
+    /* width: 100px; */
 }
 .lowerleft {
     display: inline-block;
-    height: 20px;
-    width: 150px;
+    float: left;
+
+    /*height: 20px;
+    width: 150px;*/
 
 
 }
 .lowerright {
-    margin-left: 200px;
+    /*    margin-left: 200px;*/
     display: inline-block;
-    width: 100px;
-    height: 20px;
+    /*  width: 100px;
+      height: 20px; */
 
 }
 
