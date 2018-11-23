@@ -12,53 +12,58 @@ package FunctionLayer;
 public class Calculators {
     
 
-    public static int postsAmountCalc(int carportLength, int carportWidth) {
-        int posts = carportLength / Rules.DISTANCE_BETWEEN_POSTS + 1; //+1 for the first post
+    public static double postsAmountCalc(int carportLength, int carportWidth) {
+        int posts = (int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_POSTS + 1); //+1 for the first post
 //        if (width >= 500) { //if width is bigger than 5
 //            posts++;
 //        }
         return posts * 2; //both sides
     }
  
-    public static int postsLengthCalc(int carportHeight) {
-        int postLength = carportHeight + Rules.LENGTH_UNDER_GROUND;
+    public static double postsLengthCalc(int carportHeight) {
+        double postLength = carportHeight + RulesAndConstants.LENGTH_UNDER_GROUND;
         
         return postLength;        
     }
     
-    public static int flatRoofRafterAmountCalc(int carportLength){
-        int rafter = carportLength / Rules.DISTANCE_BETWEEN_FLATROOF_RAFTERS + 1; //+1 for first rafter
+    public static double flatRoofRafterAmountCalc(int carportLength){
+        int rafter = (int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_FLATROOF_RAFTERS + 1); //+1 for first rafter
         
         return rafter;
     }
     
-    public static int rafterBottomLengthCalc(int carportWidth) {
-        int rafterLength = carportWidth + Rules.ROOF_WIDTH_EXTRA;
+    public static double rafterBottomLengthCalc(int carportWidth) {
+        double rafterLength = carportWidth + RulesAndConstants.ROOF_WIDTH_EXTRA;
         
         return rafterLength;
     }
     
-    public static int angledRoofRafterBottomAmountCalc(int carportLength) {
-        int rafterBottomAmount = carportLength / Rules.DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS +1;
+    public static double angledRoofRafterBottomAmountCalc(int carportLength) {
+        int rafterBottomAmount = (int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS +1);
         
         return rafterBottomAmount;
     }
     
-    public static int angledRoofRafterSidesAmountCalc(int carportLength) {
-        int rafterBottomAmount = carportLength / Rules.DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS +1;
+    public static double angledRoofRafterSidesAmountCalc(int carportLength) {
+        int rafterBottomAmount = (int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS +1);
         
         return rafterBottomAmount * 2; //both sides
     }
     
-    public static int angledRoofRafterSidesLengthCalc(int carportWidth, int roofAngle) {
-        int rafterSideLength = (int) ((rafterBottomLengthCalc(carportWidth)/2) / Math.cos(degreesToRad(roofAngle))); // Cosinus relation for retviklet trekant
+    public static double angledRoofRafterSidesLengthCalc(int carportWidth, int roofAngle) {
+        double rafterSideLength = (int) ((rafterBottomLengthCalc(carportWidth)/2) / Math.cos(degreesToRad(roofAngle))); // Cosinus relation for retviklet trekant
         
         return rafterSideLength; 
     }
     
-    public static double degreesToRad(int deg){
+    private static double degreesToRad(int deg){
         double rad = (deg*Math.PI) / 180;
         return rad;
+    }
+    
+    public static double concreteAmountCalc(double amountOfPosts) {
+        double concreteAmountKg = amountOfPosts * RulesAndConstants.CONCRETE_PER_POST;
+        return concreteAmountKg;
     }
     
     

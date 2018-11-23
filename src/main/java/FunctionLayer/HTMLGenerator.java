@@ -201,13 +201,13 @@ public class HTMLGenerator {
                 + "                  stroke:rgb(0,0,0)\" />\n";
 
         List<MaterialDetails> list = order.getMaterials();
-        int amount = 0;
+        double amount = 0;
         for (int i = 0; i < list.size(); i++) {
             //Stolper
             if (list.get(i).getUseDescription().equals("Stolper")) {
                 amount = (list.get(i).getAmount() - 2) / 2; //Stolperne fra forsiden og bagsiden fratrækkes
                 int xSpacing = 0;
-                int underground = list.get(i).getCmLengthEach() - 90;
+                double underground = list.get(i).getCmLengthEach() - 90;
 
                 for (int j = 0; j < amount; j++) {
                     sketch += "<rect x=\"" + xSpacing + "\" width=\"9.7\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
@@ -280,7 +280,7 @@ public class HTMLGenerator {
                 + "                  stroke:rgb(0,0,0)\" />\n";
 
         List<MaterialDetails> list = order.getMaterials();
-        int amount = 0;
+        double amount = 0;
         for (int i = 0; i < list.size(); i++) {
             //Stolper
             if (list.get(i).getUseDescription().equals("Stolper")) {
@@ -288,7 +288,7 @@ public class HTMLGenerator {
                 int xSpacing = 100;
                 int x = 0;
                 int x1 = 0;
-                int y = Rules.ROOF_WIDTH_EXTRA / 2;
+                int y = RulesAndConstants.ROOF_WIDTH_EXTRA / 2;
                 for (int j = 0; j < amount; j++) {
                     //Horizontal-North
                     if (j < amount / 2) {
