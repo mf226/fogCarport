@@ -15,6 +15,10 @@ public class RulesAndConstants {
     //KG
     public final static int CONCRETE_PER_POST = 1;
     
+    //STK
+    public final static int MOUNT_PER_POST = 1;
+    public final static int MOUNT_PER_RAFTER = 2;
+    
     
     //Preferred materials from DB for, as their itemNumber in DB
     public final static int PREFERRED_MATERIAL_RAFTERS = 1;

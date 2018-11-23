@@ -66,5 +66,13 @@ public class Calculators {
         return concreteAmountKg;
     }
     
+    public static double mountPerPost(double amountOfPosts) {
+        return amountOfPosts * RulesAndConstants.MOUNT_PER_POST;
+    }
+    
+    public static double mountPerRafter(double amountOfRafters) {
+        return amountOfRafters * RulesAndConstants.MOUNT_PER_RAFTER;
+    }
+    
     
 }
