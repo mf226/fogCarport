@@ -220,14 +220,14 @@ public class HTMLGenerator {
         return sketch;
     }
 
-    public String generateShedMeasurements(Order order) {
-        String shed = "<h4>Venligst vælg den ønskede størrelse af din carport.</h4>\n"
+    public String generateShedMeasurements(int length, int width) {
+        String shed = "<h4>Venligst vælg den ønskede størrelse af dit skur.</h4>\n"
                 + "            <form action=\"FrontController\" method=\"POST\">\n"
                 + "                <h5>Længde: </h5>\n"
                 + "                <select name=\"shedLength\">";
 
         //Shed Length        
-        for (int i = 100; i < order.getLength(); i += 100) {
+        for (int i = 100; i < length; i += 100) {
             shed += "<option value=\"" + i + "\">" + i + " cm</option>";
         }
         shed += "</select>\n"
@@ -235,14 +235,36 @@ public class HTMLGenerator {
                 + "                <h5>Bredde: </h5>\n"
                 + "                <select name=\"shedWidth\">";
 
-        for (int i = 100; i < order.getWidth(); i += 100) {
+        for (int i = 100; i < width; i += 100) {
             shed += "<option value=\"" + i + "\">" + i + " cm</option>";
 
         }
+        shed += "<option value=\"" + width + "\">" + width + " cm</option>";
+
         shed += "</select>\n"
+                + "<h4>Vælg hvor dit skur skal placeres</h4>\n"
+                + "         <div class=\"shedPlacements\">\n"
+                + "         <div class=\"upperleft\">\n"
+                + "                <input type=\"radio\" name=\"placement\" value=UL>"
+                + "                 <label for=\"UL\">øvre venstre</label>\n"
+                + "         </div>"
+                + "         <div class=\"upperright\" style=\"margin-left:"+(length/2)+"px;\">\n"
+                + "                <input \" type=\"radio\" name=\"placement\" value=UR checked>"
+                + "                 <label for=\"UR\">øvre højre</label>\n"
+                + "         </div>"
+                + "         <div class=\"lowerleft\" style=\"margin-top:"+(width/2)+"px;\">\n"
+                + "                <input id=\"LL\" type=\"radio\" name=\"placement\" value=LL>"
+                + "                 <label for=\"LL\">nedre venstre</label>\n"
+                + "         </div>"
+                + "         <div class=\"lowerright\" style=\"margin-left:"+(length/2-50)+"px;\">\n"
+                + "                <input id=\"LR\" type=\"radio\" name=\"placement\" value=LR>"
+                + "                 <label for=\"LR\">nedre højre</label>\n"
+                + "         </div>"
+                + "       </div>\n"
                 + "                <input type=\"submit\" value=\"Submit\">\n"
-                + "                <input type=\"hidden\" name=\"command\" value=\"SelectFlat\">\n"
+                + "                <input type=\"hidden\" name=\"command\" value=\"addShed\">\n"
                 + "            </form>";
+
         return shed;
     }
 
@@ -258,7 +280,7 @@ public class HTMLGenerator {
 
         return roof;
     }
-    
+
     public String createRoofTypesAngled(List<Material> roofs) {
         String roof = "<h5>Tagtype:</h5>\n"
                 + "                <select name=\"roofType\">\n";
@@ -272,7 +294,7 @@ public class HTMLGenerator {
         return roof;
     }
 
-    public String createSketchHindSight(Order order) {
+    public String createSketchBirdsEyeView(Order order) {
         String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
         String style = "style=\"\n"
                 + "                  fill:white;\n"
@@ -317,6 +339,40 @@ public class HTMLGenerator {
         }
 
         sketch += "</svg>";
+        return sketch;
+    }
+
+    public String shedPlacement(Order order) {
+        int innerX = 50;
+        int innerY = 50;
+        String sketch = "<svg class=\"outerCanvas\" width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
+
+        //Inner Canvas
+        sketch += "<svg class=\"innerCanvas\" width=\"" + 800 + "\" height=\"" + 800 + "\" scale>\n";
+        String style = "style=\"\n"
+                + "                  fill:white;\n"
+                + "                  stroke-width:1;\n"
+                + "                  stroke:rgb(0,0,0)\" />\n";
+
+        sketch += "<rect x=\"" + innerX + "\" y=\"" + innerY + "\" width=\"" + order.getLength() + "\" height=\"" + order.getWidth() + "\"" + style;
+        //Upper Left - NW
+        sketch += "<rect x=\"" + innerX + "\" y=\"" + innerY + "\" width=\"" + order.getLength() / 2 + "\" height=\"" + order.getWidth() / 2 + "\"" + style;
+        //Upper Right - NE
+        sketch += "<rect x=\"" + (order.getLength() / 2 + innerX) + "\" y=\"" + innerY + "\" width=\"" + order.getLength() / 2 + "\" height=\"" + order.getWidth() / 2 + "\"" + style;
+        //Lower Left - SW
+        sketch += "<rect x=\"" + innerX + "\" y=\"" + (order.getWidth() / 2 + innerY) + "\" width=\"" + order.getLength() / 2 + "\" height=\"" + order.getWidth() / 2 + "\"" + style;
+        //Lower Right - SE
+        sketch += "<rect x=\"" + (order.getLength() / 2 + innerX) + "\" y=\"" + (order.getWidth() / 2 + innerY) + "\" width=\"" + order.getLength() / 2 + "\" height=\"" + order.getWidth() / 2 + "\"" + style;
+        sketch += "</svg>";
+
+        //Outer Canvas
+        sketch += "<line x1=\"" + innerX + "\" y1=\"10\" x2=\"" + (order.getLength() + innerX) + "\" y2=\"10\"" + style;
+        sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"20\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + order.getLength() + " cm</text>";
+        sketch += "<line x1=\"" + 10 + "\" y1=\"" + innerY + "\" x2=\"" + 10 + "\" y2=\"" + (order.getWidth() + innerY) + "\"" + style;
+        sketch += "<text x=\"" + 20 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">bredde: " + order.getWidth() + " cm</text>";
+
+        sketch += "</svg>";
+
         return sketch;
     }
 }

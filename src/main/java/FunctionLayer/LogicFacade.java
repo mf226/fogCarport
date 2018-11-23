@@ -23,32 +23,32 @@ public class LogicFacade {
     }
 
     public static List<Material> getAngledroofs() throws LoginSampleException {
-        return getAngledRoofMat();
+        return MaterialAndOrderMapper.getAngledRoofMat();
     }
 
     public static List<Material> getFlatroofs() throws LoginSampleException {
-        return getFlatRoofMat();
+        return MaterialAndOrderMapper.getFlatRoofMat();
     }
 
-    public static Order createFlatRoofCarport(int length, int width, int height) throws LoginSampleException {
-        Order order = new Order(length, width, height);
+    public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
+        Order order = new Order(length, width, height, roofAngle);
         createFlatRoofRafters(order);
         createRestOfCarport(order);
         return order;
     }
 
     public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
-        Order order = new Order(length, width, height);
+        Order order = new Order(length, width, height, roofAngle);
         createAngledRoofRafters(order, roofAngle);
         createRestOfCarport(order);
         return order;
     }
-    
+
     private static void createRestOfCarport(Order order) throws LoginSampleException {
         double postsAmount = createPosts(order);
         Material concrete = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
         double concreteAmount = Calculators.concreteAmountCalc(postsAmount);
-        order.getMaterials().add(new MaterialDetails(concrete, 0, concreteAmount, "Beton"));
+        order.getMaterials().add(new MaterialDetails(concrete, 0, concreteAmount, "Cement"));
     }
 
     private static void createFlatRoofRafters(Order order) throws LoginSampleException {
@@ -63,7 +63,7 @@ public class LogicFacade {
         double postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
         double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
         order.getMaterials().add(new MaterialDetails(post, cmLengthEach, postsAmount, "Stolper"));
-        
+
         return postsAmount;
     }
 

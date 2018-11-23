@@ -13,7 +13,7 @@ public class RulesAndConstants {
     public final static int ROOF_WIDTH_EXTRA = 50;
     
     //KG
-    public final static int CONCRETE_PER_POST = 2;
+    public final static int CONCRETE_PER_POST = 1;
     
     
     //Preferred materials from DB for, as their itemNumber in DB
