@@ -153,11 +153,11 @@ public class HTMLGenerator {
                 + "            <thead>\n"
                 + "            <tr>\n"
                 + "                <th>Vare</th>\n"
-                + "                <th>Beskrivelse</th>\n"
-                + "                <th>Længde i cm</th>\n"
                 + "                <th>Varenummer</th>\n"
-                + "                <th>Pris pr. enhed</th>\n"
+                + "                <th>Beskrivelse</th>\n"
+                + "                <th>Læ   ngde i cm</th>\n"
                 + "                <th>Enhed</th>\n"
+                + "                <th>Pris pr. enhed</th>\n"
                 + "                <th>Antal</th>\n"
                 + "                <th>Samlet pris</th>\n"
                 + "            </tr>\n"
@@ -166,11 +166,11 @@ public class HTMLGenerator {
         for (int i = 0; i < materials.size(); i++) {
             table += "<tr>";
             table += "<td>" + materials.get(i).getUseDescription() + "</td>";
+            table += "<td>" + materials.get(i).getMaterial().getItemNumber() + "</td>";
             table += "<td>" + materials.get(i).getMaterial().getName() + "</td>";
             table += "<td>" + materials.get(i).getCmLengthEach() + "</td>";
-            table += "<td>" + materials.get(i).getMaterial().getItemNumber() + "</td>";
-            table += "<td>" + materials.get(i).getMaterial().getPrice() + "  kr </td>";
             table += "<td>" + materials.get(i).getMaterial().getUnit() + "</td>";
+            table += "<td>" + materials.get(i).getMaterial().getPrice() + "  kr </td>";
             table += "<td>" + materials.get(i).getAmount() + "</td>";
             table += "<td>" + materials.get(i).getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
@@ -244,19 +244,19 @@ public class HTMLGenerator {
         shed += "</select>\n"
                 + "<h4>Vælg hvor dit skur skal placeres</h4>\n"
                 + "         <div class=\"shedPlacements\">\n"
-                + "         <div class=\"upperleft\" style=\"height:"+(width/2)+"px; width: "+(length/2)+"px;\">\n"
+                + "         <div class=\"upperleft\" style=\"height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input type=\"radio\" name=\"placement\" value=UL>"
                 + "                 <label for=\"UL\">øvre venstre</label>\n"
                 + "         </div>"
-                + "         <div class=\"upperright\" style=\"height:"+(width/2)+"px; width: "+(length/2)+"px;\">\n"
+                + "         <div class=\"upperright\" style=\"height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input style=\"float:right;\" type=\"radio\" name=\"placement\" value=UR checked>"
                 + "                 <label style=\"float:right;\" for=\"UR\">øvre højre</label>\n"
                 + "         </div>"
-                + "         <div class=\"lowerleft\" style=\"margin-top:"+(width/2-20)+"px; height:"+(width/2)+"px; width: "+(length/2)+"px;\">\n"
+                + "         <div class=\"lowerleft\" style=\"margin-top:" + (width / 2 - 20) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input id=\"LL\" type=\"radio\" name=\"placement\" value=LL>"
                 + "                 <label for=\"LL\">nedre venstre</label>\n"
                 + "         </div>"
-                + "         <div class=\"lowerright\" style=\"margin-top:"+(width/2-20)+"px; height:"+(width/2)+"px; width: "+(length/2)+"px;\">\n"
+                + "         <div class=\"lowerright\" style=\"margin-top:" + (width / 2 - 20) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input style=\"float:right;\" id=\"LR\" type=\"radio\" name=\"placement\" value=LR>"
                 + "                 <label style=\"float:right;\" for=\"LR\">nedre højre</label>\n"
                 + "         </div>"
@@ -304,6 +304,7 @@ public class HTMLGenerator {
         List<MaterialDetails> list = order.getMaterials();
         double amount = 0;
         for (int i = 0; i < list.size(); i++) {
+
             //Stolper
             if (list.get(i).getUseDescription().equals("Stolper")) {
                 amount = list.get(i).getAmount();
@@ -336,10 +337,102 @@ public class HTMLGenerator {
                     x += xSpacing;
                 }
             }
+
+            //shed
+            int x = 0;
+            int y = 25;
+            HashMap<String, List> shed = testShed();
+            double unitWidth = 1.5;
+            List north = shed.get("north");
+            List south = shed.get("south");
+            List east = shed.get("east");
+            List west = shed.get("west");
+            double xSpacing = unitWidth;
+            int length = 200; //length CM
+            int width = 100; //Width CM
+            //northside
+            for (int j = 0; j < north.size(); j++) {
+                sketch += "<rect x=\"" + x + "\" y=\""+ y +"\" width=\""+unitWidth+"\" height=\""+0.25+"\"" + style;
+                x += xSpacing;
+            }
+            //southside
+            x = 0;
+            y += width;
+            for (int j = 0; j < south.size(); j++) {
+                sketch += "<rect x=\"" + x + "\" y=\""+ y +"\" width=\""+unitWidth+"\" height=\""+0.25+"\"" + style;
+                x += xSpacing;
+            }
+            //eastside
+            x = 0;
+            y = 25;
+            for (int j = 0; j < east.size(); j++) {
+                sketch += "<rect x=\"" + x + "\" y=\""+ y +"\" width=\""+unitWidth+"\" height=\""+0.25+"\"" + style;
+                y += xSpacing;
+            }
+            //westside
+            y = 25;
+            x = length;
+            for (int j = 0; j < west.size(); j++) {
+                sketch += "<rect x=\"" + x + "\" y=\""+ y +"\" width=\""+unitWidth+"\" height=\""+0.25+"\"" + style;
+                y += xSpacing;
+            }
+
         }
 
         sketch += "</svg>";
         return sketch;
+    }
+
+    //hardcoding shed to test sketch
+    public HashMap<String, List> testShed() {
+        HashMap<String, List> shed = new HashMap();
+        int length = 200; //length CM
+        int width = 100; //Width CM
+        double unitWidth = 1.5; //width CM
+
+        //north
+        List<Material> listNorth = new ArrayList();
+        int tempLength = 0;
+
+        for (int i = 0; tempLength < length; i++) {
+            Material mat = new Material(7, "25x150", "m", 60);
+            tempLength += unitWidth;
+            listNorth.add(i, mat);
+        }
+        shed.put("north", listNorth);
+        //south
+        List<Material> listSouth = new ArrayList();
+        tempLength = 0;
+
+        for (int i = 0; tempLength < length; i++) {
+            Material mat = new Material(7, "25x150", "m", 60);
+            tempLength += unitWidth;
+            listSouth.add(i, mat);
+        }
+        shed.put("south", listSouth);
+        //east
+        List<Material> listEast = new ArrayList();
+        int tempWidth = 0;
+
+        for (int i = 0; tempWidth < width; i++) {
+            Material mat = new Material(7, "25x150", "m", 60);
+            tempWidth += unitWidth;
+            listEast.add(i, mat);
+        }
+        shed.put("east", listEast);
+        //west
+        //east
+        List<Material> listWest = new ArrayList();
+        tempWidth = 0;
+
+        for (int i = 0; tempWidth < width; i++) {
+            Material mat = new Material(7, "25x150", "m", 60);
+            tempWidth += unitWidth;
+            listWest.add(i, mat);
+        }
+        shed.put("west", listWest);
+
+        return shed;
     }
 
     public String shedPlacement(Order order) {
