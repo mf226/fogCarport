@@ -155,7 +155,7 @@ public class HTMLGenerator {
                 + "                <th>Vare</th>\n"
                 + "                <th>Varenummer</th>\n"
                 + "                <th>Beskrivelse</th>\n"
-                + "                <th>Læ   ngde i cm</th>\n"
+                + "                <th>Længde i cm</th>\n"
                 + "                <th>Enhed</th>\n"
                 + "                <th>Pris pr. enhed</th>\n"
                 + "                <th>Antal</th>\n"
@@ -295,11 +295,18 @@ public class HTMLGenerator {
     }
 
     public String createSketchBirdsEyeView(Order order) {
-        String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
+        final int innerX = 50;
+        final int innerY = 50;
         String style = "style=\"\n"
                 + "                  fill:white;\n"
                 + "                  stroke-width:1;\n"
                 + "                  stroke:rgb(0,0,0)\" />\n";
+
+        String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
+        sketch += "<line x1=\"" + innerX + "\" y1=\"" + 0 + "\" x2=\"" + (order.getLength() + innerX) + "\" y2=\"" + 0 + "\"" + style;
+        sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"20\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + order.getLength() + " cm</text>";
+        sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + "\" x2=\"" + 0 + "\" y2=\"" + (order.getWidth() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + "\"" + style;
+        sketch += "<text x=\"" + 20 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">bredde: " + order.getWidth() + " cm</text>";
 
         List<MaterialDetails> list = order.getMaterials();
         double amount = 0;
@@ -309,21 +316,20 @@ public class HTMLGenerator {
             if (list.get(i).getUseDescription().equals("Stolper")) {
                 amount = list.get(i).getAmount();
                 int xSpacing = 100;
-                int x = 0;
-                int x1 = 0;
-                int y = RulesAndConstants.ROOF_WIDTH_EXTRA / 2;
+                int x = innerX;
+                int x1 = innerX;
+                int y = innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2;
                 for (int j = 0; j < amount; j++) {
                     //Horizontal-North
                     if (j < amount / 2) {
-                        y = 25;
                         sketch += "<--! horizontal N-->\n<rect x=\"" + x + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
                         x += xSpacing;
                     }
 
                     //Horizontal-South
-                    y = order.getWidth() + 25;
+                    int yPolePlacement = innerY + order.getWidth() + 25 - list.get(i).getMaterial().getTopsideWidth();
                     if (j >= amount / 2) {
-                        sketch += "<--! horizontal S-->\n<rect x=\"" + x1 + "\"y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
+                        sketch += "<--! horizontal S-->\n<rect x=\"" + x1 + "\"y=\"" + yPolePlacement + "\" width=\"9.7\" height=\"9.7\"" + style;
                         x1 += xSpacing;
                     }
                 }
@@ -331,55 +337,71 @@ public class HTMLGenerator {
             //Spær
             if (list.get(i).getUseDescription().equals("Spær")) {
                 int xSpacing = 50;
-                int x = 0;
+                int x = innerX;
+                int y = innerY;
                 for (int j = 0; j < list.get(i).getAmount(); j++) {
-                    sketch += "<rect x=\"" + x + "\" width=\"4.5\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
+                    sketch += "<rect x=\"" + x + "\" y=\"" + innerY + "\" width=\"4.5\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
                     x += xSpacing;
                 }
             }
+            //Remme
+            if (list.get(i).getUseDescription().equals("Remme")) {
+                int y = innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2;
+                int ySpacing = order.getWidth() + y;
+                int x = innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
+                for (int j = 0; j < list.get(i).getAmount(); j++) {
+                    sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + list.get(i).getCmLengthEach() + "\" height=\"" + list.get(i).getMaterial().getTopsideLength() + "\"" + style;
+                    y = ySpacing - list.get(i).getMaterial().getTopsideLength();
+                }
+            }
 
-            //shed
-            int x = 0;
-            int y = 25;
-            HashMap<String, List> shed = testShed();
-            double unitWidth = 1.5;
-            List north = shed.get("north");
-            List south = shed.get("south");
-            List east = shed.get("east");
-            List west = shed.get("west");
-            double xSpacing = unitWidth;
-            int length = 200; //length CM
-            int width = 100; //Width CM
-            //northside
-            for (int j = 0; j < north.size(); j++) {
-                sketch += "<rect x=\"" + x + "\" y=\""+ y +"\" width=\""+unitWidth+"\" height=\""+0.25+"\"" + style;
-                x += xSpacing;
-            }
-            //southside
-            x = 0;
-            y += width;
-            for (int j = 0; j < south.size(); j++) {
-                sketch += "<rect x=\"" + x + "\" y=\""+ y +"\" width=\""+unitWidth+"\" height=\""+0.25+"\"" + style;
-                x += xSpacing;
-            }
-            //eastside
-            x = 0;
-            y = 25;
-            for (int j = 0; j < east.size(); j++) {
-                sketch += "<rect x=\"" + x + "\" y=\""+ y +"\" width=\""+unitWidth+"\" height=\""+0.25+"\"" + style;
-                y += xSpacing;
-            }
-            //westside
-            y = 25;
-            x = length;
-            for (int j = 0; j < west.size(); j++) {
-                sketch += "<rect x=\"" + x + "\" y=\""+ y +"\" width=\""+unitWidth+"\" height=\""+0.25+"\"" + style;
-                y += xSpacing;
-            }
+           // sketch = addShedToSketch(innerX, innerY, sketch, style);
 
         }
 
         sketch += "</svg>";
+        return sketch;
+    }
+
+    private String addShedToSketch(final int innerX, final int innerY, String sketch, String style) {
+        //shed
+        int x = innerX;
+        int y = innerY + 25;
+        HashMap<String, List> shed = testShed();
+        double unitWidth = 1.5;
+        List north = shed.get("north");
+        List south = shed.get("south");
+        List east = shed.get("east");
+        List west = shed.get("west");
+        double xSpacing = unitWidth;
+        int length = 200; //length CM
+        int width = 100; //width CM
+        //northside
+        for (int j = 0; j < north.size(); j++) {
+            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
+            x += xSpacing;
+        }
+        //southside
+        x = innerX;
+        y += width;
+        for (int j = 0; j < south.size(); j++) {
+            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
+            x += xSpacing;
+        }
+        //eastside
+        x = innerX;
+        y = innerY + 25;
+        for (int j = 0; j < east.size(); j++) {
+            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
+            y += xSpacing;
+        }
+        //westside
+        y = innerY + 25;
+        x = innerX + length;
+        for (int j = 0; j < west.size(); j++) {
+            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
+            y += xSpacing;
+        }
         return sketch;
     }
 
