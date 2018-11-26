@@ -32,30 +32,42 @@ public class LogicFacade {
 
     public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
         Order order = new Order(length, width, height, roofAngle);
-        createFlatRoofRafters(order);
-        createRestOfCarport(order);
+        double amountOfRafters = createFlatRoofRafters(order);
+        createRestOfCarport(order, amountOfRafters);
         return order;
     }
 
     public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
         Order order = new Order(length, width, height, roofAngle);
-        createAngledRoofRafters(order, roofAngle);
-        createRestOfCarport(order);
+        double amountOfRafters = createAngledRoofRafters(order, roofAngle);
+        createRestOfCarport(order, amountOfRafters);
         return order;
     }
 
-    private static void createRestOfCarport(Order order) throws LoginSampleException {
+    private static void createRestOfCarport(Order order, double bottomRafterAmount) throws LoginSampleException {
         double postsAmount = createPosts(order);
         Material concrete = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
         double concreteAmount = Calculators.concreteAmountCalc(postsAmount);
         order.getMaterials().add(new MaterialDetails(concrete, 0, concreteAmount, "Cement"));
+        
+        Material mount = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_MOUNT);
+        double postMountAmount = Calculators.mountPerPost(postsAmount);
+        order.getMaterials().add(new MaterialDetails(mount, 0, postMountAmount, "Beslag stolper/rem"));
+        
+        double rafterMountAmount = Calculators.mountPerRafter(bottomRafterAmount);
+        order.getMaterials().add(new MaterialDetails(mount, 0, rafterMountAmount, "Beslag rem/spær"));
+        
+        Material rem = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
+        double remLength = Calculators.remLengthCalc(order.getLength());
+        order.getMaterials().add(new MaterialDetails(rem, remLength, 2, "Remme"));
     }
 
-    private static void createFlatRoofRafters(Order order) throws LoginSampleException {
+    private static double createFlatRoofRafters(Order order) throws LoginSampleException {
         Material rafter = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double raftersAmount = Calculators.flatRoofRafterAmountCalc(order.getLength());
         double cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
         order.getMaterials().add(new MaterialDetails(rafter, cmLengthEach, raftersAmount, "Spær"));
+        return raftersAmount;
     }
 
     private static double createPosts(Order order) throws LoginSampleException {
@@ -67,7 +79,7 @@ public class LogicFacade {
         return postsAmount;
     }
 
-    private static void createAngledRoofRafters(Order order, int roofAngle) throws LoginSampleException {
+    private static double createAngledRoofRafters(Order order, int roofAngle) throws LoginSampleException {
         Material rafter = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double bottomRafterAmount = Calculators.angledRoofRafterBottomAmountCalc(order.getLength());
         double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
@@ -76,6 +88,8 @@ public class LogicFacade {
         double sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
         double cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), roofAngle);
         order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachSideRafter, sideRafterAmount, "Side spær"));
+        
+        return bottomRafterAmount;
     }
 
 }
