@@ -56,6 +56,10 @@ public class LogicFacade {
         
         double rafterMountAmount = Calculators.mountPerRafter(bottomRafterAmount);
         order.getMaterials().add(new MaterialDetails(mount, 0, rafterMountAmount, "Beslag rem/spær"));
+        
+        Material rem = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
+        double remLength = Calculators.remLengthCalc(order.getLength());
+        order.getMaterials().add(new MaterialDetails(rem, remLength, 2, "Remme"));
     }
 
     private static double createFlatRoofRafters(Order order) throws LoginSampleException {
