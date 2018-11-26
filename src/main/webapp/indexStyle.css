@@ -27,7 +27,41 @@ body .pageContent {
     margin: 1px;    
 }
 
+.shedPlacements {
+    display: inline-block;
+    margin-top: 75px;
+    position: absolute;
+    margin-left: 50px;
 
+}
+
+.upperleft {
+    /*height: 20px;*/
+    /*width: 100px;*/
+    float: left;
+/*    background-color: yellow;*/
+
+}
+.upperright {
+    float: left;
+    /* width: 100px; */
+}
+.lowerleft {
+    display: inline-block;
+    float: left;
+
+    /*height: 20px;
+    width: 150px;*/
+
+
+}
+.lowerright {
+    /*    margin-left: 200px;*/
+    display: inline-block;
+    /*  width: 100px;
+      height: 20px; */
+
+}
 
 .topnav {
     background-color: #004687;

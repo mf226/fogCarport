@@ -1,21 +1,21 @@
 package FunctionLayer;
 
 public class MaterialDetails {
-    
+
     private static final int CM_TO_METER = 100;
-    
+
     private Material material;
-    private int cmLengthEach;
-    private int amount;
-    private double totalItemPrice;
+    private double cmLengthEach;
+    private double amount;
+    //private double totalItemPrice;
     private String useDescription;
 
-    public MaterialDetails(Material material, int cmLengthEach, int amount, String useDescription) {
+    public MaterialDetails(Material material, double cmLengthEach, double amount, String useDescription) {
         this.material = material;
         this.cmLengthEach = cmLengthEach;
         this.amount = amount;
         this.useDescription = useDescription;
-        this.totalItemPrice = this.material.getPrice() * cmLengthEach * amount / CM_TO_METER;
+
     }
 
     public String getUseDescription() {
@@ -34,29 +34,33 @@ public class MaterialDetails {
         this.material = material;
     }
 
-    public int getCmLengthEach() {
+    public double getCmLengthEach() {
         return cmLengthEach;
     }
 
-    public void setCmLengthEach(int cmLengthEach) {
+    public void setCmLengthEach(double cmLengthEach) {
         this.cmLengthEach = cmLengthEach;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
     public double getTotalItemPrice() {
+        double totalItemPrice;
+
+        if (this.material.getUnit().equals("m")) {
+            totalItemPrice = this.material.getPrice() * cmLengthEach * amount / CM_TO_METER;
+        }
+        else {
+            totalItemPrice = this.material.getPrice() * amount;
+        }
+        
         return totalItemPrice;
     }
 
-    public void setTotalItemPrice(double totalItemPrice) {
-        this.totalItemPrice = totalItemPrice;
-    }
-   
-      
 }

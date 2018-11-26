@@ -25,6 +25,8 @@
         </div>
 
         <div class="pageContent">
+            <h4>Venligst vælg den ønskede størrelse af din carport.</h4>
+
             <form action="FrontController" method="POST">
                 <h5>Højde:</h5>
                 <select name="height">
@@ -67,9 +69,16 @@
                     <option value="30">30 grader</option>
                     <option value="40">40 grader</option>
                 </select>
-                <input type="submit" value="Submit">
+                <%=request.getAttribute("roof")%>
+                <h5>Tilføj skur?</h5>
+                <input type="checkbox" name="skur" value=addShed>
+                <br>
+                <input type="submit" value="Fortsæt">
                 <input type="hidden" name="command" value="SelectAngled">
+
             </form>
+
+
         </div>
     </body>
 </html>

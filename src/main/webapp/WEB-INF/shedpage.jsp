@@ -19,12 +19,14 @@
         <title>Tilvalg af skur</title>
     </head>
     <body>
-        <%=request.getAttribute("menu")%>
-        <div class ="pageHeader">
-            <h2>Tilvalg af skur</h2>
-        </div>
-        <div class="pageContent">
-            <%=request.getAttribute("shedOptions")%>
-        </div>
-    </body>
-</html>
+            <%=request.getAttribute("menu")%>
+            <div class ="pageHeader">
+                <h2>Tilvalg af skur</h2>
+            </div>
+            <div class="pageContent">
+                <%=request.getAttribute("shedOptions")%>
+                <%=request.getAttribute("shedSketch")%>
+
+            </div>
+        </body>
+    </html>

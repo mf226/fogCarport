@@ -9,6 +9,7 @@ import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
 import static PresentationLayer.Command.gen;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,12 +30,25 @@ public class AngledBOM extends Command {
         String angle = request.getParameter("angle");
         int a = Integer.parseInt(angle);
         Order order = LogicFacade.createAngledRoofCarport(l, w, h, a);
-//        String table = gen.generateBOM(order);
-//        String sketch = gen.createSketchHindSight(order);
-//        request.setAttribute("table", table);
-//        request.setAttribute("sketch", sketch);
-        String shedOptions = gen.generateShedMeasurements(order);
-        request.setAttribute("shedOptions", shedOptions);
-        return "shedpage";    }
+        
+        String check = request.getParameter("skur");
+
+        if (check != null) {
+            request.getSession(false).setAttribute("order", order);
+            String shedSketch = gen.shedPlacement(order);
+            String shedOptions = gen.generateShedMeasurements(l, w);
+            request.setAttribute("shedOptions", shedOptions);
+            request.setAttribute("shedSketch", shedSketch);
+            return "shedpage";
+        }
+        
+        String table = gen.generateBOM(order);
+        String sketch = gen.createSketchBirdsEyeView(order);
+        request.setAttribute("table", table);
+        request.setAttribute("sketch", sketch);
+        request.setAttribute("order", order);
+
+        return "BOMpage";
+    }
 
 }

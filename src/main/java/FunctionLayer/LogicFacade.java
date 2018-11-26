@@ -1,16 +1,9 @@
 package FunctionLayer;
 
 import DBAccess.MaterialAndOrderMapper;
-import static DBAccess.MaterialAndOrderMapper.getAngledRoofMat;
-import static DBAccess.MaterialAndOrderMapper.getFlatRoofMat;
 import DBAccess.UserMapper;
 import java.util.List;
 
-/**
- * The purpose of LogicFacade is to...
- *
- * @author kasper
- */
 public class LogicFacade {
 
     public static User login(String email, String password) throws LoginSampleException {
@@ -26,52 +19,75 @@ public class LogicFacade {
     public static List<Material> getAllMaterials() throws LoginSampleException {
         return MaterialAndOrderMapper.getAllMaterials();
     }
-    
-    public static Order createFlatRoofCarport(int length, int width, int height) throws LoginSampleException {
-        Order order = new Order(length, width, height);
-        createPosts(order);        
-        createFlatRoofRafters(order);
-        
+
+    public static List<Material> getAngledroofs() throws LoginSampleException {
+        return MaterialAndOrderMapper.getAngledRoofMat();
+    }
+
+    public static List<Material> getFlatroofs() throws LoginSampleException {
+        return MaterialAndOrderMapper.getFlatRoofMat();
+    }
+
+    public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
+        Order order = new Order(length, width, height, roofAngle);
+        double amountOfRafters = createFlatRoofRafters(order);
+        createRestOfCarport(order, amountOfRafters);
         return order;
     }
-    
+
     public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
-        Order order = new Order(length, width, height);
-        createPosts(order);
-        createAngledRoofRafters(order, roofAngle);
+        Order order = new Order(length, width, height, roofAngle);
+        double amountOfRafters = createAngledRoofRafters(order, roofAngle);
+        createRestOfCarport(order, amountOfRafters);
         return order;
     }
 
-    private static void createFlatRoofRafters(Order order) throws LoginSampleException {
-        Material rafter = MaterialAndOrderMapper.getMaterial(1);
-        int raftersAmount = Calculators.flatRoofRafterAmountCalc(order.getLength());
-        int cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
-        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEach, raftersAmount, "Spær"));
-    }
-
-    private static void createPosts(Order order) throws LoginSampleException {
-        Material post = MaterialAndOrderMapper.getMaterial(2);
-        int postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
-        int cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
-        order.getMaterials().add(new MaterialDetails(post, cmLengthEach, postsAmount, "Stolper"));
-    }
-
-    private static void createAngledRoofRafters(Order order, int roofAngle) throws LoginSampleException {
-        Material rafter = MaterialAndOrderMapper.getMaterial(1);
-        int bottomRafterAmount = Calculators.angledRoofRafterBottomAmountCalc(order.getLength());
-        int cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
-        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachBottomRafter, bottomRafterAmount, "Bund spær"));
+    private static void createRestOfCarport(Order order, double bottomRafterAmount) throws LoginSampleException {
+        double postsAmount = createPosts(order);
+        Material concrete = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
+        double concreteAmount = Calculators.concreteAmountCalc(postsAmount);
+        order.getMaterials().add(new MaterialDetails(concrete, 0, concreteAmount, RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION));
         
-        int sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
-        int cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), roofAngle);
-        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachSideRafter, sideRafterAmount, "Side spær"));
+        Material mount = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_MOUNT);
+        double postMountAmount = Calculators.mountPerPost(postsAmount);
+        order.getMaterials().add(new MaterialDetails(mount, 0, postMountAmount, RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION));
+        
+        double rafterMountAmount = Calculators.mountPerRafter(bottomRafterAmount);
+        order.getMaterials().add(new MaterialDetails(mount, 0, rafterMountAmount, RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION));
+        
+        Material rem = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
+        double remLength = Calculators.remLengthCalc(order.getLength());
+        order.getMaterials().add(new MaterialDetails(rem, remLength, 2, RulesAndConstants.CARPORT_REM_DESCRIPTION));
     }
-    
-    public static List<Material> getAngledroofs() throws LoginSampleException{
-        return getAngledRoofMat();
+
+    private static double createFlatRoofRafters(Order order) throws LoginSampleException {
+        Material rafter = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
+        double raftersAmount = Calculators.flatRoofRafterAmountCalc(order.getLength());
+        double cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEach, raftersAmount, RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON));
+        return raftersAmount;
     }
-    public static List<Material> getFlatroofs() throws LoginSampleException{
-        return getFlatRoofMat();
+
+    private static double createPosts(Order order) throws LoginSampleException {
+        Material post = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_POSTS);
+        double postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
+        double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
+        order.getMaterials().add(new MaterialDetails(post, cmLengthEach, postsAmount, RulesAndConstants.CARPORT_POSTS_DESCRIPTION));
+
+        return postsAmount;
     }
-    
+
+    private static double createAngledRoofRafters(Order order, int roofAngle) throws LoginSampleException {
+        Material rafter = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
+        double bottomRafterAmount = Calculators.angledRoofRafterBottomAmountCalc(order.getLength());
+        double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachBottomRafter, bottomRafterAmount, RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION));
+
+        double sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
+        double cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), roofAngle);
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachSideRafter, sideRafterAmount, RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION));
+        
+        return bottomRafterAmount;
+    }
+
 }
