@@ -38,16 +38,84 @@ public class CalculatorTests {
     public void tearDown() {
     }
 
-    /**
-     *
-     */
     @Test
     public void testPostAmountCalc() {
-        Calculators pac = new Calculators();
-        pac.postsAmountCalc(300, 300);
-        assertEquals(pac, 8);
+        //To test if it calculates the correct value.
+        Calculators calc = new Calculators();
+        int caportLength = 300;
+        int caportWidth = 300;
+        int expResult = 8;
+        int result = (int) calc.postsAmountCalc(caportLength, caportWidth);
+        assertEquals(expResult, result);
+
     }
 
+    @Test
+    public void testPostAmountCalcFail() {
+        Calculators calc = new Calculators();
+        int caportLength = 300;
+        int caportWidth = 300;
+        int expResult = 9;
+        int result = (int) calc.postsAmountCalc(caportLength, caportWidth);
+        assertNotEquals(expResult, result);
+    }
+
+    @Test
+    public void testpostsLengthCalc() {
+        Calculators calc = new Calculators();
+        int caportLength = 300;
+        int expResult = 390;
+        int result = (int) calc.postsLengthCalc(caportLength);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testPostsLengthCalcFail() {
+        Calculators calc = new Calculators();
+        int caportLength = 300;
+        int caportWidth = 300;
+        int expResult = 391;
+        int result = (int) calc.postsAmountCalc(caportLength, caportWidth);
+        assertNotEquals(expResult, result);
+    }
+
+    @Test
+    public void testflatRoofRafterAmountCalc() {
+        Calculators calc = new Calculators();
+        int caportLength = 300;
+        int expResult = 7;
+        int result = (int) calc.flatRoofRafterAmountCalc(caportLength);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testflatRoofRafterAmountCalcFail() {
+        Calculators calc = new Calculators();
+        int caportLength = 300;
+        int expResult = 5;
+        int result = (int) calc.flatRoofRafterAmountCalc(caportLength);
+        assertNotEquals(expResult, result);
+    }
+
+    @Test
+    public void testrafterBottomLengthCalc() {
+        Calculators calc = new Calculators();
+        int carportWidth = 300;
+        int expResult = 350;
+        int result = (int) calc.rafterBottomLengthCalc(carportWidth);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testrafterBottomLengthCalcFail() {
+        Calculators calc = new Calculators();
+        int carportWidth = 300;
+        int expResult = 400;
+        int result = (int) calc.rafterBottomLengthCalc(carportWidth);
+        assertNotEquals(expResult, result);
+    }
+    
+    
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
