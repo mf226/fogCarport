@@ -30,4 +30,18 @@ public class RulesAndConstants {
     public final static int PREFERRED_MATERIAL_SCREWS = 3;
     
     
+    //Material descriptions
+    public final static String CARPORT_CONCRETE_DESCRIPTION = "Cement";
+    public final static String CARPORT_MOUNTS_POST_DESCRIPTION = "Beslag stolper/rem";
+    public final static String CARPORT_MOUNTS_RAFTERS_DESCRIPTION = "Beslag rem/spær";
+    public final static String CARPORT_REM_DESCRIPTION = "Remme";
+    public final static String CARPORT_RAFTER_FLATROOF_DESCRIPTON = "Spær";
+    public final static String CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION = "Bund spær";
+    public final static String CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION = "Side spær";
+    public final static String CARPORT_POSTS_DESCRIPTION = "Stolper";
+    
+            
+            
+    public final static String SHED_POST_DESCRIPTION = "Skur stolper";
+    
 }

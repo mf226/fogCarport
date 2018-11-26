@@ -1,8 +1,6 @@
 package FunctionLayer;
 
 import DBAccess.MaterialAndOrderMapper;
-import static DBAccess.MaterialAndOrderMapper.getAngledRoofMat;
-import static DBAccess.MaterialAndOrderMapper.getFlatRoofMat;
 import DBAccess.UserMapper;
 import java.util.List;
 
@@ -48,25 +46,25 @@ public class LogicFacade {
         double postsAmount = createPosts(order);
         Material concrete = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
         double concreteAmount = Calculators.concreteAmountCalc(postsAmount);
-        order.getMaterials().add(new MaterialDetails(concrete, 0, concreteAmount, "Cement"));
+        order.getMaterials().add(new MaterialDetails(concrete, 0, concreteAmount, RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION));
         
         Material mount = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_MOUNT);
         double postMountAmount = Calculators.mountPerPost(postsAmount);
-        order.getMaterials().add(new MaterialDetails(mount, 0, postMountAmount, "Beslag stolper/rem"));
+        order.getMaterials().add(new MaterialDetails(mount, 0, postMountAmount, RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION));
         
         double rafterMountAmount = Calculators.mountPerRafter(bottomRafterAmount);
-        order.getMaterials().add(new MaterialDetails(mount, 0, rafterMountAmount, "Beslag rem/spær"));
+        order.getMaterials().add(new MaterialDetails(mount, 0, rafterMountAmount, RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION));
         
         Material rem = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
         double remLength = Calculators.remLengthCalc(order.getLength());
-        order.getMaterials().add(new MaterialDetails(rem, remLength, 2, "Remme"));
+        order.getMaterials().add(new MaterialDetails(rem, remLength, 2, RulesAndConstants.CARPORT_REM_DESCRIPTION));
     }
 
     private static double createFlatRoofRafters(Order order) throws LoginSampleException {
         Material rafter = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double raftersAmount = Calculators.flatRoofRafterAmountCalc(order.getLength());
         double cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
-        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEach, raftersAmount, "Spær"));
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEach, raftersAmount, RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON));
         return raftersAmount;
     }
 
@@ -74,7 +72,7 @@ public class LogicFacade {
         Material post = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_POSTS);
         double postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
         double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
-        order.getMaterials().add(new MaterialDetails(post, cmLengthEach, postsAmount, "Stolper"));
+        order.getMaterials().add(new MaterialDetails(post, cmLengthEach, postsAmount, RulesAndConstants.CARPORT_POSTS_DESCRIPTION));
 
         return postsAmount;
     }
@@ -83,11 +81,11 @@ public class LogicFacade {
         Material rafter = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double bottomRafterAmount = Calculators.angledRoofRafterBottomAmountCalc(order.getLength());
         double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
-        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachBottomRafter, bottomRafterAmount, "Bund spær"));
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachBottomRafter, bottomRafterAmount, RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION));
 
         double sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
         double cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), roofAngle);
-        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachSideRafter, sideRafterAmount, "Side spær"));
+        order.getMaterials().add(new MaterialDetails(rafter, cmLengthEachSideRafter, sideRafterAmount, RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION));
         
         return bottomRafterAmount;
     }
