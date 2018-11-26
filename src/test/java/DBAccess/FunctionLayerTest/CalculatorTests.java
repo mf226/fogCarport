@@ -1,0 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package DBAccess.FunctionLayerTest;
+
+import FunctionLayer.Calculators;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author porse
+ */
+public class CalculatorTests {
+
+    public CalculatorTests() {
+    }
+
+    @BeforeClass
+    public static void setUpClass() {
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testPostAmountCalc() {
+        Calculators pac = new Calculators();
+        pac.postsAmountCalc(300, 300);
+        assertEquals(pac, 8);
+    }
+
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
+}
