@@ -1,6 +1,8 @@
 package DBAccess;
 
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.Material;
+import FunctionLayer.MetalMaterial;
 import FunctionLayer.WoodMaterial;
 import FunctionLayer.Order;
 import FunctionLayer.User;
@@ -9,11 +11,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -42,7 +41,7 @@ public class MaterialAndOrderMapper {
         }
     }
 
-    public static WoodMaterial getMaterial(int itemNumber) throws LoginSampleException {
+    public static WoodMaterial getWoodMaterial(int itemNumber) throws LoginSampleException {
         try {
 
             Connection con = Connector.connection();
@@ -56,7 +55,29 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
-                return new WoodMaterial(itemNumber, materialName, unit, price, 0); // hardcoded 0 till DB is changed
+                return new WoodMaterial(itemNumber, materialName, unit, price, 0); // hardcoded 0 till DB contains lengthInStock
+            } else {
+                throw new LoginSampleException("Material doesn't exist.");
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+    
+    public static MetalMaterial getMetalMaterial(int itemNumber) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT materialName, unit, price FROM FogDB.Materials "
+                    + "WHERE itemNumber = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, itemNumber);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String materialName = rs.getString("materialName");
+                String unit = rs.getString("unit");
+                double price = rs.getDouble("price");
+                return new MetalMaterial(itemNumber, materialName, unit, price, 1); // hardcoded 1 till DB contains packsize
             } else {
                 throw new LoginSampleException("Material doesn't exist.");
             }
