@@ -1,30 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package FunctionLayer;
 
 public class Material {
+
     private int itemNumber;
     private String name, unit;
-    private double price;
+    private double pricePerUnit;
+    private int amountInStock;
 
     public Material(int itemNumber, String name, String unit, double price) {
         this.itemNumber = itemNumber;
         this.name = name;
         this.unit = unit;
-        this.price = price;
-    }
-    
-    public int getTopsideLength() {
-        String size1 = name.split("x")[0];
-        return Integer.parseInt(size1)/10;
-    }
-    
-    public int getTopsideWidth() {
-        String size2 = name.split("x")[1];
-        return Integer.parseInt(size2)/10;
+        this.pricePerUnit = price;
     }
 
     public int getItemNumber() {
@@ -51,13 +38,11 @@ public class Material {
         this.unit = unit;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPricePerUnit() {
+        return pricePerUnit;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPricePerUnit(double pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
     }
-     
-    
 }

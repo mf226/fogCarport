@@ -1,29 +1,13 @@
 package FunctionLayer;
 
-public class MaterialDetails {
+public abstract class MaterialDetails {
 
-    private static final int CM_TO_METER = 100;
-
-    private Material material;
-    private double cmLengthEach;
     private double amount;
-    //private double totalItemPrice;
-    private String useDescription;
+    private Material material;
 
-    public MaterialDetails(Material material, double cmLengthEach, double amount, String useDescription) {
+    public MaterialDetails(Material material, double amount) {
         this.material = material;
-        this.cmLengthEach = cmLengthEach;
         this.amount = amount;
-        this.useDescription = useDescription;
-
-    }
-
-    public String getUseDescription() {
-        return useDescription;
-    }
-
-    public void setUseDescription(String useDescription) {
-        this.useDescription = useDescription;
     }
 
     public Material getMaterial() {
@@ -34,13 +18,7 @@ public class MaterialDetails {
         this.material = material;
     }
 
-    public double getCmLengthEach() {
-        return cmLengthEach;
-    }
-
-    public void setCmLengthEach(double cmLengthEach) {
-        this.cmLengthEach = cmLengthEach;
-    }
+    abstract public double getTotalItemPrice();
 
     public double getAmount() {
         return amount;
@@ -50,17 +28,16 @@ public class MaterialDetails {
         this.amount = amount;
     }
 
-    public double getTotalItemPrice() {
-        double totalItemPrice;
-
-        if (this.material.getUnit().equals("m")) {
-            totalItemPrice = this.material.getPrice() * cmLengthEach * amount / CM_TO_METER;
-        }
-        else {
-            totalItemPrice = this.material.getPrice() * amount;
-        }
-        
-        return totalItemPrice;
-    }
-
+//    public double getTotalItemPriceXX() {
+//        double totalItemPrice;
+//
+//        if (this.material.getUnit().equals("m")) {
+//            totalItemPrice = this.material.getPricePerUnit() * cmLengthEach * amount / CM_TO_METER;
+//        }
+//        else {
+//            totalItemPrice = this.material.getPricePerUnit() * amount;
+//        }
+//        
+//        return totalItemPrice;
+//    }
 }

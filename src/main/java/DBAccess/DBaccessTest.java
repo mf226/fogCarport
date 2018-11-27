@@ -8,7 +8,7 @@ package DBAccess;
 import FunctionLayer.HTMLGenerator;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
-import FunctionLayer.Material;
+import FunctionLayer.WoodMaterial;
 import FunctionLayer.Role;
 import FunctionLayer.User;
 import java.util.List;

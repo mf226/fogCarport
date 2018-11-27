@@ -9,6 +9,7 @@ import FunctionLayer.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -148,7 +149,7 @@ public class HTMLGenerator {
     }
 
     public String generateBOM(Order order) {
-        List<MaterialDetails> materials = order.getMaterials();
+        HashMap<String, WoodDetails> materialsWood = order.getCarportWoodMaterials();
         String table = "<table id=\"BillOfMaterials\">\n"
                 + "            <thead>\n"
                 + "            <tr>\n"
@@ -163,62 +164,65 @@ public class HTMLGenerator {
                 + "            </tr>\n"
                 + "            </thead>\n";
 
-        for (int i = 0; i < materials.size(); i++) {
+        for (Map.Entry<String, WoodDetails> mapWood : materialsWood.entrySet()) {
             table += "<tr>";
-            table += "<td>" + materials.get(i).getUseDescription() + "</td>";
-            table += "<td>" + materials.get(i).getMaterial().getItemNumber() + "</td>";
-            table += "<td>" + materials.get(i).getMaterial().getName() + "</td>";
-            table += "<td>" + materials.get(i).getCmLengthEach() + "</td>";
-            table += "<td>" + materials.get(i).getMaterial().getUnit() + "</td>";
-            table += "<td>" + materials.get(i).getMaterial().getPrice() + "  kr </td>";
-            table += "<td>" + materials.get(i).getAmount() + "</td>";
-            table += "<td>" + materials.get(i).getTotalItemPrice() + "  kr </td>";
+            table += "<td>" + mapWood.getKey() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getItemNumber() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getName() + "</td>";
+            table += "<td>" + mapWood.getValue().getCmLengthEach() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getUnit() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
+            table += "<td>" + mapWood.getValue().getAmount() + "</td>";
+            table += "<td>" + mapWood.getValue().getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
+
+        }
+        HashMap<String, MetalDetails> materialsMetal = order.getCarportMetalMaterials();
+
+        for (Map.Entry<String, MetalDetails> mapMetal : materialsMetal.entrySet()) {
+            table += "<tr>";
+            table += "<td>" + mapMetal.getKey() + "</td>";
+            table += "<td>" + mapMetal.getValue().getMaterial().getItemNumber() + "</td>";
+            table += "<td>" + mapMetal.getValue().getMaterial().getName() + "</td>";
+            table += "<td></td>";
+            table += "<td>" + mapMetal.getValue().getMaterial().getUnit() + "</td>";
+            table += "<td>" + mapMetal.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
+            table += "<td>" + mapMetal.getValue().getAmount() + "</td>";
+            table += "<td>" + mapMetal.getValue().getTotalItemPrice() + "  kr </td>";
+            table += "</tr>";
+
         }
         table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
         return table;
     }
-
-    public HashMap convertToMap(List<MaterialDetails> materials) {
-        HashMap<String, MaterialDetails> map = new HashMap();
-        for (int i = 0; i < materials.size(); i++) {
-            if (materials.get(i).getUseDescription().equals("Stolper")) {
-                map.put("Stolper", materials.get(i));
-            }
-            if (materials.get(i).getUseDescription().equals("Spær")) {
-                map.put("Spær", materials.get(i));
-            }
-        }
-        return map;
-    }
-
-    public String createSketchSideView(Order order) {
-        String sketch = "<svg width=\"" + order.getWidth() + "\" height=\"" + order.getHeight() * 2 + "\" scale>\n";
-        String style = "style=\"\n"
-                + "                  fill:white;\n"
-                + "                  stroke-width:1;\n"
-                + "                  stroke:rgb(0,0,0)\" />\n";
-
-        List<MaterialDetails> list = order.getMaterials();
-        double amount = 0;
-        for (int i = 0; i < list.size(); i++) {
-            //Stolper
-            if (list.get(i).getUseDescription().equals("Stolper")) {
-                amount = (list.get(i).getAmount() - 2) / 2; //Stolperne fra forsiden og bagsiden fratrækkes
-                int xSpacing = 0;
-                double underground = list.get(i).getCmLengthEach() - 90;
-
-                for (int j = 0; j < amount; j++) {
-                    sketch += "<rect x=\"" + xSpacing + "\" width=\"9.7\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
-                    sketch += "<rect x=\"" + xSpacing + "\" width=\"9.7\" height=\"" + underground + "\"" + style;
-                    xSpacing += 50;
-                }
-            }
-        }
-        sketch += "</svg>";
-        return sketch;
-    }
+//
+//    public String createSketchSideView(Order order) {
+//        String sketch = "<svg width=\"" + order.getWidth() + "\" height=\"" + order.getHeight() * 2 + "\" scale>\n";
+//        String style = "style=\"\n"
+//                + "                  fill:white;\n"
+//                + "                  stroke-width:1;\n"
+//                + "                  stroke:rgb(0,0,0)\" />\n";
+//
+//        List<WoodDetails> list = order.getMaterials();
+//        double amount = 0;
+//        for (int i = 0; i < list.size(); i++) {
+//            //Stolper
+//            if (list.get(i).getUseDescription().equals("Stolper")) {
+//                amount = (list.get(i).getAmount() - 2) / 2; //Stolperne fra forsiden og bagsiden fratrækkes
+//                int xSpacing = 0;
+//                double underground = list.get(i).getCmLengthEach() - 90;
+//
+//                for (int j = 0; j < amount; j++) {
+//                    sketch += "<rect x=\"" + xSpacing + "\" width=\"9.7\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
+//                    sketch += "<rect x=\"" + xSpacing + "\" width=\"9.7\" height=\"" + underground + "\"" + style;
+//                    xSpacing += 50;
+//                }
+//            }
+//        }
+//        sketch += "</svg>";
+//        return sketch;
+//    }
 
     public String generateShedMeasurements(int length, int width) {
         String shed = "<h4>Venligst vælg den ønskede størrelse af dit skur.</h4>\n"
@@ -268,7 +272,7 @@ public class HTMLGenerator {
         return shed;
     }
 
-    public String createRoofTypesFlat(List<Material> roofs) {
+    public String createRoofTypesFlat(List<WoodMaterial> roofs) {
         String roof = "<h5>Tagtype:</h5>\n"
                 + "                <select name=\"roofType\">\n";
 
@@ -281,7 +285,7 @@ public class HTMLGenerator {
         return roof;
     }
 
-    public String createRoofTypesAngled(List<Material> roofs) {
+    public String createRoofTypesAngled(List<WoodMaterial> roofs) {
         String roof = "<h5>Tagtype:</h5>\n"
                 + "                <select name=\"roofType\">\n";
 
@@ -301,162 +305,232 @@ public class HTMLGenerator {
                 + "                  fill:white;\n"
                 + "                  stroke-width:1;\n"
                 + "                  stroke:rgb(0,0,0)\" />\n";
-
+        //Outer Measurements
         String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
         sketch += "<line x1=\"" + innerX + "\" y1=\"" + 0 + "\" x2=\"" + (order.getLength() + innerX) + "\" y2=\"" + 0 + "\"" + style;
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"20\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + order.getLength() + " cm</text>";
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + "\" x2=\"" + 0 + "\" y2=\"" + (order.getWidth() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + "\"" + style;
         sketch += "<text x=\"" + 20 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">bredde: " + order.getWidth() + " cm</text>";
 
-        List<MaterialDetails> list = order.getMaterials();
-        double amount = 0;
-        for (int i = 0; i < list.size(); i++) {
+        HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
 
-            //Stolper
-            if (list.get(i).getUseDescription().equals("Stolper")) {
-                amount = list.get(i).getAmount();
-                int xSpacing = 100;
-                int x = innerX;
-                int x1 = innerX;
-                int y = innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2;
-                for (int j = 0; j < amount; j++) {
-                    //Horizontal-North
-                    if (j < amount / 2) {
-                        sketch += "<--! horizontal N-->\n<rect x=\"" + x + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
-                        x += xSpacing;
-                    }
+        //Stolper
+        int xSpacing = 100;
+        int x = innerX;
+        int x1 = innerX;
+        int y = innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2;
+        double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount();
+        for (int i = 0; i < amount; i++) {
 
-                    //Horizontal-South
-                    int yPolePlacement = innerY + order.getWidth() + 25 - list.get(i).getMaterial().getTopsideWidth();
-                    if (j >= amount / 2) {
-                        sketch += "<--! horizontal S-->\n<rect x=\"" + x1 + "\"y=\"" + yPolePlacement + "\" width=\"9.7\" height=\"9.7\"" + style;
-                        x1 += xSpacing;
-                    }
-                }
+            //Horizontal-North
+            if (i < amount / 2) {
+                sketch += "<--! horizontal N-->\n<rect x=\"" + x + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
+                x += xSpacing;
             }
-            //Spær
-            if (list.get(i).getUseDescription().equals("Spær")) {
-                int xSpacing = 50;
-                int x = innerX;
-                int y = innerY;
-                for (int j = 0; j < list.get(i).getAmount(); j++) {
-                    sketch += "<rect x=\"" + x + "\" y=\"" + innerY + "\" width=\"4.5\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
-                    x += xSpacing;
-                }
+            WoodMaterial mat = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getMaterial();
+            //Horizontal-South
+            int yPolePlacement = innerY + order.getWidth() + 25 - mat.getTopsideLength();
+            if (i >= amount / 2) {
+                sketch += "<--! horizontal S-->\n<rect x=\"" + x1 + "\"y=\"" + yPolePlacement + "\" width=\"9.7\" height=\"9.7\"" + style;
+                x1 += xSpacing;
             }
-            //Remme
-            if (list.get(i).getUseDescription().equals("Remme")) {
-                int y = innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2;
-                int ySpacing = order.getWidth() + y;
-                int x = innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
-                for (int j = 0; j < list.get(i).getAmount(); j++) {
-                    sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + list.get(i).getCmLengthEach() + "\" height=\"" + list.get(i).getMaterial().getTopsideLength() + "\"" + style;
-                    y = ySpacing - list.get(i).getMaterial().getTopsideLength();
-                }
-            }
-
-           // sketch = addShedToSketch(innerX, innerY, sketch, style);
-
         }
 
+        //Spær
+        amount = materials.get("Spær").getAmount();
+        xSpacing = 50;
+        x = innerX;
+        y = innerY;
+        for (int i = 0; i < amount; i++) {
+            sketch += "<rect x=\"" + x + "\" y=\"" + innerY + "\" width=\"4.5\" height=\"" + materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getCmLengthEach() + "\"" + style;
+            x += xSpacing;
+        }
+        //Remme
+        amount = materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getAmount();
+        y = innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2;
+        int ySpacing = order.getWidth() + y;
+        x = innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
+
+        WoodMaterial mat = (WoodMaterial) materials.get("Remme").getMaterial();
+
+        for (int i = 0; i < amount; i++) {
+
+            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach() + "\" height=\"" + mat.getTopsideLength() + "\"" + style;
+            y = ySpacing - mat.getTopsideLength();
+        }
+
+        sketch += addShed(innerX, innerY, style, order.getShedLength(), order.getShedWidth(), order);
         sketch += "</svg>";
         return sketch;
     }
 
-    private String addShedToSketch(final int innerX, final int innerY, String sketch, String style) {
-        //shed
+    private String addShed(final int innerX, final int innerY, String style, int length, int width, Order order) {
+        String shed = "";
+        if (length == 0 || width == 0) {
+            return shed;
+        }
         int x = innerX;
-        int y = innerY + 25;
-        HashMap<String, List> shed = testShed();
-        double unitWidth = 1.5;
-        List north = shed.get("north");
-        List south = shed.get("south");
-        List east = shed.get("east");
-        List west = shed.get("west");
-        double xSpacing = unitWidth;
-        int length = 200; //length CM
-        int width = 100; //width CM
-        //northside
-        for (int j = 0; j < north.size(); j++) {
-            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
-            x += xSpacing;
+        int y = innerY + RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
+        //Upperleft
+        if (order.getShedPlacement().equals("UL")) {
+            //Length - N
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Length - S
+            y += width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Width - W
+            y -= width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            //Width - E
+            x += length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            return shed;
         }
-        //southside
-        x = innerX;
-        y += width;
-        for (int j = 0; j < south.size(); j++) {
-            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
-            x += xSpacing;
+        //Upperright
+        if (order.getShedPlacement().equals("UR")) {
+            //Length - N
+            x += order.getLength() - length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Length - S
+            y += width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Width - W
+            y -= width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            //Width - E
+            x += length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            return shed;
         }
-        //eastside
-        x = innerX;
-        y = innerY + 25;
-        for (int j = 0; j < east.size(); j++) {
-            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
-            y += xSpacing;
+        //Lowerright
+        if (order.getShedPlacement().equals("LR")) {
+            //Length - N
+            x += order.getLength() - length;
+            y += order.getWidth() - width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Length - S
+            y += width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Width - W
+            y -= width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            //Width - E
+            x += length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            return shed;
         }
-        //westside
-        y = innerY + 25;
-        x = innerX + length;
-        for (int j = 0; j < west.size(); j++) {
-            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
-            y += xSpacing;
+        //Lowerleft
+        if (order.getShedPlacement().equals("LL")) {
+            //Length - N
+            y += order.getWidth() - width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Length - S
+            y += width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Width - W
+            y -= width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            //Width - E
+            x += length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            return shed;
         }
-        return sketch;
-    }
-
-    //hardcoding shed to test sketch
-    public HashMap<String, List> testShed() {
-        HashMap<String, List> shed = new HashMap();
-        int length = 200; //length CM
-        int width = 100; //Width CM
-        double unitWidth = 1.5; //width CM
-
-        //north
-        List<Material> listNorth = new ArrayList();
-        int tempLength = 0;
-
-        for (int i = 0; tempLength < length; i++) {
-            Material mat = new Material(7, "25x150", "m", 60);
-            tempLength += unitWidth;
-            listNorth.add(i, mat);
-        }
-        shed.put("north", listNorth);
-        //south
-        List<Material> listSouth = new ArrayList();
-        tempLength = 0;
-
-        for (int i = 0; tempLength < length; i++) {
-            Material mat = new Material(7, "25x150", "m", 60);
-            tempLength += unitWidth;
-            listSouth.add(i, mat);
-        }
-        shed.put("south", listSouth);
-        //east
-        List<Material> listEast = new ArrayList();
-        int tempWidth = 0;
-
-        for (int i = 0; tempWidth < width; i++) {
-            Material mat = new Material(7, "25x150", "m", 60);
-            tempWidth += unitWidth;
-            listEast.add(i, mat);
-        }
-        shed.put("east", listEast);
-        //west
-        //east
-        List<Material> listWest = new ArrayList();
-        tempWidth = 0;
-
-        for (int i = 0; tempWidth < width; i++) {
-            Material mat = new Material(7, "25x150", "m", 60);
-            tempWidth += unitWidth;
-            listWest.add(i, mat);
-        }
-        shed.put("west", listWest);
-
         return shed;
     }
 
+//    private String addShedToSketch(final int innerX, final int innerY, String sketch, String style) {
+//        //shed
+//        int x = innerX;
+//        int y = innerY + 25;
+//        HashMap<String, List> shed = testShed();
+//        double unitWidth = 1.5;
+//        List north = shed.get("north");
+//        List south = shed.get("south");
+//        List east = shed.get("east");
+//        List west = shed.get("west");
+//        double xSpacing = unitWidth;
+//        int length = 200; //length CM
+//        int width = 100; //width CM
+//        //northside
+//        for (int j = 0; j < north.size(); j++) {
+//            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
+//            x += xSpacing;
+//        }
+//        //southside
+//        x = innerX;
+//        y += width;
+//        for (int j = 0; j < south.size(); j++) {
+//            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
+//            x += xSpacing;
+//        }
+//        //eastside
+//        x = innerX;
+//        y = innerY + 25;
+//        for (int j = 0; j < east.size(); j++) {
+//            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
+//            y += xSpacing;
+//        }
+//        //westside
+//        y = innerY + 25;
+//        x = innerX + length;
+//        for (int j = 0; j < west.size(); j++) {
+//            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
+//            y += xSpacing;
+//        }
+//        return sketch;
+//    }
+
+////    //hardcoding shed to test sketch
+//    public HashMap<String, List> testShed() {
+//        HashMap<String, List> shed = new HashMap();
+//        int length = 200; //length CM
+//        int width = 100; //Width CM
+//        double unitWidth = 1.5; //width CM
+//
+//        //north
+//        List<WoodMaterial> listNorth = new ArrayList();
+//        int tempLength = 0;
+//
+//        for (int i = 0; tempLength < length; i++) {
+//            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
+//            tempLength += unitWidth;
+//            listNorth.add(i, mat);
+//        }
+//        shed.put("north", listNorth);
+//        //south
+//        List<WoodMaterial> listSouth = new ArrayList();
+//        tempLength = 0;
+//
+//        for (int i = 0; tempLength < length; i++) {
+//            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
+//            tempLength += unitWidth;
+//            listSouth.add(i, mat);
+//        }
+//        shed.put("south", listSouth);
+//        //east
+//        List<WoodMaterial> listEast = new ArrayList();
+//        int tempWidth = 0;
+//
+//        for (int i = 0; tempWidth < width; i++) {
+//            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
+//            tempWidth += unitWidth;
+//            listEast.add(i, mat);
+//        }
+//        shed.put("east", listEast);
+//        //west
+//        //east
+//        List<WoodMaterial> listWest = new ArrayList();
+//        tempWidth = 0;
+//
+//        for (int i = 0; tempWidth < width; i++) {
+//            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
+//            tempWidth += unitWidth;
+//            listWest.add(i, mat);
+//        }
+//        shed.put("west", listWest);
+//
+//        return shed;
+//    }
     public String shedPlacement(Order order) {
         int innerX = 50;
         int innerY = 50;

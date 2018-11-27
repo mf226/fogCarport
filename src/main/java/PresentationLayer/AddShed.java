@@ -22,6 +22,14 @@ public class AddShed extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         Order order = (Order) request.getSession(false).getAttribute("order");
+        String placement = request.getParameter("placement");
+        String shedLength = request.getParameter("shedLength");
+        int length = Integer.parseInt(shedLength);
+        String shedWidth = request.getParameter("shedWidth");
+        int width = Integer.parseInt(shedWidth);
+        order.setShedPlacement(placement);
+        order.setShedLength(length);
+        order.setShedWidth(width);
         String table = gen.generateBOM(order);
         String sketch = gen.createSketchBirdsEyeView(order);
         request.setAttribute("table", table);
