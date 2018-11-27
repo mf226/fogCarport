@@ -402,6 +402,39 @@ public class HTMLGenerator {
             shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
             return shed;
         }
+        //Lowerright
+        if (order.getShedPlacement().equals("LR")) {
+            //Length - N
+            x += order.getLength() - length;
+            y += order.getWidth() - width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Length - S
+            y += width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Width - W
+            y -= width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            //Width - E
+            x += length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            return shed;
+        }
+        //Lowerleft
+        if (order.getShedPlacement().equals("LL")) {
+            //Length - N
+            y += order.getWidth() - width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Length - S
+            y += width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Width - W
+            y -= width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            //Width - E
+            x += length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            return shed;
+        }
         return shed;
     }
 
