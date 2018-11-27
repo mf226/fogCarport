@@ -5,6 +5,7 @@ public class Material {
     private int itemNumber;
     private String name, unit;
     private double pricePerUnit;
+    private int amountInStock;
 
     public Material(int itemNumber, String name, String unit, double price) {
         this.itemNumber = itemNumber;
