@@ -149,7 +149,7 @@ public class HTMLGenerator {
     }
 
     public String generateBOM(Order order) {
-        HashMap<String, WoodDetails> materialsWood = order.getWoodMaterials();
+        HashMap<String, WoodDetails> materialsWood = order.getCarportWoodMaterials();
         String table = "<table id=\"BillOfMaterials\">\n"
                 + "            <thead>\n"
                 + "            <tr>\n"
@@ -177,7 +177,7 @@ public class HTMLGenerator {
             table += "</tr>";
 
         }
-        HashMap<String, MetalDetails> materialsMetal = order.getMetalMaterials();
+        HashMap<String, MetalDetails> materialsMetal = order.getCarportMetalMaterials();
 
         for (Map.Entry<String, MetalDetails> mapMetal : materialsMetal.entrySet()) {
             table += "<tr>";
@@ -312,7 +312,7 @@ public class HTMLGenerator {
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + "\" x2=\"" + 0 + "\" y2=\"" + (order.getWidth() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + "\"" + style;
         sketch += "<text x=\"" + 20 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">bredde: " + order.getWidth() + " cm</text>";
 
-        HashMap<String, WoodDetails> materials = order.getWoodMaterials();
+        HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
 
         //Stolper
         int xSpacing = 100;
@@ -359,9 +359,50 @@ public class HTMLGenerator {
             y = ySpacing - mat.getTopsideLength();
         }
 
-        // sketch = addShedToSketch(innerX, innerY, sketch, style);
+        sketch += addShed(innerX, innerY, style, order.getShedLength(), order.getShedWidth(), order);
         sketch += "</svg>";
         return sketch;
+    }
+
+    private String addShed(final int innerX, final int innerY, String style, int length, int width, Order order) {
+        String shed = "";
+        if (length == 0 || width == 0) {
+            return shed;
+        }
+        int x = innerX;
+        int y = innerY + RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
+        //Upperleft
+        if (order.getShedPlacement().equals("UL")) {
+            //Length - N
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Length - S
+            y += width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Width - W
+            y -= width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            //Width - E
+            x += length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            return shed;
+        }
+        //Upperright
+        if (order.getShedPlacement().equals("UR")) {
+            //Length - N
+            x += order.getLength() - length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Length - S
+            y += width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + 0.25 + "\"" + style;
+            //Width - W
+            y -= width;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            //Width - E
+            x += length;
+            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + 0.25 + "\" height=\"" + width + "\"" + style;
+            return shed;
+        }
+        return shed;
     }
 
 //    private String addShedToSketch(final int innerX, final int innerY, String sketch, String style) {
@@ -405,7 +446,7 @@ public class HTMLGenerator {
 //        }
 //        return sketch;
 //    }
-//
+
 ////    //hardcoding shed to test sketch
 //    public HashMap<String, List> testShed() {
 //        HashMap<String, List> shed = new HashMap();

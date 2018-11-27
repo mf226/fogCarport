@@ -46,24 +46,24 @@ public class LogicFacade {
         double postsAmount = createPosts(order);
         WoodMaterial concrete = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
         double concreteAmount = Calculators.concreteAmountCalc(postsAmount);
-        order.getWoodMaterials().put(RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION, new WoodDetails(concrete, concreteAmount, 0));
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION, new WoodDetails(concrete, concreteAmount, 0));
         WoodMaterial mount = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_MOUNT);
         double postMountAmount = Calculators.mountPerPost(postsAmount);
-        order.getWoodMaterials().put(RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION, new WoodDetails(mount, postMountAmount, 0));
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION, new WoodDetails(mount, postMountAmount, 0));
         
         double rafterMountAmount = Calculators.mountPerRafter(bottomRafterAmount);
-        order.getWoodMaterials().put(RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION, new WoodDetails(mount, rafterMountAmount, 0));
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION, new WoodDetails(mount, rafterMountAmount, 0));
         
         WoodMaterial rem = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
         double remLength = Calculators.remLengthCalc(order.getLength());
-        order.getWoodMaterials().put(RulesAndConstants.CARPORT_REM_DESCRIPTION, new WoodDetails(rem, 2, remLength));
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_REM_DESCRIPTION, new WoodDetails(rem, 2, remLength));
     }
 
     private static double createFlatRoofRafters(Order order) throws LoginSampleException {
         WoodMaterial rafter = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double raftersAmount = Calculators.flatRoofRafterAmountCalc(order.getLength());
         double cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
-        order.getWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON, new WoodDetails(rafter, raftersAmount, cmLengthEach));
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON, new WoodDetails(rafter, raftersAmount, cmLengthEach));
         return raftersAmount;
     }
 
@@ -71,7 +71,7 @@ public class LogicFacade {
         WoodMaterial post = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_POSTS);
         double postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
         double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
-        order.getWoodMaterials().put(RulesAndConstants.CARPORT_POSTS_DESCRIPTION, new WoodDetails(post, postsAmount, cmLengthEach ));
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_POSTS_DESCRIPTION, new WoodDetails(post, postsAmount, cmLengthEach ));
 
         return postsAmount;
     }
@@ -80,11 +80,11 @@ public class LogicFacade {
         WoodMaterial rafter = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double bottomRafterAmount = Calculators.angledRoofRafterBottomAmountCalc(order.getLength());
         double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
-        order.getWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION, new WoodDetails(rafter, bottomRafterAmount, cmLengthEachBottomRafter));
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION, new WoodDetails(rafter, bottomRafterAmount, cmLengthEachBottomRafter));
 
         double sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
         double cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), roofAngle);
-        order.getWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION, new WoodDetails(rafter, sideRafterAmount, cmLengthEachSideRafter));
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION, new WoodDetails(rafter, sideRafterAmount, cmLengthEachSideRafter));
         
         return bottomRafterAmount;
     }

@@ -15,28 +15,91 @@ public class Order {
     private int height;
     private int angle;
 
-    private static HashMap<String, WoodDetails> woodMaterials;
-    private static HashMap<String, MetalDetails> metalMaterials;
+    private int shedLength;
+
+    private int shedWidth;
+
+    private static HashMap<String, WoodDetails> carportWoodMaterials;
+    private static HashMap<String, MetalDetails> carportMetalMaterials;
+    private static HashMap<String, WoodDetails> shedWoodMaterials;
+    private static HashMap<String, MetalDetails> shedMetalMaterials;
     private int userID;
+
+    private String shedPlacement;
 
     public Order(int length, int width, int height, int angle) {
         this.length = length;
         this.width = width;
         this.height = height;
         this.angle = angle;
-        this.woodMaterials = new HashMap();
-        this.metalMaterials = new HashMap();
+        this.carportWoodMaterials = new HashMap();
+        this.carportMetalMaterials = new HashMap();
+        this.shedWoodMaterials = null;
+        this.shedMetalMaterials = null;
+        this.shedPlacement = null;
+        this.shedLength = 0;
+        this.shedWidth = 0;
+    }
+
+    public String getShedPlacement() {
+        return shedPlacement;
+    }
+
+    public void setShedPlacement(String shedPlacement) {
+        this.shedPlacement = shedPlacement;
+    }
+    
+    
+    public int getShedLength() {
+        return shedLength;
+    }
+
+    public void setShedLength(int shedLength) {
+        this.shedLength = shedLength;
+    }
+
+    public int getShedWidth() {
+        return shedWidth;
+    }
+
+    public void setShedWidth(int shedWidth) {
+        this.shedWidth = shedWidth;
+    }
+
+    public static HashMap<String, WoodDetails> getShedWoodMaterials() {
+        return shedWoodMaterials;
+    }
+
+    public static void setShedWoodMaterials(HashMap<String, WoodDetails> shedWoodMaterials) {
+        Order.shedWoodMaterials = shedWoodMaterials;
+    }
+
+    public static HashMap<String, MetalDetails> getShedMetalMaterials() {
+        return shedMetalMaterials;
+    }
+
+    public static void setShedMetalMaterials(HashMap<String, MetalDetails> shedMetalMaterials) {
+        Order.shedMetalMaterials = shedMetalMaterials;
     }
 
     public double getTotalOrderPrice() {
         double totalOrderPrice = 0;
-        for (WoodDetails wd : woodMaterials.values()) {
+        for (WoodDetails wd : carportWoodMaterials.values()) {
             totalOrderPrice += wd.getTotalItemPrice();
         }
-        for (MetalDetails md : metalMaterials.values()) {
+        for (MetalDetails md : carportMetalMaterials.values()) {
             totalOrderPrice += md.getTotalItemPrice();
         }
-
+        if (shedWoodMaterials != null) {
+            for (WoodDetails wd : shedWoodMaterials.values()) {
+                totalOrderPrice += wd.getTotalItemPrice();
+            }
+        }
+        if (shedMetalMaterials != null) {
+            for (MetalDetails md : shedMetalMaterials.values()) {
+                totalOrderPrice += md.getTotalItemPrice();
+            }
+        }
         return totalOrderPrice;
     }
 
@@ -72,12 +135,12 @@ public class Order {
         this.height = height;
     }
 
-    public HashMap<String, WoodDetails> getWoodMaterials() {
-        return woodMaterials;
+    public HashMap<String, WoodDetails> getCarportWoodMaterials() {
+        return carportWoodMaterials;
     }
-    
-    public HashMap<String, MetalDetails> getMetalMaterials() {
-        return metalMaterials;
+
+    public HashMap<String, MetalDetails> getCarportMetalMaterials() {
+        return carportMetalMaterials;
     }
 
 }
