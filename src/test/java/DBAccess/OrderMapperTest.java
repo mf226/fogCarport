@@ -5,6 +5,9 @@
  */
 package DBAccess;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,29 +20,33 @@ import static org.junit.Assert.*;
  * @author porse
  */
 public class OrderMapperTest {
-    
-    public OrderMapperTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
+    private static final String URL = "jdbc:mysql://104.248.17.255:3306/FogDB";
+    private static final String USERNAME = "transformer";
+    private static final String PASSWORD = "transformerpass";
+
+    private static Connection singleton;
+
     @Before
     public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+        try {
+            //awoid making a new connection for each test
+            if (singleton == null) {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                singleton = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                //Make mappers use test 
+                Connector.setConnection(singleton);
+            }
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            singleton = null;
+            System.out.println("Could not open connection to database: " + ex.getMessage());
+        }
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void testsetUp() {
+        assertNotNull(singleton);
+    }
 }

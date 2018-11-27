@@ -49,9 +49,9 @@ public class MaterialMapperTest {
     public void testsetUp() {
         assertNotNull(singleton);
     }
-    
+
     @Test
     public void testgetMaterial() {
-        
+
     }
 }
