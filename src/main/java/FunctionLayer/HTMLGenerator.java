@@ -149,7 +149,7 @@ public class HTMLGenerator {
     }
 
     public String generateBOM(Order order) {
-        HashMap<String, WoodDetails> materials = order.getWoodMaterials();
+        HashMap<String, WoodDetails> materialsWood = order.getWoodMaterials();
         String table = "<table id=\"BillOfMaterials\">\n"
                 + "            <thead>\n"
                 + "            <tr>\n"
@@ -164,20 +164,34 @@ public class HTMLGenerator {
                 + "            </tr>\n"
                 + "            </thead>\n";
 
-        for (Map.Entry<String, WoodDetails> map : materials.entrySet()) {
+        for (Map.Entry<String, WoodDetails> mapWood : materialsWood.entrySet()) {
             table += "<tr>";
-            table += "<td>" + map.getKey() + "</td>";
-            table += "<td>" + map.getValue().getMaterial().getItemNumber() + "</td>";
-            table += "<td>" + map.getValue().getMaterial().getName() + "</td>";
-            table += "<td>" + map.getValue().getCmLengthEach() + "</td>";
-            table += "<td>" + map.getValue().getMaterial().getUnit() + "</td>";
-            table += "<td>" + map.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
-            table += "<td>" + map.getValue().getAmount() + "</td>";
-            table += "<td>" + map.getValue().getTotalItemPrice() + "  kr </td>";
+            table += "<td>" + mapWood.getKey() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getItemNumber() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getName() + "</td>";
+            table += "<td>" + mapWood.getValue().getCmLengthEach() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getUnit() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
+            table += "<td>" + mapWood.getValue().getAmount() + "</td>";
+            table += "<td>" + mapWood.getValue().getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
 
         }
+        HashMap<String, MetalDetails> materialsMetal = order.getMetalMaterials();
 
+        for (Map.Entry<String, MetalDetails> mapMetal : materialsMetal.entrySet()) {
+            table += "<tr>";
+            table += "<td>" + mapMetal.getKey() + "</td>";
+            table += "<td>" + mapMetal.getValue().getMaterial().getItemNumber() + "</td>";
+            table += "<td>" + mapMetal.getValue().getMaterial().getName() + "</td>";
+            table += "<td></td>";
+            table += "<td>" + mapMetal.getValue().getMaterial().getUnit() + "</td>";
+            table += "<td>" + mapMetal.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
+            table += "<td>" + mapMetal.getValue().getAmount() + "</td>";
+            table += "<td>" + mapMetal.getValue().getTotalItemPrice() + "  kr </td>";
+            table += "</tr>";
+
+        }
         table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
         return table;
@@ -443,7 +457,6 @@ public class HTMLGenerator {
 //
 //        return shed;
 //    }
-
     public String shedPlacement(Order order) {
         int innerX = 50;
         int innerY = 50;
