@@ -19,6 +19,7 @@ public class RulesAndConstants {
     //STK
     public final static int MOUNT_PER_POST = 1;
     public final static int MOUNT_PER_RAFTER = 2;
+    public final static int SCREWS_PER_MOUNT = 4;
     
     
     //Preferred materials from DB for, as their itemNumber in DB
@@ -39,9 +40,7 @@ public class RulesAndConstants {
     public final static String CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION = "Bund spær";
     public final static String CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION = "Side spær";
     public final static String CARPORT_POSTS_DESCRIPTION = "Stolper";
-    
-            
-            
+        
     public final static String SHED_POST_DESCRIPTION = "Skur stolper";
     
 }

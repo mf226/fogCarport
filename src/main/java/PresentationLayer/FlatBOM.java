@@ -7,8 +7,8 @@ package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
-import FunctionLayer.Material;
-import FunctionLayer.MaterialDetails;
+import FunctionLayer.WoodMaterial;
+import FunctionLayer.WoodDetails;
 import FunctionLayer.Order;
 import java.util.ArrayList;
 import java.util.List;

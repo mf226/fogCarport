@@ -148,7 +148,7 @@ public class HTMLGenerator {
     }
 
     public String generateBOM(Order order) {
-        List<MaterialDetails> materials = order.getMaterials();
+        List<WoodDetails> materials = order.getMaterials();
         String table = "<table id=\"BillOfMaterials\">\n"
                 + "            <thead>\n"
                 + "            <tr>\n"
@@ -170,7 +170,7 @@ public class HTMLGenerator {
             table += "<td>" + materials.get(i).getMaterial().getName() + "</td>";
             table += "<td>" + materials.get(i).getCmLengthEach() + "</td>";
             table += "<td>" + materials.get(i).getMaterial().getUnit() + "</td>";
-            table += "<td>" + materials.get(i).getMaterial().getPrice() + "  kr </td>";
+            table += "<td>" + materials.get(i).getMaterial().getPricePerUnit() + "  kr </td>";
             table += "<td>" + materials.get(i).getAmount() + "</td>";
             table += "<td>" + materials.get(i).getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
@@ -180,8 +180,8 @@ public class HTMLGenerator {
         return table;
     }
 
-    public HashMap convertToMap(List<MaterialDetails> materials) {
-        HashMap<String, MaterialDetails> map = new HashMap();
+    public HashMap convertToMap(List<WoodDetails> materials) {
+        HashMap<String, WoodDetails> map = new HashMap();
         for (int i = 0; i < materials.size(); i++) {
             if (materials.get(i).getUseDescription().equals("Stolper")) {
                 map.put("Stolper", materials.get(i));
@@ -200,7 +200,7 @@ public class HTMLGenerator {
                 + "                  stroke-width:1;\n"
                 + "                  stroke:rgb(0,0,0)\" />\n";
 
-        List<MaterialDetails> list = order.getMaterials();
+        List<WoodDetails> list = order.getMaterials();
         double amount = 0;
         for (int i = 0; i < list.size(); i++) {
             //Stolper
@@ -268,7 +268,7 @@ public class HTMLGenerator {
         return shed;
     }
 
-    public String createRoofTypesFlat(List<Material> roofs) {
+    public String createRoofTypesFlat(List<WoodMaterial> roofs) {
         String roof = "<h5>Tagtype:</h5>\n"
                 + "                <select name=\"roofType\">\n";
 
@@ -281,7 +281,7 @@ public class HTMLGenerator {
         return roof;
     }
 
-    public String createRoofTypesAngled(List<Material> roofs) {
+    public String createRoofTypesAngled(List<WoodMaterial> roofs) {
         String roof = "<h5>Tagtype:</h5>\n"
                 + "                <select name=\"roofType\">\n";
 
@@ -308,7 +308,7 @@ public class HTMLGenerator {
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + "\" x2=\"" + 0 + "\" y2=\"" + (order.getWidth() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + "\"" + style;
         sketch += "<text x=\"" + 20 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">bredde: " + order.getWidth() + " cm</text>";
 
-        List<MaterialDetails> list = order.getMaterials();
+        List<WoodDetails> list = order.getMaterials();
         double amount = 0;
         for (int i = 0; i < list.size(); i++) {
 
@@ -413,42 +413,42 @@ public class HTMLGenerator {
         double unitWidth = 1.5; //width CM
 
         //north
-        List<Material> listNorth = new ArrayList();
+        List<WoodMaterial> listNorth = new ArrayList();
         int tempLength = 0;
 
         for (int i = 0; tempLength < length; i++) {
-            Material mat = new Material(7, "25x150", "m", 60);
+            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
             tempLength += unitWidth;
             listNorth.add(i, mat);
         }
         shed.put("north", listNorth);
         //south
-        List<Material> listSouth = new ArrayList();
+        List<WoodMaterial> listSouth = new ArrayList();
         tempLength = 0;
 
         for (int i = 0; tempLength < length; i++) {
-            Material mat = new Material(7, "25x150", "m", 60);
+            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
             tempLength += unitWidth;
             listSouth.add(i, mat);
         }
         shed.put("south", listSouth);
         //east
-        List<Material> listEast = new ArrayList();
+        List<WoodMaterial> listEast = new ArrayList();
         int tempWidth = 0;
 
         for (int i = 0; tempWidth < width; i++) {
-            Material mat = new Material(7, "25x150", "m", 60);
+            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
             tempWidth += unitWidth;
             listEast.add(i, mat);
         }
         shed.put("east", listEast);
         //west
         //east
-        List<Material> listWest = new ArrayList();
+        List<WoodMaterial> listWest = new ArrayList();
         tempWidth = 0;
 
         for (int i = 0; tempWidth < width; i++) {
-            Material mat = new Material(7, "25x150", "m", 60);
+            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
             tempWidth += unitWidth;
             listWest.add(i, mat);
         }

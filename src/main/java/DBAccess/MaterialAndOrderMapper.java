@@ -1,7 +1,7 @@
 package DBAccess;
 
 import FunctionLayer.LoginSampleException;
-import FunctionLayer.Material;
+import FunctionLayer.WoodMaterial;
 import FunctionLayer.Order;
 import FunctionLayer.User;
 import java.sql.Connection;
@@ -21,9 +21,9 @@ import java.util.logging.Logger;
  */
 public class MaterialAndOrderMapper {
 
-    public static List<Material> getAllMaterials() throws LoginSampleException {
+    public static List<WoodMaterial> getAllMaterials() throws LoginSampleException {
         try {
-            ArrayList<Material> materials = new ArrayList();
+            ArrayList<WoodMaterial> materials = new ArrayList();
             Connection con = Connector.connection();
             String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials;";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -34,7 +34,7 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
-                materials.add(new Material(itemNumber, materialName, unit, price));
+                materials.add(new WoodMaterial(itemNumber, materialName, unit, price, 0)); //Hardcoded 0 till DB changed
             }
             return materials;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -42,7 +42,7 @@ public class MaterialAndOrderMapper {
         }
     }
 
-    public static Material getMaterial(int itemNumber) throws LoginSampleException {
+    public static WoodMaterial getMaterial(int itemNumber) throws LoginSampleException {
         try {
 
             Connection con = Connector.connection();
@@ -56,7 +56,7 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
-                return new Material(itemNumber, materialName, unit, price);
+                return new WoodMaterial(itemNumber, materialName, unit, price, 0); // hardcoded 0 till DB is changed
             } else {
                 throw new LoginSampleException("Material doesn't exist.");
             }
@@ -120,9 +120,9 @@ public class MaterialAndOrderMapper {
 
     }
 
-    public static List<Material> getAngledRoofMat() throws LoginSampleException {
+    public static List<WoodMaterial> getAngledRoofMat() throws LoginSampleException {
         try {
-            ArrayList<Material> material = new ArrayList();
+            ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
             String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Tagbelægning';";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -133,7 +133,7 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
-                material.add(new Material(itemNumber, materialName, unit, price));
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0)); //hardcoded 0 till database is changed
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -142,9 +142,9 @@ public class MaterialAndOrderMapper {
 
     }
     
-    public static List<Material> getSideMat() throws LoginSampleException{
+    public static List<WoodMaterial> getSideMat() throws LoginSampleException{
         try {
-            ArrayList<Material> material = new ArrayList();
+            ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
             String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Beklædning'";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -155,7 +155,7 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
-                material.add(new Material(itemNumber, materialName, unit, price));
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0)); //Hardcoded 0 till DB fixed
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -163,9 +163,9 @@ public class MaterialAndOrderMapper {
         }
     }
     
-    public static List<Material> getFlatRoofMat() throws LoginSampleException {
+    public static List<WoodMaterial> getFlatRoofMat() throws LoginSampleException {
         try {
-            ArrayList<Material> material = new ArrayList();
+            ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
             String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Tag';";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -176,7 +176,7 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
-                material.add(new Material(itemNumber, materialName, unit, price));
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0)); //Hardcoded 0 till DB is fixed
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {

@@ -1,6 +1,7 @@
 package FunctionLayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,8 +15,8 @@ public class Order {
     private int height;
     private int angle;
 
-    private String description;
-    private ArrayList<MaterialDetails> materials;
+    private static HashMap<String, WoodDetails> woodMaterials;
+    private static HashMap<String, MetalDetails> metalMaterials;
     private int userID;
 
     public Order(int length, int width, int height, int angle) {
@@ -23,23 +24,19 @@ public class Order {
         this.width = width;
         this.height = height;
         this.angle = angle;
-        this.description = "Carport længde*bredde*højde: " + length + "*" + width + "*" + height;
-        this.materials = new ArrayList();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+        this.woodMaterials = new HashMap();
+        this.metalMaterials = new HashMap();
     }
 
     public double getTotalOrderPrice() {
         double totalOrderPrice = 0;
-        for (int i = 0; i < materials.size(); i++) {
-            totalOrderPrice += materials.get(i).getTotalItemPrice();
+        for (WoodDetails wd : woodMaterials.values()) {
+            totalOrderPrice += wd.getTotalItemPrice();
         }
+        for (MetalDetails md : metalMaterials.values()) {
+            totalOrderPrice += md.getTotalItemPrice();
+        }
+
         return totalOrderPrice;
     }
 
@@ -75,12 +72,12 @@ public class Order {
         this.height = height;
     }
 
-    public List<MaterialDetails> getMaterials() {
-        return materials;
+    public HashMap<String, WoodDetails> getWoodMaterials() {
+        return woodMaterials;
     }
-
-    public void setMaterials(ArrayList<MaterialDetails> materials) {
-        this.materials = materials;
+    
+    public HashMap<String, MetalDetails> getMetalMaterials() {
+        return metalMaterials;
     }
 
 }

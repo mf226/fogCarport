@@ -7,7 +7,7 @@ package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
-import FunctionLayer.Material;
+import FunctionLayer.WoodMaterial;
 import static PresentationLayer.Command.gen;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ public class MeasurementAngled extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-        List<Material> roofs = LogicFacade.getAngledroofs();
+        List<WoodMaterial> roofs = LogicFacade.getAngledroofs();
         String roof = gen.createRoofTypesAngled(roofs);
         request.setAttribute("roof", roof);
         return "measurementsAngled";
