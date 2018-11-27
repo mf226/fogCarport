@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DBAccess.FunctionLayerTest;
+package FunctionLayerTest;
 
 import FunctionLayer.Calculators;
 import org.junit.After;

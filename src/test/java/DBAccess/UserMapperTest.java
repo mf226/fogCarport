@@ -17,24 +17,24 @@ public class UserMapperTest {
 //    (2,'ken@somewhere.com','kensen','customer'),
 //    (3,'robin@somewhere.com','batman','employee'),
 //    (4,'someone@nowhere.com','sesam','customer');
+ 
+    private static final String URL = "jdbc:mysql://104.248.17.255:3306/FogDB";
+    private static final String USERNAME = "transformer";
+    private static final String PASSWORD = "transformerpass";
 
-    private static Connection testConnection;
-    private static String USER = "transformer";
-    private static String USERPW = "transformerpass";
-    private static String DBNAME = "FogDB";
-    private static String HOST = "104.248.17.255";
-
+    private static Connection singleton;
+    
     @Before
     public void setUp() {
         try {
              //awoid making a new connection for each test
-            if ( testConnection == null ) {
-                String url = String.format( "jdbc:mysql://%s:3306/%s", HOST, DBNAME );
+            if ( singleton == null ) {
+                String url = String.format( URL, USERNAME, PASSWORD );
                 Class.forName( "com.mysql.cj.jdbc.Driver" );
 
-                testConnection = DriverManager.getConnection( url, USER, USERPW );
+                singleton = DriverManager.getConnection( URL, USERNAME, PASSWORD  );
                  //Make mappers use test 
-                Connector.setConnection( testConnection );
+                Connector.setConnection( singleton );
             }
 //             //reset test database
 //            try ( Statement stmt = testConnection.createStatement() ) {
@@ -44,7 +44,7 @@ public class UserMapperTest {
 //            }
 
         } catch ( ClassNotFoundException | SQLException ex ) {
-            testConnection = null;
+            singleton = null;
             System.out.println( "Could not open connection to database: " + ex.getMessage() );
         }
     }
@@ -52,7 +52,7 @@ public class UserMapperTest {
     @Test
     public void testSetUpOK() {
          //Just check that we have a connection.
-        assertNotNull( testConnection );
+        assertNotNull( singleton );
     }
 
     @Test
@@ -82,6 +82,6 @@ public class UserMapperTest {
         User user = new User( "king@kong.com", "uhahvorhemmeligt" );
         UserMapper.createUser( user );
         User retrieved = UserMapper.login( "king@kong.com", "uhahvorhemmeligt" );
-        assertEquals( "customer", retrieved.getRole() );
+        assertEquals( "CUSTOMER", retrieved.getRole() );
     }
 }
