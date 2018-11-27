@@ -46,32 +46,21 @@ public class LogicFacade {
         double postsAmount = createPosts(order);
         MetalMaterial concrete = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
         double concreteAmount = Calculators.concreteAmountCalc(postsAmount);
-<<<<<<< HEAD
-        order.getMetalMaterials().put(RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION, new MetalDetails(concrete, concreteAmount));
+
+        order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION, new MetalDetails(concrete, concreteAmount));
         
         MetalMaterial mount = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_MOUNT);
         double postMountAmount = Calculators.mountPerPost(postsAmount);
-        order.getMetalMaterials().put(RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION, new MetalDetails(mount, postMountAmount));
+        order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION, new MetalDetails(mount, postMountAmount));
         
         double rafterMountAmount = Calculators.mountPerRafter(bottomRafterAmount);
-        order.getMetalMaterials().put(RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION, new MetalDetails(mount, rafterMountAmount));
-=======
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION, new WoodDetails(concrete, concreteAmount, 0));
-        WoodMaterial mount = MaterialAndOrderMapper.getMaterial(RulesAndConstants.PREFERRED_MATERIAL_MOUNT);
-        double postMountAmount = Calculators.mountPerPost(postsAmount);
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION, new WoodDetails(mount, postMountAmount, 0));
-        
-        double rafterMountAmount = Calculators.mountPerRafter(bottomRafterAmount);
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION, new WoodDetails(mount, rafterMountAmount, 0));
->>>>>>> Jonatan
+        order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION, new MetalDetails(mount, rafterMountAmount));
         
         WoodMaterial rem = MaterialAndOrderMapper.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
         double remLength = Calculators.remLengthCalc(order.getLength());
-<<<<<<< HEAD
-        order.getWoodMaterials().put(RulesAndConstants.CARPORT_REM_DESCRIPTION, new WoodDetails(rem, 2, remLength)); //There are always 2 REMME
-=======
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_REM_DESCRIPTION, new WoodDetails(rem, 2, remLength));
->>>>>>> Jonatan
+
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_REM_DESCRIPTION, new WoodDetails(rem, 2, remLength)); //There are always 2 REMME
+
     }
 
     private static double createFlatRoofRafters(Order order) throws LoginSampleException {
