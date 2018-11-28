@@ -196,35 +196,9 @@ public class HTMLGenerator {
         table += "</table>";
         return table;
     }
-//
-//    public String createSketchSideView(Order order) {
-//        String sketch = "<svg width=\"" + order.getWidth() + "\" height=\"" + order.getHeight() * 2 + "\" scale>\n";
-//        String style = "style=\"\n"
-//                + "                  fill:white;\n"
-//                + "                  stroke-width:1;\n"
-//                + "                  stroke:rgb(0,0,0)\" />\n";
-//
-//        List<WoodDetails> list = order.getMaterials();
-//        double amount = 0;
-//        for (int i = 0; i < list.size(); i++) {
-//            //Stolper
-//            if (list.get(i).getUseDescription().equals("Stolper")) {
-//                amount = (list.get(i).getAmount() - 2) / 2; //Stolperne fra forsiden og bagsiden fratrækkes
-//                int xSpacing = 0;
-//                double underground = list.get(i).getCmLengthEach() - 90;
-//
-//                for (int j = 0; j < amount; j++) {
-//                    sketch += "<rect x=\"" + xSpacing + "\" width=\"9.7\" height=\"" + list.get(i).getCmLengthEach() + "\"" + style;
-//                    sketch += "<rect x=\"" + xSpacing + "\" width=\"9.7\" height=\"" + underground + "\"" + style;
-//                    xSpacing += 50;
-//                }
-//            }
-//        }
-//        sketch += "</svg>";
-//        return sketch;
-//    }
 
-    public String generateShedMeasurements(int length, int width) {
+    public String generateShedMeasurements(int length, int width, List<WoodMaterial> sideMat) {
+
         String shed = "<h4>Venligst vælg den ønskede størrelse af dit skur.</h4>\n"
                 + "            <form action=\"FrontController\" method=\"POST\">\n"
                 + "                <h5>Længde: </h5>\n"
@@ -245,8 +219,10 @@ public class HTMLGenerator {
         }
         shed += "<option value=\"" + width + "\">" + width + " cm</option>";
 
-        shed += "</select>\n"
-                + "<h4>Vælg hvor dit skur skal placeres</h4>\n"
+        shed += "</select>\n";
+        
+        shed += sideMaterial(sideMat);
+        shed += "<h4>Vælg hvor dit skur skal placeres</h4>\n"
                 + "         <div class=\"shedPlacements\">\n"
                 + "         <div class=\"upperleft\" style=\"height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input type=\"radio\" name=\"placement\" value=UL>"
@@ -283,6 +259,18 @@ public class HTMLGenerator {
         roof += "</select>";
 
         return roof;
+    }
+
+    public String sideMaterial(List<WoodMaterial> sideMat) {
+        String matType = "<h5>Beklædningstype</h5>\n"
+                + "<select name=\"sideMat\">\n";
+
+        for (int i = 0; i < sideMat.size(); i++) {
+            matType += "<option value=\"" + sideMat.get(i).getName() + "\">" + sideMat.get(i).getName() + "</option>\n";
+
+        }
+        matType += "</select>";
+        return matType;
     }
 
     public String createRoofTypesAngled(List<WoodMaterial> roofs) {
@@ -438,99 +426,6 @@ public class HTMLGenerator {
         return shed;
     }
 
-//    private String addShedToSketch(final int innerX, final int innerY, String sketch, String style) {
-//        //shed
-//        int x = innerX;
-//        int y = innerY + 25;
-//        HashMap<String, List> shed = testShed();
-//        double unitWidth = 1.5;
-//        List north = shed.get("north");
-//        List south = shed.get("south");
-//        List east = shed.get("east");
-//        List west = shed.get("west");
-//        double xSpacing = unitWidth;
-//        int length = 200; //length CM
-//        int width = 100; //width CM
-//        //northside
-//        for (int j = 0; j < north.size(); j++) {
-//            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
-//            x += xSpacing;
-//        }
-//        //southside
-//        x = innerX;
-//        y += width;
-//        for (int j = 0; j < south.size(); j++) {
-//            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
-//            x += xSpacing;
-//        }
-//        //eastside
-//        x = innerX;
-//        y = innerY + 25;
-//        for (int j = 0; j < east.size(); j++) {
-//            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
-//            y += xSpacing;
-//        }
-//        //westside
-//        y = innerY + 25;
-//        x = innerX + length;
-//        for (int j = 0; j < west.size(); j++) {
-//            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + unitWidth + "\" height=\"" + 0.25 + "\"" + style;
-//            y += xSpacing;
-//        }
-//        return sketch;
-//    }
-
-////    //hardcoding shed to test sketch
-//    public HashMap<String, List> testShed() {
-//        HashMap<String, List> shed = new HashMap();
-//        int length = 200; //length CM
-//        int width = 100; //Width CM
-//        double unitWidth = 1.5; //width CM
-//
-//        //north
-//        List<WoodMaterial> listNorth = new ArrayList();
-//        int tempLength = 0;
-//
-//        for (int i = 0; tempLength < length; i++) {
-//            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
-//            tempLength += unitWidth;
-//            listNorth.add(i, mat);
-//        }
-//        shed.put("north", listNorth);
-//        //south
-//        List<WoodMaterial> listSouth = new ArrayList();
-//        tempLength = 0;
-//
-//        for (int i = 0; tempLength < length; i++) {
-//            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
-//            tempLength += unitWidth;
-//            listSouth.add(i, mat);
-//        }
-//        shed.put("south", listSouth);
-//        //east
-//        List<WoodMaterial> listEast = new ArrayList();
-//        int tempWidth = 0;
-//
-//        for (int i = 0; tempWidth < width; i++) {
-//            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
-//            tempWidth += unitWidth;
-//            listEast.add(i, mat);
-//        }
-//        shed.put("east", listEast);
-//        //west
-//        //east
-//        List<WoodMaterial> listWest = new ArrayList();
-//        tempWidth = 0;
-//
-//        for (int i = 0; tempWidth < width; i++) {
-//            WoodMaterial mat = new WoodMaterial(7, "25x150", "m", 60);
-//            tempWidth += unitWidth;
-//            listWest.add(i, mat);
-//        }
-//        shed.put("west", listWest);
-//
-//        return shed;
-//    }
     public String shedPlacement(Order order) {
         int innerX = 50;
         int innerY = 50;

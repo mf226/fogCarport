@@ -28,15 +28,15 @@ public class LogicFacade {
         return MaterialAndOrderMapper.getFlatRoofMat();
     }
 
-    public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
-        Order order = new Order(length, width, height, roofAngle);
+    public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle, String roofType) throws LoginSampleException {
+        Order order = new Order(length, width, height, roofAngle, roofType);
         double amountOfRafters = createFlatRoofRafters(order);
         createRestOfCarport(order, amountOfRafters);
         return order;
     }
 
-    public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle) throws LoginSampleException {
-        Order order = new Order(length, width, height, roofAngle);
+    public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle, String roofType) throws LoginSampleException {
+        Order order = new Order(length, width, height, roofAngle, roofType);
         double amountOfRafters = createAngledRoofRafters(order, roofAngle);
         createRestOfCarport(order, amountOfRafters);
         return order;
@@ -91,6 +91,10 @@ public class LogicFacade {
         order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION, new WoodDetails(rafter, sideRafterAmount, cmLengthEachSideRafter));
         
         return bottomRafterAmount;
+    }
+
+    public static List<WoodMaterial> getSideMaterials() throws LoginSampleException {
+       return MaterialAndOrderMapper.getSideMat();
     }
 
 }

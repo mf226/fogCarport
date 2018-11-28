@@ -8,8 +8,10 @@ package PresentationLayer;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
+import FunctionLayer.WoodMaterial;
 import static PresentationLayer.Command.gen;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,14 +31,17 @@ public class AngledBOM extends Command {
         int l = Integer.parseInt(length);
         String angle = request.getParameter("angle");
         int a = Integer.parseInt(angle);
-        Order order = LogicFacade.createAngledRoofCarport(l, w, h, a);
+        String roofType = request.getParameter("roofType");
+        Order order = LogicFacade.createAngledRoofCarport(l, w, h, a, roofType);
         
         String check = request.getParameter("skur");
 
         if (check != null) {
+            List<WoodMaterial> sideMat = LogicFacade.getSideMaterials();
             request.getSession(false).setAttribute("order", order);
             String shedSketch = gen.shedPlacement(order);
-            String shedOptions = gen.generateShedMeasurements(l, w);
+            String shedOptions = gen.generateShedMeasurements(l, w, sideMat);
+
             request.setAttribute("shedOptions", shedOptions);
             request.setAttribute("shedSketch", shedSketch);
             return "shedpage";
