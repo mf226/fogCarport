@@ -14,6 +14,7 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+        this.role = Role.CUSTOMER;
     }
 
     public User(int id, String email, String password, Role role) {
