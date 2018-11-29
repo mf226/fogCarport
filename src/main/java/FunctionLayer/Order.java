@@ -28,6 +28,8 @@ public class Order {
     private String shedPlacement;
     private String roofType;
     
+    private boolean shedExists;
+    
     public Order(int length, int width, int height, int angle, String roofType) {
         this.length = length;
         this.width = width;
@@ -41,6 +43,7 @@ public class Order {
         this.shedPlacement = null;
         this.shedLength = 0;
         this.shedWidth = 0;
+        this.shedExists = false;
     }
 
     public String getShedPlacement() {
@@ -66,6 +69,14 @@ public class Order {
 
     public void setShedWidth(int shedWidth) {
         this.shedWidth = shedWidth;
+    }
+    
+     public boolean isShedExists() {
+        return shedExists;
+    }
+
+    public void setShedExists(boolean exists) {
+        this.shedExists = exists;
     }
 
     public static HashMap<String, WoodDetails> getShedWoodMaterials() {

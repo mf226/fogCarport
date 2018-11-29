@@ -30,8 +30,9 @@ public class AddShed extends Command {
         order.setShedPlacement(placement);
         order.setShedLength(length);
         order.setShedWidth(width);
+        order.setShedExists(true);
         String table = gen.generateBOM(order);
-        String sketch = gen.createSketchBirdsEyeView(order);
+        String sketch = gen.createSketchSideViewFlat(order);
         request.setAttribute("table", table);
         request.setAttribute("sketch", sketch);
         return "BOMpage";

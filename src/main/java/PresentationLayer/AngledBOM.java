@@ -37,10 +37,10 @@ public class AngledBOM extends Command {
         String check = request.getParameter("skur");
 
         if (check != null) {
-            List<WoodMaterial> sideMat = LogicFacade.getSideMaterials();
+            List<WoodMaterial> sideMaterials = LogicFacade.getSideMaterials();
             request.getSession(false).setAttribute("order", order);
             String shedSketch = gen.shedPlacement(order);
-            String shedOptions = gen.generateShedMeasurements(l, w, sideMat);
+            String shedOptions = gen.generateShedMeasurements(l, w, sideMaterials);
 
             request.setAttribute("shedOptions", shedOptions);
             request.setAttribute("shedSketch", shedSketch);
@@ -48,7 +48,7 @@ public class AngledBOM extends Command {
         }
         
         String table = gen.generateBOM(order);
-        String sketch = gen.createSketchSideView(order);
+        String sketch = gen.createSketchSideViewFlat(order);
         request.setAttribute("table", table);
         request.setAttribute("sketch", sketch);
         request.setAttribute("order", order);

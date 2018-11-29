@@ -40,13 +40,14 @@ public class FlatBOM extends Command {
             request.getSession(false).setAttribute("order", order);
             String shedSketch = gen.shedPlacement(order);
             String shedOptions = gen.generateShedMeasurements(l, w, sideMaterials);
+            
             request.setAttribute("shedOptions", shedOptions);
             request.setAttribute("shedSketch", shedSketch);
             return "shedpage";
         }
         
         String table = gen.generateBOM(order);
-        String sketch = gen.createSketchSideView(order);
+        String sketch = gen.createSketchSideViewFlat(order);
         request.setAttribute("table", table);
         request.setAttribute("sketch", sketch);
         request.setAttribute("order", order);
