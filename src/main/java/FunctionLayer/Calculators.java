@@ -14,6 +14,9 @@ import java.util.List;
 public class Calculators {
 
     public static double postsAmountCalc(int carportLength, int carportWidth) {
+        if (carportLength < RulesAndConstants.MINLENGTH || carportLength > RulesAndConstants.MAXLENGTH || carportWidth < RulesAndConstants.MINWIDTH || carportWidth > RulesAndConstants.MAXWIDTH){
+            throw new IllegalArgumentException("Number exceeds parameters!");
+        }
         int posts = (int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_POSTS + 1); //+1 for the first post
 //        if (width >= 500) { //if width is bigger than 5
 //            posts++;
@@ -22,6 +25,9 @@ public class Calculators {
     }
 
     public static double postsLengthCalc(int carportHeight) {
+        if(carportHeight < RulesAndConstants.MINHEIGHT || carportHeight > RulesAndConstants.MAXHEIGHT){
+           throw new IllegalArgumentException("Number exceeds parameters!"); 
+        }
         double postLength = carportHeight + RulesAndConstants.LENGTH_UNDER_GROUND;
 
         return postLength;
