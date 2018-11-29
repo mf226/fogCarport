@@ -48,7 +48,7 @@ public class AngledBOM extends Command {
         }
         
         String table = gen.generateBOM(order);
-        String sketch = gen.createSketchBirdsEyeView(order);
+        String sketch = gen.createSketchSideView(order);
         request.setAttribute("table", table);
         request.setAttribute("sketch", sketch);
         request.setAttribute("order", order);

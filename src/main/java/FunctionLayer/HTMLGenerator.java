@@ -286,10 +286,10 @@ public class HTMLGenerator {
         return roof;
     }
 
-    public String createSketchSideView(Order order) {
+        public String createSketchSideView(Order order) {
         HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
-        final int innerX = 50;
-        final int innerY = 50;
+        final int innerX = 75;
+        final int innerY = 100;
         String style = "style=\"\n"
                 + "                  fill:white;\n"
                 + "                  stroke-width:1;\n"
@@ -297,33 +297,32 @@ public class HTMLGenerator {
         //Outer Measurements
         WoodMaterial pole = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getMaterial();
         WoodMaterial rem = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getMaterial();
+        WoodMaterial rafter = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getMaterial();
 
         int outerLength = order.getLength() + RulesAndConstants.ROOF_LENGTH_EXTRA;
-        int innerLength = order.getLength() - pole.getTopsideLength() * 2;
-        double innerHeight = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getCmLengthEach() - RulesAndConstants.LENGTH_UNDER_GROUND;
-        double outerHeight = innerHeight+(rem.getTopsideWidth()*2);
+        int innerLength = order.getLength();
+        double innerHeight = order.getHeight();
+        double outerHeight = order.getHeight()+(rem.getTopsideWidth()*2);
         String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\"scale>\n";
         //OuterLength
-        sketch += "<line x1=\"" + RulesAndConstants.ROOF_LENGTH_EXTRA / 2 + "\" y1=\"" + 0 + "\" x2=\"" + (outerLength + RulesAndConstants.ROOF_LENGTH_EXTRA / 2) + "\" y2=\"" + 0 + "\"" + style;
+        sketch += "<line x1=\"" +(innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2) + "\" y1=\"" + 0 + "\" x2=\"" + (innerX + (outerLength - RulesAndConstants.ROOF_WIDTH_EXTRA/2)) + "\" y2=\"" + 0 + "\"" + style;
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + outerLength + " cm</text>";
         //InnerLength
-        sketch += "<line x1=\"" + innerX + "\" y1=\"" + 22 + "\" x2=\"" + outerLength + "\" y2=\"" + 22 + "\"" + style;
+        sketch += "<line x1=\"" + innerX + "\" y1=\"" + 22 + "\" x2=\"" + (innerLength + innerX) + "\" y2=\"" + 22 + "\"" + style;
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
         //OuterHeight
-        sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY) + "\" x2=\"" + 0 + "\" y2=\"" + (order.getHeight() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\"" + style;
+        sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY-(rafter.getTopsideWidth()*2)) + "\" x2=\"" + 0 + "\" y2=\"" + (innerY+innerHeight) + "\"" + style;
         sketch += "<text x=\"" + 15 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
         //InnerHeight
-        sketch += "<line x1=\"" + 22 + "\" y1=\"" + ((innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + pole.getTopsideWidth()) + "\" x2=\"" + 22 + "\" y2=\"" + ((order.getHeight() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) - pole.getTopsideWidth()) + "\"" + style;
+        sketch += "<line x1=\"" + 22 + "\" y1=\"" + innerY + "\" x2=\"" + 22 + "\" y2=\"" + (order.getHeight() + innerY) + "\"" + style;
         sketch += "<text x=\"" + 32 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
 
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount() / 2;
-
         WoodDetails poles = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION);
         double xSpacing = order.getLength() / (amount - 1);
         int x = innerX;
-        int x1 = innerX;
-        int y = innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2;
+        int y = innerY;
         for (int i = 0; i < amount; i++) {
 
             sketch += "<<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + pole.getTopsideLength() + "\" height=\"" + (poles.getCmLengthEach() - RulesAndConstants.LENGTH_UNDER_GROUND) + "\"" + style;
@@ -333,17 +332,16 @@ public class HTMLGenerator {
         //Remme
         amount = materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getAmount();
 
-        y = innerY + rem.getTopsideLength();
+        y = innerY - rem.getTopsideWidth();
         x = innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
         WoodMaterial mat = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getMaterial();
         sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach() + "\" height=\"" + mat.getTopsideWidth() + "\"" + style;
 
         //Spær - Horizontal
         amount = materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getAmount();
-        WoodMaterial rafter = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getMaterial();
         xSpacing = order.getLength() / (amount - 1);
         x = innerX;
-        y = innerY;
+        y -= rafter.getTopsideWidth();
         for (int i = 0; i < amount; i++) {
             sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"4.5\" height=\"" + rafter.getTopsideWidth() + "\"" + style;
             x += xSpacing;
