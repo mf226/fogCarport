@@ -50,7 +50,7 @@ public class AngledBOM extends Command {
         }
 
         String table = gen.generateBOM(order);
-        String sketchSV = gen.createSketchSideViewFlat(order);
+        String sketchSV = gen.createSketchSideViewAngled(order);
         String sketchBE = gen.createSketchBirdsEyeView(order);
 
         request.setAttribute("table", table);
