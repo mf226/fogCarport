@@ -1,4 +1,8 @@
-body .pageHeader{
+body {
+    max-width: 1920px;
+}
+
+.pageHeader{
 
     background-image: url('images/woodpanel.png');
     background-repeat: no-repeat;
