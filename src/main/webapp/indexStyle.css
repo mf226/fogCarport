@@ -1,4 +1,8 @@
-body .pageHeader{
+body {
+    max-width: 1920px;
+}
+
+.pageHeader{
 
     background-image: url('images/woodpanel.png');
     background-repeat: no-repeat;
@@ -12,19 +16,47 @@ body .pageHeader{
     text-align: center;
 }
 
-body .pageContent {
+.pageContent {
     padding-top: 80px;
     width: 49%;
-    position: relative;
-    float: left;
+    position: absolute;
+}
+.tableContainer {
+    float: right;
 }
 
+.togglebtn {
+    font-size: 16px; 
+    border: 0px solid black;
+    height: 50px;
+    background-color: #004687;
+    color: #deeaee;
+}
+.togglebtn:hover {
+    font-size: 16px; 
+    border: 0px solid black;
+    height: 50px;
+    background-color: #004687;
+    color: #0085a2;
+    text-decoration: none;
+    display: inline-block;
+}
 
-.sketch {
-    padding-top: 100px;
-    float: right;    
+.sketchContainer {
+    float:left;
+    position: relative;
     width: 50%;
-    margin: 1px;    
+    margin-left: 20px;
+}
+
+.sketchBE {
+    width: 49%;
+    margin: 5px;    
+}
+
+.sketchSV {
+    width: 49%;
+    margin: 5px;    
 }
 
 .shedPlacements {
@@ -39,7 +71,7 @@ body .pageContent {
     /*height: 20px;*/
     /*width: 100px;*/
     float: left;
-/*    background-color: yellow;*/
+    /*    background-color: yellow;*/
 
 }
 .upperright {
@@ -275,8 +307,6 @@ body .pageContent {
 .userdropdown:hover .userdropdown-content {
     display: block;
 }
-
-
 
 img {
     height: 300px;

@@ -30,10 +30,22 @@ public class AddShed extends Command {
         order.setShedPlacement(placement);
         order.setShedLength(length);
         order.setShedWidth(width);
+        order.setShedExists(true);
+
         String table = gen.generateBOM(order);
-        String sketch = gen.createSketchBirdsEyeView(order);
+        String sketchSV = "";
+        String sketchBE = "";
+        if (order.getAngle() != 0) {
+            sketchSV = gen.createSketchSideViewAngled(order);
+            sketchBE = gen.createSketchBirdsEyeView(order);
+        } else {
+            sketchSV = gen.createSketchSideViewFlat(order);
+            sketchBE = gen.createSketchBirdsEyeView(order);
+        }
+
         request.setAttribute("table", table);
-        request.setAttribute("sketch", sketch);
+        request.setAttribute("sketchSV", sketchSV);
+        request.setAttribute("sketchBE", sketchBE);
         return "BOMpage";
     }
 

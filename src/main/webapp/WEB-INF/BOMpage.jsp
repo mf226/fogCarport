@@ -18,18 +18,40 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <title>Stykliste</title>
     </head>
-    <body>
+    <script>
+        function toggleSketch() {
+            var x = document.getElementById("sketchBE");
+            var y = document.getElementById("sketchSV");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.display = "none"
+            } else {
+                x.style.display = "none";
+                y.style.display = "block"
+
+            }
+        }
+    </script>
+    <body onload="toggleSketch()">
         <%=request.getAttribute("menu")%>
         <div class ="pageHeader">
             <h2 class="header">Stykliste</h2>
         </div>
-        <div class="sketch">
-            <%=request.getAttribute("sketch")%>
-
-        </div>
-
         <div class ="pageContent">
-            <%=request.getAttribute("table")%>
+            <div class="tableContainer">
+                <%=request.getAttribute("table")%>
+            </div>
+            <div class="sketchContainer">
+                <button class="togglebtn" onclick="toggleSketch()">Toggle View</button>
+
+                <div id="sketchBE" class="sketchBE">
+                    <%=request.getAttribute("sketchBE")%>
+                </div>
+                <div id="sketchSV" class="sketchSV">
+                    <%=request.getAttribute("sketchSV")%>
+                </div>
+            </div>
         </div>
+
     </body>
 </html>
