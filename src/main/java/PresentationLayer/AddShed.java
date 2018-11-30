@@ -33,12 +33,14 @@ public class AddShed extends Command {
         order.setShedExists(true);
 
         String table = gen.generateBOM(order);
+        String sketchSV = "";
+        String sketchBE = "";
         if (order.getAngle() != 0) {
-            String sketchSV = gen.createSketchSideViewFlat(order);
-            String sketchBE = gen.createSketchBirdsEyeView(order);
+            sketchSV = gen.createSketchSideViewAngled(order);
+            sketchBE = gen.createSketchBirdsEyeView(order);
         } else {
-            String sketchSV = gen.createSketchSideViewFlat(order);
-            String sketchBE = gen.createSketchBirdsEyeView(order);
+            sketchSV = gen.createSketchSideViewFlat(order);
+            sketchBE = gen.createSketchBirdsEyeView(order);
         }
 
         request.setAttribute("table", table);
