@@ -29,14 +29,14 @@ public class LogicFacade {
     }
 
     public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle, int roofType) throws LoginSampleException {
-        Order order = new Order(length, width, height, roofAngle, roofType);
+        Order order = new Order(length, width, height, roofAngle);
         double amountOfRafters = createFlatRoofRafters(order);
         createRestOfCarport(order, amountOfRafters, roofType);
         return order;
     }
 
     public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle, int roofType) throws LoginSampleException {
-        Order order = new Order(length, width, height, roofAngle, roofType);
+        Order order = new Order(length, width, height, roofAngle);
         double amountOfRafters = createAngledRoofRafters(order, roofAngle);
         createRestOfCarport(order, amountOfRafters, roofType);
         return order;
