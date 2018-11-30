@@ -23,13 +23,18 @@
         <div class ="pageHeader">
             <h2 class="header">Stykliste</h2>
         </div>
-        <div class="sketch">
-            <%=request.getAttribute("sketch")%>
-
-        </div>
-
         <div class ="pageContent">
             <%=request.getAttribute("table")%>
         </div>
+        
+        
+        <div class="sketchBE">
+            <%=request.getAttribute("sketchBE")%>
+        </div>
+        <div class="sketchSV">
+            <%=request.getAttribute("sketchSV")%>
+        </div>
+        
+
     </body>
 </html>

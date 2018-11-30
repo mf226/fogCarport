@@ -335,7 +335,7 @@ public class HTMLGenerator {
         }
         //adding Shed after poles
         if (order.isShedExists()) {
-            if (order.getShedWidth() == order.getWidth() || order.getShedPlacement().equals("LR") || order.getShedPlacement().equals("LL")) {
+                if (order.getShedWidth() == order.getWidth() || order.getShedPlacement().equals("LR") || order.getShedPlacement().equals("LL")) {
                 sketch += addShedSideView(innerX, innerY, order.getShedLength(), order.getShedWidth(), order);
             }
         }
@@ -503,7 +503,7 @@ public class HTMLGenerator {
             sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach() + "\" height=\"" + mat.getTopsideLength() + "\"" + style;
             y = ySpacing - mat.getTopsideLength();
         }
-
+        //adding shed
         sketch += addShedBirdsEye(innerX, innerY, style, order.getShedLength(), order.getShedWidth(), order);
         sketch += "</svg>";
         return sketch;

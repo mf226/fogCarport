@@ -30,9 +30,9 @@ public class FlatBOM extends Command {
         String length = request.getParameter("length");
         int l = Integer.parseInt(length);
         String roofType = request.getParameter("roofType");
-        
+
         Order order = LogicFacade.createFlatRoofCarport(l, w, h, 0, roofType);
-        
+
         String check = request.getParameter("skur");
 
         if (check != null) {
@@ -40,16 +40,19 @@ public class FlatBOM extends Command {
             request.getSession(false).setAttribute("order", order);
             String shedSketch = gen.shedPlacement(order);
             String shedOptions = gen.generateShedMeasurements(l, w, sideMaterials);
-            
+
             request.setAttribute("shedOptions", shedOptions);
             request.setAttribute("shedSketch", shedSketch);
             return "shedpage";
         }
-        
+
         String table = gen.generateBOM(order);
-        String sketch = gen.createSketchSideViewFlat(order);
+        String sketchSV = gen.createSketchSideViewFlat(order);
+        String sketchBE = gen.createSketchBirdsEyeView(order);
+        
         request.setAttribute("table", table);
-        request.setAttribute("sketch", sketch);
+        request.setAttribute("sketchSV", sketchSV);
+        request.setAttribute("sketchBE", sketchBE);
         request.setAttribute("order", order);
 
         return "BOMpage";
