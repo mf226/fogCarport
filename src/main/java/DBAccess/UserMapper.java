@@ -8,11 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The purpose of UserMapper is to...
  *
- * @author kasper
  */
 public class UserMapper {
 
@@ -23,7 +24,7 @@ public class UserMapper {
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());
-            ps.setString( 3, user.getRole().toString());
+            ps.setString(3, user.getRole().toString());
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
@@ -57,6 +58,37 @@ public class UserMapper {
         }
     }
 
+    public static User getUserIDByEmail(String email) throws LoginSampleException, ClassNotFoundException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT UserID FROM FogDB.User WHERE email = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int userID = rs.getInt("UserID");
+                User user = new User(userID);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static void removeCustomerByEmail(int UserID) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "DELETE FROM `FogDB`.`User` "
+                    + "WHERE `UserID`= ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, UserID);
+            ps.execute();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 //    public static User getUser(String email, String password) throws LoginSampleException {
 //        try {
 //            Connection con = Connector.connection();
@@ -82,5 +114,4 @@ public class UserMapper {
 //        }
 //
 //    }
-
 }

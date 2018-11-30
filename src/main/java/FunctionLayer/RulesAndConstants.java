@@ -48,4 +48,14 @@ public class RulesAndConstants {
     public final static String SHED_WALL_DESCRIPTION = "Skur beklædning";
     public final static String SHED_POST_DESCRIPTION = "Skur stolper";
     
+    //Calculator parameters
+    public final static int MAXLENGTH = 500;
+    public final static int MINLENGTH = 150;
+    public final static int MAXWIDTH = 500;
+    public final static int MINWIDTH = 150;
+    public final static int MINHEIGHT = 100;
+    public final static int MAXHEIGHT = 500;
+    public final static int MINROOFANGLE = 1;
+    public final static int MAXROOFANGLE = 80;
+    
 }

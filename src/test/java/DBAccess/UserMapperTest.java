@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -48,7 +50,7 @@ public class UserMapperTest {
     public void testLogin01() throws LoginSampleException {
         //Can we log in
         User user = UserMapper.login("testuser@test.com", "test");
-        assertTrue(user != null);
+        assertNotNull(user);
     }
 
     @Test(expected = LoginSampleException.class)
@@ -83,8 +85,8 @@ public class UserMapperTest {
         User retrieved = UserMapper.login("testuser2@test.com", "test2");
         assertEquals(Role.CUSTOMER, retrieved.getRole());
     }
-    
-        @Test
+
+    @Test
     public void testCreateCustomerRoleCheck() throws LoginSampleException {
         // Can we create a new user - Notice, if login fails, this will fail
         // but so would login01, so this is OK
@@ -95,8 +97,33 @@ public class UserMapperTest {
         assertNotEquals(Role.EMPLOYEE, retrieved.getRole());
     }
     
+//    @Test
+//    public void testGetUserIDByEmail() {
+//        String email = "testuser2@test.com";
+//        int userID;
+//        User user = new User(email);
+//        
+//        UserMapper.getUserIDByEmail(user);
+//                
+//    }
+
+//    @Test
+//    public void testremoveCustomerByEmail() throws LoginSampleException, ClassNotFoundException {
+//        //findes bruger i db, assert true, delete from db, assertfalse
+//        String email = "testuser2@test.com";
+//        User user = new User(email, "test2");
+//        UserMapper.createUser(user);
+////        UserMapper.getUser(email);
+////        User retrieved = UserMapper.login("testuser2@test.com", "test2");
+//        UserMapper.removeCustomerByEmail(email);
+////        assertNull(retrieved);
+//
+//    }
+
     @After
-    public void tearDown(){
-        
+    public void tearDown() throws LoginSampleException {
+
+        // Add deleteCustomer to UserMapper
+//        UserMapper.removeCustomerByEmail("testuser2@test2.com");
     }
 }
