@@ -253,7 +253,7 @@ public class HTMLGenerator {
                 + "                <select name=\"roofType\">\n";
 
         for (int i = 0; i < roofs.size(); i++) {
-            roof += "<option value=\"" + roofs.get(i).getName() + "\">" + roofs.get(i).getName() + "</option>\n";
+            roof += "<option value=\"" + roofs.get(i).getItemNumber()+ "\">" + roofs.get(i).getName() + "</option>\n";
         }
 
         roof += "</select>";
@@ -278,7 +278,7 @@ public class HTMLGenerator {
                 + "                <select name=\"roofType\">\n";
 
         for (int i = 0; i < roofs.size(); i++) {
-            roof += "<option value=\"" + roofs.get(i).getName() + "\">" + roofs.get(i).getName() + "</option>\n";
+            roof += "<option value=\"" + roofs.get(i).getItemNumber() + "\">" + roofs.get(i).getName() + "</option>\n";
         }
 
         roof += "</select>";

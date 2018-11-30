@@ -26,16 +26,16 @@ public class Order {
     private int userID;
 
     private String shedPlacement;
-    private String roofType;
+    //private int roofType;
     
     private boolean shedExists;
     
-    public Order(int length, int width, int height, int angle, String roofType) {
+    public Order(int length, int width, int height, int angle) {
         this.length = length;
         this.width = width;
         this.height = height;
         this.angle = angle;
-        this.roofType = roofType;
+        //this.roofType = roofType;
         this.carportWoodMaterials = new HashMap();
         this.carportMetalMaterials = new HashMap();
         this.shedWoodMaterials = null;

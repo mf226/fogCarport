@@ -32,7 +32,8 @@ public class AngledBOM extends Command {
         String angle = request.getParameter("angle");
         int a = Integer.parseInt(angle);
         String roofType = request.getParameter("roofType");
-        Order order = LogicFacade.createAngledRoofCarport(l, w, h, a, roofType);
+        int roofTypeNumber = Integer.parseInt(roofType);
+        Order order = LogicFacade.createAngledRoofCarport(l, w, h, a, roofTypeNumber);
         
         String check = request.getParameter("skur");
 
