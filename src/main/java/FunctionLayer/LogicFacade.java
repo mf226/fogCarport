@@ -61,6 +61,14 @@ public class LogicFacade {
 
         order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_REM_DESCRIPTION, new WoodDetails(rem, 2, remLength)); //There are always 2 REMME
 
+        
+        MetalMaterial roof = MaterialAndOrderMapper.getMetalMaterial(roofType);
+        double roofAmount = Calculators.calcRoof(order);
+        order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_ROOF_DESCRIPTION, new MetalDetails(roof, roofAmount));
+        
+        MetalMaterial screw = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_SCREWS);
+        double screwAmount = Calculators.screwsAmountCalc(order);
+        order.getCarportMetalMaterials().put(RulesAndConstants.SCREWS_DESCRIPTION, new MetalDetails(screw, screwAmount));
     }
 
     private static double createFlatRoofRafters(Order order) throws LoginSampleException {

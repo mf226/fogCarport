@@ -91,4 +91,18 @@ public class Calculators {
         return screws;
     }
 
+    public static double calcRoof(Order order) {
+        if (order.getAngle() == 0) {
+            double squaremeters =((order.getLength() + RulesAndConstants.ROOF_LENGTH_EXTRA) / 100)
+                    * ((order.getHeight() + RulesAndConstants.ROOF_WIDTH_EXTRA) / 100);
+            return squaremeters;
+        }
+        else {
+            double squaremeters = (order.getCarportWoodMaterials().get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach() / 100)
+                    * (order.getCarportWoodMaterials().get(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION).getCmLengthEach() / 100);
+            return squaremeters * RulesAndConstants.TILES_PER_SQUAREMETER;
+                    
+        }
+    }
+
 }

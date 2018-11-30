@@ -21,6 +21,7 @@ public class RulesAndConstants {
     public final static int MOUNT_PER_RAFTER = 2;
     public final static int SCREWS_PER_MOUNT = 4;
     public final static int SCREWS_PER_WALL = 4;
+    public final static int TILES_PER_SQUAREMETER = 12;
     
     
     //Preferred materials from DB for, as their itemNumber in DB
@@ -31,7 +32,6 @@ public class RulesAndConstants {
     public final static int PREFERRED_MATERIAL_MOUNT = 4;
     public final static int PREFERRED_MATERIAL_SCREWS = 3;
     
-    
     //Material descriptions
     public final static String CARPORT_CONCRETE_DESCRIPTION = "Cement";
     public final static String CARPORT_MOUNTS_POST_DESCRIPTION = "Beslag stolper/rem";
@@ -41,6 +41,9 @@ public class RulesAndConstants {
     public final static String CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION = "Bund spær";
     public final static String CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION = "Side spær";
     public final static String CARPORT_POSTS_DESCRIPTION = "Stolper";
+    public final static String CARPORT_ROOF_DESCRIPTION = "Tag";
+    
+    public final static String SCREWS_DESCRIPTION = "Skruer";
     
     public final static String SHED_WALL_DESCRIPTION = "Skur beklædning";
     public final static String SHED_POST_DESCRIPTION = "Skur stolper";
