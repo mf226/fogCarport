@@ -181,7 +181,6 @@ public class HTMLGenerator {
                 + "            <form action=\"FrontController\" method=\"POST\">\n"
                 + "                <h5>Længde: </h5>\n"
                 + "                <select name=\"shedLength\">";
-
         //Shed Length        
         for (int i = 100; i < length; i += 100) {
             shed += "<option value=\"" + i + "\">" + i + " cm</option>";
@@ -210,11 +209,11 @@ public class HTMLGenerator {
                 + "                <input style=\"float:right;\" type=\"radio\" name=\"placement\" value=UR checked>"
                 + "                 <label style=\"float:right;\" for=\"UR\">øvre højre</label>\n"
                 + "         </div>"
-                + "         <div class=\"lowerleft\" style=\"margin-top:" + (width / 2 - 20) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
+                + "         <div class=\"lowerleft\" style=\"margin-top:" + (width / 2) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input id=\"LL\" type=\"radio\" name=\"placement\" value=LL>"
                 + "                 <label for=\"LL\">nedre venstre</label>\n"
                 + "         </div>"
-                + "         <div class=\"lowerright\" style=\"margin-top:" + (width / 2 - 20) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
+                + "         <div class=\"lowerright\" style=\"margin-top:" + (width / 2) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input style=\"float:right;\" id=\"LR\" type=\"radio\" name=\"placement\" value=LR>"
                 + "                 <label style=\"float:right;\" for=\"LR\">nedre højre</label>\n"
                 + "         </div>"
