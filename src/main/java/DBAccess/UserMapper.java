@@ -58,13 +58,31 @@ public class UserMapper {
         }
     }
 
-    public static void removeCustomerByEmail(String email) throws LoginSampleException {
+    public static User getUserIDByEmail(String email) throws LoginSampleException, ClassNotFoundException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT UserID FROM FogDB.User WHERE email = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int userID = rs.getInt("UserID");
+                User user = new User(userID);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static void removeCustomerByEmail(int UserID) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE FROM `FogDB`.`User` "
-                    + "WHERE `email`= ?;";
+                    + "WHERE `UserID`= ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setString(1, email);
+            ps.setInt(1, UserID);
             ps.execute();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);

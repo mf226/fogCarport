@@ -50,5 +50,7 @@ public class RulesAndConstants {
     public final static int MINWIDTH = 150;
     public final static int MINHEIGHT = 100;
     public final static int MAXHEIGHT = 500;
+    public final static int MINROOFANGLE = 1;
+    public final static int MAXROOFANGLE = 80;
     
 }

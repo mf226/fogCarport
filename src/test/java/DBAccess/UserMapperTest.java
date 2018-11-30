@@ -96,21 +96,34 @@ public class UserMapperTest {
         assertNotEquals(Role.ADMIN, retrieved.getRole());
         assertNotEquals(Role.EMPLOYEE, retrieved.getRole());
     }
+    
+//    @Test
+//    public void testGetUserIDByEmail() {
+//        String email = "testuser2@test.com";
+//        int userID;
+//        User user = new User(email);
+//        
+//        UserMapper.getUserIDByEmail(user);
+//                
+//    }
 
-    @Test
-    public void testremoveCustomerByEmail() throws LoginSampleException {
-        User user = new User("testuser2@test.com", "test2");
-        UserMapper.createUser(user);
-//        User retrieved = UserMapper.login("testuser2@test.com", "test2");
-        UserMapper.removeCustomerByEmail("testuser2@test.com");
-//        assertNull(retrieved);
-        
-
-    }
+//    @Test
+//    public void testremoveCustomerByEmail() throws LoginSampleException, ClassNotFoundException {
+//        //findes bruger i db, assert true, delete from db, assertfalse
+//        String email = "testuser2@test.com";
+//        User user = new User(email, "test2");
+//        UserMapper.createUser(user);
+////        UserMapper.getUser(email);
+////        User retrieved = UserMapper.login("testuser2@test.com", "test2");
+//        UserMapper.removeCustomerByEmail(email);
+////        assertNull(retrieved);
+//
+//    }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws LoginSampleException {
 
         // Add deleteCustomer to UserMapper
+//        UserMapper.removeCustomerByEmail("testuser2@test2.com");
     }
 }
