@@ -18,33 +18,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HTMLGenerator {
 
-    private String html = "<div class=\"topnav\">\n"
-            + "        <form id=\"Home\" action=\"FrontController\" method=\"POST\">\n"
-            + "            <input type=\"hidden\" name=\"command\" value=\"home\">\n"
-            + "            <input id=\"btn\" type=\"submit\" value=\"Home\">\n"
-            + "        </form>\n"
-            + "     <div class=\"dropdown\">\n"
-            + "     <button class=\"dropbtn\">Dropdown \n"
-            + "         <i class=\"fa fa-caret-down\"></i>\n"
-            + "     </button>\n"
-            + "         <div class=\"dropdown-content\">\n"
-            + "             <form id=\"createHouse\" action=\"FrontController\" method=\"POST\">\n"
-            + "                 <input type=\"hidden\" name=\"command\" value=\"createHouse\">\n"
-            + "                 <input id=\"btn\" type=\"submit\" value=\"Create House\">\n"
-            + "             </form>"
-            + "             </div>\n"
-            + "         </div> \n"
-            + "     </div>"
-            + "        <form id=\"register\" action=\"FrontController\" method=\"POST\">\n"
-            + "            <input type=\"hidden\" name=\"command\" value=\"registerpage\">\n"
-            + "            <input id=\"btn\" type=\"submit\" value=\"Register\">\n"
-            + "        </form>\n"
-            + "        <form id=\"login\" action=\"FrontController\" method=\"POST\">\n"
-            + "            <input type=\"hidden\" name=\"command\" value=\"loginpage\">\n"
-            + "            <input id=\"btn\" type=\"submit\" value=\"Login\">\n"
-            + "        </form>\n"
-            + "        </div>";
-
     private String active = "class=\"active\"";
 
     private String headerBackground = "<img class=\"header-background\" src=\"images/woody.jpg\">";
@@ -94,6 +67,11 @@ public class HTMLGenerator {
             + "             <input type=\"hidden\" name=\"command\" value=\"home\">\n"
             + "             </img>"
             + "             </form>";
+
+    private final int outerCanvasW = 700;
+    private final int outerCanvasL = 700;
+    private final int innerCanvasW = 600;
+    private final int innerCanvasl = 600;
 
     private String userDropdown(User user) {
         String roleLC = user.getRole().toString().toLowerCase() + "page";
@@ -253,7 +231,7 @@ public class HTMLGenerator {
                 + "                <select name=\"roofType\">\n";
 
         for (int i = 0; i < roofs.size(); i++) {
-            roof += "<option value=\"" + roofs.get(i).getItemNumber()+ "\">" + roofs.get(i).getName() + "</option>\n";
+            roof += "<option value=\"" + roofs.get(i).getItemNumber() + "\">" + roofs.get(i).getName() + "</option>\n";
         }
 
         roof += "</select>";
@@ -303,7 +281,7 @@ public class HTMLGenerator {
         int innerLength = order.getLength();
         double innerHeight = order.getHeight();
         double outerHeight = order.getHeight() + (rem.getTopsideWidth() * 2);
-        String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\"scale>\n";
+        String sketch = "<svg width=\"" + outerCanvasW + "\" height=\"" + outerCanvasL + "\"scale>\n";
         //OuterLength
         sketch += "<line x1=\"" + (innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2) + "\" y1=\"" + 0 + "\" x2=\"" + (innerX + (outerLength - RulesAndConstants.ROOF_WIDTH_EXTRA / 2)) + "\" y2=\"" + 0 + "\"" + style;
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + outerLength + " cm</text>";
@@ -371,13 +349,13 @@ public class HTMLGenerator {
         //Outer Measurements
         WoodMaterial pole = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getMaterial();
         WoodMaterial rem = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getMaterial();
-        WoodMaterial rafter = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getMaterial();
+        WoodMaterial rafter = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION).getMaterial();
 
         int outerLength = order.getLength() + RulesAndConstants.ROOF_LENGTH_EXTRA;
         int innerLength = order.getLength();
         double innerHeight = order.getHeight();
         double outerHeight = order.getHeight() + (rem.getTopsideWidth() * 2);
-        String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\"scale>\n";
+        String sketch = "<svg width=\"" + outerCanvasW + "\" height=\"" + outerCanvasL + "\"scale>\n";
         //OuterLength
         sketch += "<line x1=\"" + (innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2) + "\" y1=\"" + 0 + "\" x2=\"" + (innerX + (outerLength - RulesAndConstants.ROOF_WIDTH_EXTRA / 2)) + "\" y2=\"" + 0 + "\"" + style;
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + outerLength + " cm</text>";
@@ -397,8 +375,11 @@ public class HTMLGenerator {
         int x = innerX;
         int y = innerY;
         //adding shed before poles
-        if (order.getShedWidth() < order.getWidth() || order.getShedPlacement().equals("UR") || order.getShedPlacement().equals("UL")) {
-            sketch += addShedSideView(innerX, innerY, order.getShedLength(), order.getShedWidth(), order);
+        if (order.isShedExists()) {
+
+            if (order.getShedWidth() < order.getWidth() || order.getShedPlacement().equals("UR") || order.getShedPlacement().equals("UL")) {
+                sketch += addShedSideView(innerX, innerY, order.getShedLength(), order.getShedWidth(), order);
+            }
         }
         for (int i = 0; i < amount; i++) {
 
@@ -406,8 +387,10 @@ public class HTMLGenerator {
             x += xSpacing;
         }
         //adding Shed after poles
-        if (order.getShedWidth() == order.getWidth() || order.getShedPlacement().equals("LR") || order.getShedPlacement().equals("LL")) {
-            sketch += addShedSideView(innerX, innerY, order.getShedLength(), order.getShedWidth(), order);
+        if (order.isShedExists()) {
+            if (order.getShedWidth() == order.getWidth() || order.getShedPlacement().equals("LR") || order.getShedPlacement().equals("LL")) {
+                sketch += addShedSideView(innerX, innerY, order.getShedLength(), order.getShedWidth(), order);
+            }
         }
         //Remme
         amount = materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getAmount();
@@ -418,7 +401,7 @@ public class HTMLGenerator {
         sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach() + "\" height=\"" + mat.getTopsideWidth() + "\"" + style;
 
         //Spær - Horizontal
-        amount = materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getAmount();
+        amount = materials.get(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION).getAmount();
         xSpacing = order.getLength() / (amount - 1);
         x = innerX;
         y -= rafter.getTopsideWidth();
@@ -441,10 +424,10 @@ public class HTMLGenerator {
         //Outer Measurements
         WoodMaterial pole = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getMaterial();
         int outerLength = order.getLength() + RulesAndConstants.ROOF_LENGTH_EXTRA;
-        int innerLength = order.getLength() - pole.getTopsideLength() * 2;
+        int innerLength = order.getLength();
         int outerWidth = order.getWidth();
         int innerWidth = order.getWidth() - pole.getTopsideWidth() * 2;
-        String sketch = "<svg width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
+        String sketch = "<svg width=\"" + outerCanvasW + "\" height=\"" + outerCanvasL + "\" scale>\n";
         //OuterLength
         sketch += "<line x1=\"" + RulesAndConstants.ROOF_LENGTH_EXTRA / 2 + "\" y1=\"" + 0 + "\" x2=\"" + (outerLength + RulesAndConstants.ROOF_LENGTH_EXTRA / 2) + "\" y2=\"" + 0 + "\"" + style;
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + outerLength + " cm</text>";
@@ -453,7 +436,7 @@ public class HTMLGenerator {
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
         //OuterWidth
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY) + "\" x2=\"" + 0 + "\" y2=\"" + (order.getWidth() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\"" + style;
-        sketch += "<text x=\"" + 15 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Bredde: " + outerWidth + " cm</text>";
+        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Bredde: " + outerWidth + " cm</text>";
         //InnerWidth
         sketch += "<line x1=\"" + 22 + "\" y1=\"" + ((innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + pole.getTopsideWidth()) + "\" x2=\"" + 22 + "\" y2=\"" + ((order.getWidth() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) - pole.getTopsideWidth()) + "\"" + style;
         sketch += "<text x=\"" + 32 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre bredde: " + innerWidth + " cm</text>";
@@ -482,13 +465,23 @@ public class HTMLGenerator {
         }
 
         //Spær
-        amount = materials.get("Spær").getAmount();
+        if (order.getAngle() != 0) {
+            amount = materials.get(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION).getAmount();
+        } else {
+            amount = materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getAmount();
+        }
+        
         xSpacing = order.getLength() / (amount - 1);
         x = innerX;
         y = innerY;
         for (int i = 0; i < amount; i++) {
-            sketch += "<rect x=\"" + x + "\" y=\"" + innerY + "\" width=\"4.5\" height=\"" + materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getCmLengthEach() + "\"" + style;
-            x += xSpacing;
+            if (order.getAngle() != 0) {
+                sketch += "<rect x=\"" + x + "\" y=\"" + innerY + "\" width=\"4.5\" height=\"" + materials.get(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION).getCmLengthEach() + "\"" + style;
+                x += xSpacing;
+            } else {
+                sketch += "<rect x=\"" + x + "\" y=\"" + innerY + "\" width=\"4.5\" height=\"" + materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getCmLengthEach() + "\"" + style;
+                x += xSpacing;
+            }
         }
         //Remme
         amount = materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getAmount();
@@ -503,7 +496,7 @@ public class HTMLGenerator {
             sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach() + "\" height=\"" + mat.getTopsideLength() + "\"" + style;
             y = ySpacing - mat.getTopsideLength();
         }
-
+        //adding shed
         sketch += addShedBirdsEye(innerX, innerY, style, order.getShedLength(), order.getShedWidth(), order);
         sketch += "</svg>";
         return sketch;
