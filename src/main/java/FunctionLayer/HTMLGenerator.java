@@ -219,7 +219,7 @@ public class HTMLGenerator {
                 + "                 <label style=\"float:right;\" for=\"LR\">nedre højre</label>\n"
                 + "         </div>"
                 + "       </div>\n"
-                + "                <input type=\"submit\" value=\"Submit\">\n"
+                + "                <input type=\"submit\" value=\"Fortsæt\">\n"
                 + "                <input type=\"hidden\" name=\"command\" value=\"addShed\">\n"
                 + "            </form>";
 
