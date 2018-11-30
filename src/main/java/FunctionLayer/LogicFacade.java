@@ -28,21 +28,21 @@ public class LogicFacade {
         return MaterialAndOrderMapper.getFlatRoofMat();
     }
 
-    public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle, String roofType) throws LoginSampleException {
-        Order order = new Order(length, width, height, roofAngle, roofType);
+    public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle, int roofType) throws LoginSampleException {
+        Order order = new Order(length, width, height, roofAngle);
         double amountOfRafters = createFlatRoofRafters(order);
-        createRestOfCarport(order, amountOfRafters);
+        createRestOfCarport(order, amountOfRafters, roofType);
         return order;
     }
 
-    public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle, String roofType) throws LoginSampleException {
-        Order order = new Order(length, width, height, roofAngle, roofType);
+    public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle, int roofType) throws LoginSampleException {
+        Order order = new Order(length, width, height, roofAngle);
         double amountOfRafters = createAngledRoofRafters(order, roofAngle);
-        createRestOfCarport(order, amountOfRafters);
+        createRestOfCarport(order, amountOfRafters, roofType);
         return order;
     }
 
-    private static void createRestOfCarport(Order order, double bottomRafterAmount) throws LoginSampleException {
+    private static void createRestOfCarport(Order order, double bottomRafterAmount, int roofType) throws LoginSampleException {
         double postsAmount = createPosts(order);
         MetalMaterial concrete = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
         double concreteAmount = Calculators.concreteAmountCalc(postsAmount);

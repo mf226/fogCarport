@@ -5,7 +5,7 @@
  */
 package FunctionLayer;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
  *
@@ -79,24 +79,16 @@ public class Calculators {
         return carportLength + RulesAndConstants.ROOF_LENGTH_EXTRA;
     }
 
-//    public static double screwsAmountCalc(Order order) {
-//        double screws = 0;
-//        List<WoodDetails> materials = order.getMaterials();
-//        for (int i = 0; i < materials.size(); i++) {
-//            String description = materials.get(i).getUseDescription();
-//            switch (description) {
-//                case RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION:
-//                    screws += materials.get(i).getAmount() * RulesAndConstants.SCREWS_PER_MOUNT;
-//                    break;
-//                case RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION:
-//                    screws += materials.get(i).getAmount() * RulesAndConstants.SCREWS_PER_MOUNT;
-//                    break;
-//
-//                default:
-//                    break;
-//            }
-//        }
-//        return screws;
-//    }
+    public static double screwsAmountCalc(Order order) {
+        double screws = 0;
+        screws += order.getCarportMetalMaterials().get(RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION).getAmount() * RulesAndConstants.SCREWS_PER_MOUNT;
+        screws += order.getCarportMetalMaterials().get(RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION).getAmount() * RulesAndConstants.SCREWS_PER_MOUNT;
+
+        if (order.isShedExists()) {
+            screws += order.getCarportWoodMaterials().get(RulesAndConstants.SHED_WALL_DESCRIPTION).getAmount() * RulesAndConstants.SCREWS_PER_WALL;
+        }
+
+        return screws;
+    }
 
 }

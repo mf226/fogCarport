@@ -31,8 +31,10 @@ public class FlatBOM extends Command {
         int l = Integer.parseInt(length);
         String roofType = request.getParameter("roofType");
 
-        Order order = LogicFacade.createFlatRoofCarport(l, w, h, 0, roofType);
-
+        int roofTypeNumber = Integer.parseInt(roofType);
+        
+        Order order = LogicFacade.createFlatRoofCarport(l, w, h, 0, roofTypeNumber);
+        
         String check = request.getParameter("skur");
 
         if (check != null) {
