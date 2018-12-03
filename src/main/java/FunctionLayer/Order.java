@@ -14,18 +14,21 @@ public class Order {
     private int width;
     private int height;
     private int angle;
-
     private int shedLength;
+    private int userID;
 
     private int shedWidth;
+    
+    private double finalizedPrice;
 
     private static HashMap<String, WoodDetails> carportWoodMaterials;
     private static HashMap<String, MetalDetails> carportMetalMaterials;
     private static HashMap<String, WoodDetails> shedWoodMaterials;
     private static HashMap<String, MetalDetails> shedMetalMaterials;
-    private int userID;
 
     private String shedPlacement;
+    private Status status;
+    
     //private int roofType;
     
     private boolean shedExists;
@@ -44,6 +47,8 @@ public class Order {
         this.shedLength = 0;
         this.shedWidth = 0;
         this.shedExists = false;
+        this.finalizedPrice = 0;
+        this.status = Status.UNFINISHED;
     }
 
     public String getShedPlacement() {
@@ -155,5 +160,29 @@ public class Order {
     public HashMap<String, MetalDetails> getCarportMetalMaterials() {
         return carportMetalMaterials;
     }
+     public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public double getFinalizedPrice() {
+        return finalizedPrice;
+    }
+
+    public void setFinalizedPrice(double finalizedPrice) {
+        this.finalizedPrice = finalizedPrice;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+   
 
 }

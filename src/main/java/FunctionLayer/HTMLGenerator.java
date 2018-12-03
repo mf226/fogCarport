@@ -106,6 +106,13 @@ public class HTMLGenerator {
                             + userDropdown(user)
                             + "</div>";
                 }
+                if (Role.ADMIN.equals(user.getRole())) {
+                    return "<!-- Logged In as admin--><div class=\"topnav\">\n"
+                            + fogIcon + "\n"
+                            + designDropdown + "\n"
+                            + userDropdown(user)
+                            + "</div>";
+                }
                 if (user.getEmail() != null) {
                     return "<!-- Logged In as customer --><div class=\"topnav\">\n"
                             + fogIcon + "\n"
@@ -124,6 +131,35 @@ public class HTMLGenerator {
                 + login + "\n"
                 + register + "\n"
                 + "</div>";
+    }
+
+    public String showAllOrders(List<Order> orders) {
+        String table = "<table id=\"table\">\n"
+                + "            <thead>\n"
+                + "            <tr>\n"
+                + "                <th>Status</th>\n"
+                + "                <th>User</th>\n"
+                + "                <th>Længde</th>\n"
+                + "                <th>Bredde</th>\n"
+                + "                <th>Dato</th>\n"
+                + "                <th>Pris</th>\n"
+                + "            </tr>\n"
+                + "            </thead>\n";
+
+        for (int i = 0; i < orders.size(); i++) {
+            table += "<tr>\n"
+                    + "<td>"+orders.get(i).getStatus()+"</td>\n"
+                    + "<td>"+orders.get(i).getUserID()+"</td>\n"
+                    + "<td>"+orders.get(i).getLength()+"</td>\n"
+                    + "<td>"+orders.get(i).getWidth()+"</td>\n"
+                    + "<td>dato</td>\n"
+                    + "<td>pris</td>\n"
+                    + "</tr>\n";
+
+
+            
+        }
+        return table;
     }
 
     public String generateBOM(Order order) {
@@ -469,7 +505,7 @@ public class HTMLGenerator {
         } else {
             amount = materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getAmount();
         }
-        
+
         xSpacing = order.getLength() / (amount - 1);
         x = innerX;
         y = innerY;

@@ -13,14 +13,17 @@ abstract class Command {
 
     private static void initCommands() {
         commands = new HashMap<>();
-        commands.put("login", new Login());
-        commands.put("register", new Register());
-        commands.put("loginpage", new LoginPage());
-        commands.put("registerpage", new Registerpage());
-        commands.put("logout", new Logout());
-        commands.put("measurementFlat", new MeasurementFlat());
-        commands.put("measurementAngled", new MeasurementAngled());
         commands.put("addShed", new AddShed());
+        commands.put("Adminpage", new Adminpage());
+        commands.put("Customerpage", new Customerpage());
+        commands.put("Employeepage", new Employeepage());
+        commands.put("login", new Login());
+        commands.put("loginpage", new LoginPage());
+        commands.put("logout", new Logout());
+        commands.put("measurementAngled", new MeasurementAngled());
+        commands.put("measurementFlat", new MeasurementFlat());
+        commands.put("register", new Register());
+        commands.put("registerpage", new Registerpage());
         commands.put("SelectFlat", new FlatBOM());
         commands.put("SelectAngled", new AngledBOM());
 

@@ -63,7 +63,7 @@ public class MaterialAndOrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-    
+
     public static MetalMaterial getMetalMaterial(int itemNumber) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
@@ -90,7 +90,7 @@ public class MaterialAndOrderMapper {
         try {
             ArrayList<Order> orders = new ArrayList();
             Connection con = Connector.connection();
-            String SQL = "SELECT orderID, orderDescription, price, User_UserID, orderDate FROM FogDB.`Order`;";
+            String SQL = "SELECT * FROM FogDB.`Order`;";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
@@ -101,11 +101,11 @@ public class MaterialAndOrderMapper {
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
                 double finalizedPrice = rs.getDouble("finalizedPrice");
-                Date orderDate = rs.getDate("orderDate");
-                String status = rs.getString("status"); //How to convert enum to string?
-                //  orders.add(new Order(orderID, userID; length, width, height, finalizedPrice, orderDate, status));
-
-                //orders.add(new Order(orderID, orderDescription, price, userID, orderDate));
+//                Date orderDate = rs.getDate("orderDate");
+                Order order = new Order(length, width, height, length);
+                order.setUserID(userID);
+                order.setFinalizedPrice(finalizedPrice);
+                orders.add(order);
             }
             return orders;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -162,16 +162,16 @@ public class MaterialAndOrderMapper {
         }
 
     }
-    
-    public static List<WoodMaterial> getSideMat() throws LoginSampleException{
+
+    public static List<WoodMaterial> getSideMat() throws LoginSampleException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
             String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Beklædning'";
             PreparedStatement ps = con.prepareStatement(SQL);
-            
+
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int itemNumber = rs.getInt("itemNumber");
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
@@ -183,7 +183,7 @@ public class MaterialAndOrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-    
+
     public static List<WoodMaterial> getFlatRoofMat() throws LoginSampleException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();

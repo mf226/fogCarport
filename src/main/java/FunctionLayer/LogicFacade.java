@@ -104,5 +104,9 @@ public class LogicFacade {
     public static List<WoodMaterial> getSideMaterials() throws LoginSampleException {
        return MaterialAndOrderMapper.getSideMat();
     }
+    
+    public static List<Order> getAllOrders() throws LoginSampleException{
+        return MaterialAndOrderMapper.getAllOrders();
+    }
 
 }
