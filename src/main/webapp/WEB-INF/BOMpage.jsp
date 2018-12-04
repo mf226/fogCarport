@@ -40,6 +40,12 @@
         <div class ="pageContent">
             <div class="tableContainer">
                 <%=request.getAttribute("table")%>
+                <form action="FrontController" method="POST">
+                    <input type="submit" value="Create Order">
+                    <input type="hidden" name="command" value="createOrder">
+                </form>
+
+
             </div>
             <div class="sketchContainer">
                 <button class="togglebtn" onclick="toggleSketch()">Toggle View</button>

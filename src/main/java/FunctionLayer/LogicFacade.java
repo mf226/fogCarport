@@ -2,6 +2,7 @@ package FunctionLayer;
 
 import DBAccess.MaterialAndOrderMapper;
 import DBAccess.UserMapper;
+import java.sql.SQLException;
 import java.util.List;
 
 public class LogicFacade {
@@ -48,24 +49,23 @@ public class LogicFacade {
         double concreteAmount = Calculators.concreteAmountCalc(postsAmount);
 
         order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION, new MetalDetails(concrete, concreteAmount));
-        
+
         MetalMaterial mount = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_MOUNT);
         double postMountAmount = Calculators.mountPerPost(postsAmount);
         order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION, new MetalDetails(mount, postMountAmount));
-        
+
         double rafterMountAmount = Calculators.mountPerRafter(bottomRafterAmount);
         order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION, new MetalDetails(mount, rafterMountAmount));
-        
+
         WoodMaterial rem = MaterialAndOrderMapper.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
         double remLength = Calculators.remLengthCalc(order.getLength());
 
         order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_REM_DESCRIPTION, new WoodDetails(rem, 2, remLength)); //There are always 2 REMME
 
-        
         MetalMaterial roof = MaterialAndOrderMapper.getMetalMaterial(roofType);
         double roofAmount = Calculators.calcRoof(order);
         order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_ROOF_DESCRIPTION, new MetalDetails(roof, roofAmount));
-        
+
         MetalMaterial screw = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_SCREWS);
         double screwAmount = Calculators.screwsAmountCalc(order);
         order.getCarportMetalMaterials().put(RulesAndConstants.SCREWS_DESCRIPTION, new MetalDetails(screw, screwAmount));
@@ -83,7 +83,7 @@ public class LogicFacade {
         WoodMaterial post = MaterialAndOrderMapper.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_POSTS);
         double postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
         double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_POSTS_DESCRIPTION, new WoodDetails(post, postsAmount, cmLengthEach ));
+        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_POSTS_DESCRIPTION, new WoodDetails(post, postsAmount, cmLengthEach));
 
         return postsAmount;
     }
@@ -97,16 +97,24 @@ public class LogicFacade {
         double sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
         double cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), roofAngle);
         order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION, new WoodDetails(rafter, sideRafterAmount, cmLengthEachSideRafter));
-        
+
         return bottomRafterAmount;
     }
 
     public static List<WoodMaterial> getSideMaterials() throws LoginSampleException {
-       return MaterialAndOrderMapper.getSideMat();
+        return MaterialAndOrderMapper.getSideMat();
     }
-    
-    public static List<Order> getAllOrders() throws LoginSampleException{
+
+    public static List<Order> getAllOrders() throws LoginSampleException {
         return MaterialAndOrderMapper.getAllOrders();
+    }
+
+    public static void addOrderToDB(Order order) throws LoginSampleException, SQLException, ClassNotFoundException {
+        MaterialAndOrderMapper.addOrderToDB(order);
+    }
+
+    public static String getUserIDByEmail(String email) {
+        return UserMapper.getUserIDByEmail(email);
     }
 
 }

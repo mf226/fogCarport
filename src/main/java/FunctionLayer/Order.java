@@ -48,7 +48,8 @@ public class Order {
         this.shedWidth = 0;
         this.shedExists = false;
         this.finalizedPrice = 0;
-        this.status = Status.UNFINISHED;
+        this.userID = 0;
+        this.status = Status.pending;
     }
 
     public String getShedPlacement() {
