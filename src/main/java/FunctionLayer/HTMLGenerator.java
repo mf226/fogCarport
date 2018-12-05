@@ -148,16 +148,14 @@ public class HTMLGenerator {
 
         for (int i = 0; i < orders.size(); i++) {
             table += "<tr>\n"
-                    + "<td>"+orders.get(i).getStatus()+"</td>\n"
-                    + "<td>"+orders.get(i).getUserID()+"</td>\n"
-                    + "<td>"+orders.get(i).getLength()+"</td>\n"
-                    + "<td>"+orders.get(i).getWidth()+"</td>\n"
+                    + "<td>" + orders.get(i).getStatus() + "</td>\n"
+                    + "<td>" + orders.get(i).getUserID() + "</td>\n"
+                    + "<td>" + orders.get(i).getLength() + "</td>\n"
+                    + "<td>" + orders.get(i).getWidth() + "</td>\n"
                     + "<td>dato</td>\n"
                     + "<td>pris</td>\n"
                     + "</tr>\n";
 
-
-            
         }
         return table;
     }
@@ -206,35 +204,37 @@ public class HTMLGenerator {
             table += "</tr>";
 
         }
-               HashMap<String, WoodDetails> shedMaterialsWood = order.getShedWoodMaterials();
+        if (order.isShedExists()) {
+            HashMap<String, WoodDetails> shedMaterialsWood = order.getShedWoodMaterials();
 
-        for (Map.Entry<String, WoodDetails> mapShedWood : shedMaterialsWood.entrySet()) {
-            table += "<tr>";
-            table += "<td>" + mapShedWood.getKey() + "</td>";
-            table += "<td>" + mapShedWood.getValue().getMaterial().getItemNumber() + "</td>";
-            table += "<td>" + mapShedWood.getValue().getMaterial().getName() + "</td>";
-            table += "<td>"+mapShedWood.getValue().getCmLengthEach()+"</td>";
-            table += "<td>" + mapShedWood.getValue().getMaterial().getUnit() + "</td>";
-            table += "<td>" + mapShedWood.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
-            table += "<td>" + mapShedWood.getValue().getAmount() + "</td>";
-            table += "<td>" + mapShedWood.getValue().getTotalItemPrice() + "  kr </td>";
-            table += "</tr>";
+            for (Map.Entry<String, WoodDetails> mapShedWood : shedMaterialsWood.entrySet()) {
+                table += "<tr>";
+                table += "<td>" + mapShedWood.getKey() + "</td>";
+                table += "<td>" + mapShedWood.getValue().getMaterial().getItemNumber() + "</td>";
+                table += "<td>" + mapShedWood.getValue().getMaterial().getName() + "</td>";
+                table += "<td>" + mapShedWood.getValue().getCmLengthEach() + "</td>";
+                table += "<td>" + mapShedWood.getValue().getMaterial().getUnit() + "</td>";
+                table += "<td>" + mapShedWood.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
+                table += "<td>" + mapShedWood.getValue().getAmount() + "</td>";
+                table += "<td>" + mapShedWood.getValue().getTotalItemPrice() + "  kr </td>";
+                table += "</tr>";
 
-        }
-               HashMap<String, MetalDetails> shedMaterialsMetal = order.getShedMetalMaterials();
+            }
+            HashMap<String, MetalDetails> shedMaterialsMetal = order.getShedMetalMaterials();
 
-        for (Map.Entry<String, MetalDetails> mapMetal : shedMaterialsMetal.entrySet()) {
-            table += "<tr>";
-            table += "<td>" + mapMetal.getKey() + "</td>";
-            table += "<td>" + mapMetal.getValue().getMaterial().getItemNumber() + "</td>";
-            table += "<td>" + mapMetal.getValue().getMaterial().getName() + "</td>";
-            table += "<td></td>";
-            table += "<td>" + mapMetal.getValue().getMaterial().getUnit() + "</td>";
-            table += "<td>" + mapMetal.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
-            table += "<td>" + mapMetal.getValue().getAmount() + "</td>";
-            table += "<td>" + mapMetal.getValue().getTotalItemPrice() + "  kr </td>";
-            table += "</tr>";
+            for (Map.Entry<String, MetalDetails> mapMetal : shedMaterialsMetal.entrySet()) {
+                table += "<tr>";
+                table += "<td>" + mapMetal.getKey() + "</td>";
+                table += "<td>" + mapMetal.getValue().getMaterial().getItemNumber() + "</td>";
+                table += "<td>" + mapMetal.getValue().getMaterial().getName() + "</td>";
+                table += "<td></td>";
+                table += "<td>" + mapMetal.getValue().getMaterial().getUnit() + "</td>";
+                table += "<td>" + mapMetal.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
+                table += "<td>" + mapMetal.getValue().getAmount() + "</td>";
+                table += "<td>" + mapMetal.getValue().getTotalItemPrice() + "  kr </td>";
+                table += "</tr>";
 
+            }
         }
         table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
