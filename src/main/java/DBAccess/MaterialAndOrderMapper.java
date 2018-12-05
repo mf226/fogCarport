@@ -124,31 +124,31 @@ public class MaterialAndOrderMapper {
         }
     }
     
-    public static ArrayList<Order> getOrdersByEmail(String email) {
-        ArrayList<Order> orders = new ArrayList();
-        try {
-
-            Connection con = Connector.connection();
-            String SQL = "SELECT * FROM FogDB.Order "
-                    + "WHERE userID = ?;";
-            PreparedStatement ps = con.prepareStatement(SQL);
-
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int orderID = rs.getInt("orderID");
-                int length = rs.getInt("length");
-                int width = rs.getInt("width");
-                int height = rs.getInt("height");
-                int angle = rs.getInt("angle");
-                double finalizedPrice = rs.getDouble("price");
-                orders.add(new Order(orderID, length, width, height, angle, finalizedPrice));
-
-            }
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return orders;
-    }
+//    public static ArrayList<Order> getOrdersByEmail(String email) {
+//        ArrayList<Order> orders = new ArrayList();
+//        try {
+//
+//            Connection con = Connector.connection();
+//            String SQL = "SELECT * FROM FogDB.Order "
+//                    + "WHERE userID = ?;";
+//            PreparedStatement ps = con.prepareStatement(SQL);
+//
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                int orderID = rs.getInt("orderID");
+//                int length = rs.getInt("length");
+//                int width = rs.getInt("width");
+//                int height = rs.getInt("height");
+//                int angle = rs.getInt("angle");
+//                double finalizedPrice = rs.getDouble("price");
+//                orders.add(new Order(orderID, length, width, height, angle, finalizedPrice));
+//
+//            }
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return orders;
+//    }
 
 //    public static ArrayList<Order> getOrdersByEmail(String email) {
 //        ArrayList<Order> orders = new ArrayList();
@@ -176,6 +176,32 @@ public class MaterialAndOrderMapper {
 //        return orders;
 //    }
 
+    public static List<Order> getOrderByOrderID(int orderID){
+        try {
+            ArrayList<Order> order = new ArrayList();
+            Connection con = Connector.connection();
+            String SQL = "SELECT * FROM FogDB.`Order` WHERE orderID = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int userID = rs.getInt("userID");
+                int length = rs.getInt("length");
+                int width = rs.getInt("width");
+                int height = rs.getInt("height");
+                double price = rs.getDouble("price");
+                Date orderDate = rs.getDate("orderDate");
+                order.add(new Order(userID, length, width, height));
+                
+                
+            }
+            return order;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {
 
