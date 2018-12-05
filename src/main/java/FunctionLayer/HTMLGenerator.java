@@ -193,7 +193,37 @@ public class HTMLGenerator {
         }
         HashMap<String, MetalDetails> materialsMetal = order.getCarportMetalMaterials();
 
-        for (Map.Entry<String, MetalDetails> mapMetal : materialsMetal.entrySet()) {
+        for (Map.Entry<String, MetalDetails> mapShedMetal : materialsMetal.entrySet()) {
+            table += "<tr>";
+            table += "<td>" + mapShedMetal.getKey() + "</td>";
+            table += "<td>" + mapShedMetal.getValue().getMaterial().getItemNumber() + "</td>";
+            table += "<td>" + mapShedMetal.getValue().getMaterial().getName() + "</td>";
+            table += "<td></td>";
+            table += "<td>" + mapShedMetal.getValue().getMaterial().getUnit() + "</td>";
+            table += "<td>" + mapShedMetal.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
+            table += "<td>" + mapShedMetal.getValue().getAmount() + "</td>";
+            table += "<td>" + mapShedMetal.getValue().getTotalItemPrice() + "  kr </td>";
+            table += "</tr>";
+
+        }
+               HashMap<String, WoodDetails> shedMaterialsWood = order.getShedWoodMaterials();
+
+        for (Map.Entry<String, WoodDetails> mapShedWood : shedMaterialsWood.entrySet()) {
+            table += "<tr>";
+            table += "<td>" + mapShedWood.getKey() + "</td>";
+            table += "<td>" + mapShedWood.getValue().getMaterial().getItemNumber() + "</td>";
+            table += "<td>" + mapShedWood.getValue().getMaterial().getName() + "</td>";
+            table += "<td>"+mapShedWood.getValue().getCmLengthEach()+"</td>";
+            table += "<td>" + mapShedWood.getValue().getMaterial().getUnit() + "</td>";
+            table += "<td>" + mapShedWood.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
+            table += "<td>" + mapShedWood.getValue().getAmount() + "</td>";
+            table += "<td>" + mapShedWood.getValue().getTotalItemPrice() + "  kr </td>";
+            table += "</tr>";
+
+        }
+               HashMap<String, MetalDetails> shedMaterialsMetal = order.getShedMetalMaterials();
+
+        for (Map.Entry<String, MetalDetails> mapMetal : shedMaterialsMetal.entrySet()) {
             table += "<tr>";
             table += "<td>" + mapMetal.getKey() + "</td>";
             table += "<td>" + mapMetal.getValue().getMaterial().getItemNumber() + "</td>";
@@ -279,7 +309,7 @@ public class HTMLGenerator {
                 + "<select name=\"sideMat\">\n";
 
         for (int i = 0; i < sideMat.size(); i++) {
-            matType += "<option value=\"" + sideMat.get(i).getName() + "\">" + sideMat.get(i).getName() + "</option>\n";
+            matType += "<option value=\"" + sideMat.get(i).getItemNumber() + "\">" + sideMat.get(i).getName() + "</option>\n";
 
         }
         matType += "</select>";
@@ -338,7 +368,7 @@ public class HTMLGenerator {
         //adding shed before poles
         if (order.isShedExists()) {
             if (order.getShedWidth() < order.getWidth() || order.getShedPlacement().equals("UR") || order.getShedPlacement().equals("UL")) {
-                sketch += addShedSideView(innerX, innerY, order.getShedLength(), order.getShedWidth(), order);
+                sketch += addShedSideView(innerX, innerY, order);
             }
         }
         for (int i = 0; i < amount; i++) {
@@ -349,7 +379,7 @@ public class HTMLGenerator {
         //adding Shed after poles
         if (order.isShedExists()) {
             if (order.getShedWidth() == order.getWidth() || order.getShedPlacement().equals("LR") || order.getShedPlacement().equals("LL")) {
-                sketch += addShedSideView(innerX, innerY, order.getShedLength(), order.getShedWidth(), order);
+                sketch += addShedSideView(innerX, innerY, order);
             }
         }
         //Remme
@@ -413,7 +443,7 @@ public class HTMLGenerator {
         if (order.isShedExists()) {
 
             if (order.getShedWidth() < order.getWidth() || order.getShedPlacement().equals("UR") || order.getShedPlacement().equals("UL")) {
-                sketch += addShedSideView(innerX, innerY, order.getShedLength(), order.getShedWidth(), order);
+                sketch += addShedSideView(innerX, innerY, order);
             }
         }
         for (int i = 0; i < amount; i++) {
@@ -424,7 +454,7 @@ public class HTMLGenerator {
         //adding Shed after poles
         if (order.isShedExists()) {
             if (order.getShedWidth() == order.getWidth() || order.getShedPlacement().equals("LR") || order.getShedPlacement().equals("LL")) {
-                sketch += addShedSideView(innerX, innerY, order.getShedLength(), order.getShedWidth(), order);
+                sketch += addShedSideView(innerX, innerY, order);
             }
         }
         //Remme
@@ -612,12 +642,11 @@ public class HTMLGenerator {
         return shed;
     }
 
-    private String addShedSideView(final int innerX, final int innerY, int length, int width, Order order) {
+    private String addShedSideView(final int innerX, final int innerY, Order order) {
         String shed = "";
-        if (length == 0) {
+        if (order.getShedLength() == 0) {
             return shed;
         }
-
         String style = "style=\"\n"
                 + "                  fill:lightgray;\n"
                 + "                  stroke-width:1;\n"
@@ -629,7 +658,7 @@ public class HTMLGenerator {
         //Upperleft
         if (order.getShedPlacement().equals("UL") || order.getShedPlacement().equals("LL")) {
             //Length - N
-            for (int i = 0; i < length; i += plankWidth) {
+            for (int i = 0; i < order.getShedLength(); i += plankWidth) {
                 shed += "<!--Shed--><rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + plankWidth + "\" height=\"" + order.getHeight() + "\"" + style;
                 x += plankWidth;
             }
@@ -639,7 +668,7 @@ public class HTMLGenerator {
         if (order.getShedPlacement().equals("UR") || order.getShedPlacement().equals("LR")) {
             //Length - N
             x += order.getLength();
-            for (int i = 0; i < length; i += plankWidth) {
+            for (int i = 0; i < order.getShedLength(); i += plankWidth) {
                 shed += "<!--Shed--><rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + plankWidth + "\" height=\"" + order.getHeight() + "\"" + style;
                 x -= plankWidth;
             }

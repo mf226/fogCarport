@@ -26,12 +26,17 @@ public class AddShed extends Command {
         String shedLength = request.getParameter("shedLength");
         int length = Integer.parseInt(shedLength);
         String shedWidth = request.getParameter("shedWidth");
+        String sideMat = request.getParameter("sideMat");
+        int wallType = Integer.parseInt(sideMat);
         int width = Integer.parseInt(shedWidth);
-        order.setShedPlacement(placement);
-        order.setShedLength(length);
-        order.setShedWidth(width);
-        order.setShedExists(true);
-
+//        order.setShedLength(length);
+//        order.setShedWidth(width);
+//        order.setShedPlacement(placement);
+//        order.setShedExists(true);
+        order.createShed(placement, length, width, true);
+        LogicFacade.createShed(order, wallType);
+//        request.getSession(false).setAttribute("order", order);
+        
         String table = gen.generateBOM(order);
         String sketchSV = "";
         String sketchBE = "";
