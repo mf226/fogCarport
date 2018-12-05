@@ -156,8 +156,9 @@ public class HTMLGenerator {
                     + "<td>" + orders.get(i).getPrice() + "</td>\n"
                     + "</tr>\n";
             table += "<form action=\"FrontController\" method=\"POST\">\n"
-                    + " <input class=\"reviewBtn\" type=\"submit\" value=\"Review\" id=\"" + orders.get(i).getOrderID() + "\">\n"
+                    + " <input class=\"reviewBtn\" type=\"submit\" value=\"Review\" name=\"orderID\">\n"
                     + "                <input type=\"hidden\" name=\"command\" value=\"reviewOrder\">\n"
+                    + "                <input type=\"hidden\" name=\"orderID\" value=\"" + orders.get(i).getOrderID() + "\">\n"
                     + "            </form>";
 
         }
