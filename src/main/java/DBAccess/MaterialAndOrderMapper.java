@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +28,7 @@ public class MaterialAndOrderMapper {
         try {
             ArrayList<WoodMaterial> materials = new ArrayList();
             Connection con = Connector.connection();
-            String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials;";
+            String SQL = "SELECT itemNumber, materialName, unit, price, stockLength FROM FogDB.Materials;";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
@@ -35,7 +37,8 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
-                materials.add(new WoodMaterial(itemNumber, materialName, unit, price, 0)); //Hardcoded 0 till DB changed
+                int lengthInStock = rs.getInt("stockLength");
+                materials.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock));
             }
             return materials;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -57,7 +60,8 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
-                return new WoodMaterial(itemNumber, materialName, unit, price, 0); // hardcoded 0 till DB contains lengthInStock
+                int lengthInStock = rs.getInt("stockLength");
+                return new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock);
             } else {
                 throw new LoginSampleException("Material doesn't exist.");
             }
@@ -69,7 +73,7 @@ public class MaterialAndOrderMapper {
     public static MetalMaterial getMetalMaterial(int itemNumber) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT materialName, unit, price FROM FogDB.Materials "
+            String SQL = "SELECT materialName, unit, price, amountInPackage FROM FogDB.Materials "
                     + "WHERE itemNumber = ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, itemNumber);
@@ -79,7 +83,8 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
-                return new MetalMaterial(itemNumber, materialName, unit, price, 1); // hardcoded 1 till DB contains packsize
+                int soldInPacksOf = rs.getInt("amountInPackage");
+                return new MetalMaterial(itemNumber, materialName, unit, price, soldInPacksOf);
             } else {
                 throw new LoginSampleException("Material doesn't exist.");
             }
@@ -116,6 +121,32 @@ public class MaterialAndOrderMapper {
         }
     }
 
+    public static ArrayList<Order> getOrdersByEmail(String email) {
+        ArrayList<Order> orders = new ArrayList();
+        try {
+
+            Connection con = Connector.connection();
+            String SQL = "SELECT orderID, length, width, height, angle, finalizedPrice FROM FogDB.Order "
+                    + "WHERE userID = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int orderID = rs.getInt("orderID");
+                int length = rs.getInt("length");
+                int width = rs.getInt("width");
+                int height = rs.getInt("height");
+                int angle = rs.getInt("angle");
+                double finalizedPrice = rs.getDouble("finalizedPrice");
+                orders.add(new Order(orderID, length, width, height, angle, finalizedPrice));
+
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return orders;
+    }
+
     public static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {
 
         try {
@@ -132,7 +163,7 @@ public class MaterialAndOrderMapper {
                 int height = rs.getInt("height");
                 double finalizedPrice = rs.getDouble("finalizedPrice");
                 Date orderDate = rs.getDate("orderDate");
-                String status = rs.getString("status"); //How to convert enum to string?
+                //String status = rs.getString("status"); 
                 // orders.add(new Order(orderID, user.getId(), length, width, height, finalizedPrice, orderDate, status));
                 //orders.add(new Order(orderID, orderDescription, price, user.getId(), orderDate));
 
@@ -157,7 +188,7 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
-                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0)); //hardcoded 0 till database is changed
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -170,7 +201,7 @@ public class MaterialAndOrderMapper {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
-            String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Beklædning'";
+            String SQL = "SELECT itemNumber, materialName, unit, price stockLength FROM FogDB.Materials WHERE category = 'Beklædning'";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
@@ -179,7 +210,8 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
-                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0)); //Hardcoded 0 till DB fixed
+                int lengthInStock = rs.getInt("stockLength");
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -191,7 +223,7 @@ public class MaterialAndOrderMapper {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
-            String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Tag';";
+            String SQL = "SELECT itemNumber, materialName, unit, price, amountInPackage FROM FogDB.Materials WHERE category = 'Tag';";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
@@ -200,7 +232,8 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
-                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0)); //Hardcoded 0 till DB is fixed
+                int soldInPacksOf = rs.getInt("amountInPackage");
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, soldInPacksOf));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {

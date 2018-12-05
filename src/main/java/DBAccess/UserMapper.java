@@ -83,7 +83,7 @@ public class UserMapper {
                     + "WHERE `UserID`= ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, UserID);
-            ps.execute();
+            ps.executeUpdate();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
