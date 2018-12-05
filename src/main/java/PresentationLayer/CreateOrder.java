@@ -30,6 +30,7 @@ public class CreateOrder extends Command {
             try {
                 int id = user.getId();
                 order.setUserID(id);
+                order.setPrice(order.getTotalOrderPrice());
                 LogicFacade.addOrderToDB(order);
                 return "index";
             } catch (SQLException ex) {

@@ -343,5 +343,8 @@ tr:nth-child(even) {
 tr:last-child {
     background-color: #a9a9a9;
 }
-
+.reviewBtn {
+    display: block;
+    margin: auto;
+}
 ﻿
