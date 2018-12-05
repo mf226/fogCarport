@@ -28,7 +28,7 @@ public class MaterialAndOrderMapper {
         try {
             ArrayList<WoodMaterial> materials = new ArrayList();
             Connection con = Connector.connection();
-            String SQL = "SELECT itemNumber, materialName, unit, price, stockLength FROM FogDB.Materials;";
+            String SQL = "SELECT * FROM FogDB.Materials;";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
@@ -50,7 +50,7 @@ public class MaterialAndOrderMapper {
         try {
 
             Connection con = Connector.connection();
-            String SQL = "SELECT materialName, unit, price FROM FogDB.Materials "
+            String SQL = "SELECT * FROM FogDB.Materials "
                     + "WHERE itemNumber = ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, itemNumber);
@@ -73,7 +73,7 @@ public class MaterialAndOrderMapper {
     public static MetalMaterial getMetalMaterial(int itemNumber) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT materialName, unit, price, amountInPackage FROM FogDB.Materials "
+            String SQL = "SELECT * FROM FogDB.Materials "
                     + "WHERE itemNumber = ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, itemNumber);
@@ -126,7 +126,7 @@ public class MaterialAndOrderMapper {
         try {
 
             Connection con = Connector.connection();
-            String SQL = "SELECT orderID, length, width, height, angle, finalizedPrice FROM FogDB.Order "
+            String SQL = "SELECT * FROM FogDB.Order "
                     + "WHERE userID = ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
 
@@ -152,7 +152,7 @@ public class MaterialAndOrderMapper {
         try {
             ArrayList<Order> orders = new ArrayList();
             Connection con = Connector.connection();
-            String SQL = "SELECT orderID, length, width, height, finalizedPrice, orderDate FROM FogDB.`Order` WHERE userID = ?;";
+            String SQL = "SELECT * FROM FogDB.`Order` WHERE userID = ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
@@ -179,7 +179,7 @@ public class MaterialAndOrderMapper {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
-            String SQL = "SELECT itemNumber, materialName, unit, price FROM FogDB.Materials WHERE category = 'Tagbelægning';";
+            String SQL = "SELECT * FROM FogDB.Materials WHERE category = 'Tagbelægning';";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
@@ -201,7 +201,7 @@ public class MaterialAndOrderMapper {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
-            String SQL = "SELECT itemNumber, materialName, unit, price stockLength FROM FogDB.Materials WHERE category = 'Beklædning'";
+            String SQL = "SELECT * FROM FogDB.Materials WHERE category = 'Beklædning'";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
@@ -223,7 +223,7 @@ public class MaterialAndOrderMapper {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
-            String SQL = "SELECT itemNumber, materialName, unit, price, amountInPackage FROM FogDB.Materials WHERE category = 'Tag';";
+            String SQL = "SELECT * FROM FogDB.Materials WHERE category = 'Tag';";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
