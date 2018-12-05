@@ -108,7 +108,7 @@ public class MaterialAndOrderMapper {
                 int angle = rs.getInt("angle");
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
-                double finalizedPrice = rs.getDouble("finalizedPrice");
+                double finalizedPrice = rs.getDouble("price");
 //                Date orderDate = rs.getDate("orderDate");
                 Order order = new Order(length, width, height, angle);
                 order.setUserID(userID);
@@ -137,13 +137,13 @@ public class MaterialAndOrderMapper {
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
                 int angle = rs.getInt("angle");
-                double finalizedPrice = rs.getDouble("finalizedPrice");
+                double finalizedPrice = rs.getDouble("price");
                 orders.add(new Order(orderID, length, width, height, angle, finalizedPrice));
 
             }
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return orders;
     }
 
@@ -161,7 +161,7 @@ public class MaterialAndOrderMapper {
                 int length = rs.getInt("length");
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
-                double finalizedPrice = rs.getDouble("finalizedPrice");
+                double finalizedPrice = rs.getDouble("price");
                 Date orderDate = rs.getDate("orderDate");
                 //String status = rs.getString("status"); 
                 // orders.add(new Order(orderID, user.getId(), length, width, height, finalizedPrice, orderDate, status));
@@ -246,7 +246,7 @@ public class MaterialAndOrderMapper {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
-            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `finalizedPrice`, `status`)"
+            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `price`, `status`)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getUserID());
@@ -264,5 +264,23 @@ public class MaterialAndOrderMapper {
 
         }
 
+    }
+
+    public static void updateStock(int newAmountInStock, int itemNumber) {
+        try {
+            Connection con = Connector.connection();
+            con.setAutoCommit(false);
+            String SQL = "UPDATE FogDB.Materials SET inStock = ? WHERE itemNumber = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, newAmountInStock);
+            ps.setInt(2, itemNumber);
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
