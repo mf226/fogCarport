@@ -137,6 +137,7 @@ public class HTMLGenerator {
         String table = "<table id=\"table\">\n"
                 + "            <thead>\n"
                 + "            <tr>\n"
+                + "                <th>Ordre ID</th>\n"
                 + "                <th>Status</th>\n"
                 + "                <th>User</th>\n"
                 + "                <th>Længde</th>\n"
@@ -147,19 +148,19 @@ public class HTMLGenerator {
                 + "            </thead>\n";
 
         for (int i = 0; i < orders.size(); i++) {
-            table += "<tr>\n"
+            table += "<form action=\"FrontController\" method=\"POST\">\n"
+                    + " <input type=\"hidden\" name=\"command\" value=\"reviewOrder\">\n"
+                    + " <input type=\"hidden\" name=\"orderID\" value=\"" + orders.get(i).getOrderID() + "\">\n"
+                    + "<td>" + orders.get(i).getOrderID() + "</td>\n"
                     + "<td>" + orders.get(i).getStatus() + "</td>\n"
                     + "<td>" + orders.get(i).getUserID() + "</td>\n"
                     + "<td>" + orders.get(i).getLength() + "</td>\n"
                     + "<td>" + orders.get(i).getWidth() + "</td>\n"
                     + "<td>" + orders.get(i).getOrderDate() + "</td>\n"
                     + "<td>" + orders.get(i).getPrice() + "</td>\n"
-                    + "</tr>\n";
-            table += "<form action=\"FrontController\" method=\"POST\">\n"
-                    + " <input class=\"reviewBtn\" type=\"submit\" value=\"Review\" name=\"orderID\">\n"
-                    + "                <input type=\"hidden\" name=\"command\" value=\"reviewOrder\">\n"
-                    + "                <input type=\"hidden\" name=\"orderID\" value=\"" + orders.get(i).getOrderID() + "\">\n"
-                    + "            </form>";
+                    + "<td><input class=\"reviewBtn\" type=\"submit\" value=\"Review\"></td>\n"
+                    + "</tr>\n"
+                    + "</form>";
 
         }
         return table;

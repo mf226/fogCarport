@@ -41,8 +41,8 @@
             <div class="tableContainer">
                 <%=request.getAttribute("table")%>
                 <form action="FrontController" method="POST">
-                    <input type="submit" value="Create Order">
-                    <input type="hidden" name="command" value="createOrder">
+                    <input type="submit" value="Godkend">
+                    <input type="hidden" name="command" value="approveOrder">
                 </form>
 
 
