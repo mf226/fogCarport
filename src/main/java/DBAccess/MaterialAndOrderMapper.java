@@ -212,6 +212,7 @@ public class MaterialAndOrderMapper {
     public static void addOrderToDB(Order order) throws LoginSampleException, SQLException, ClassNotFoundException {
         try {
             Connection con = Connector.connection();
+            con.setAutoCommit(false);
             String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `finalizedPrice`, `status`)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -222,8 +223,9 @@ public class MaterialAndOrderMapper {
             ps.setInt(5, order.getAngle());
             ps.setDouble(6, order.getFinalizedPrice());
             ps.setString(7, order.getStatus().toString());
-
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
         } catch (SQLException | ClassNotFoundException ex) {
             throw new LoginSampleException(ex.getMessage());
 

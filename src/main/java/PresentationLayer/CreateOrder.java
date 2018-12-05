@@ -23,17 +23,20 @@ public class CreateOrder extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-        User user = (User) request.getSession(false).getAttribute("user");
-        Order order = (Order) request.getAttribute("order");
-        int id = 2;
-        try {
-            order.setUserID(id);
-            LogicFacade.addOrderToDB(order);
-            return "index";
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
+        User user;
+        user = (User) request.getSession(false).getAttribute("user");
+        Order order = (Order) request.getSession(false).getAttribute("order");
+        if (null != user) {
+            try {
+                int id = user.getId();
+                order.setUserID(id);
+                LogicFacade.addOrderToDB(order);
+                return "index";
+            } catch (SQLException ex) {
+                Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return "errorpage";
     }

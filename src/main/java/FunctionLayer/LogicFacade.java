@@ -112,9 +112,9 @@ public class LogicFacade {
     public static void addOrderToDB(Order order) throws LoginSampleException, SQLException, ClassNotFoundException {
         MaterialAndOrderMapper.addOrderToDB(order);
     }
-
-    public static String getUserIDByEmail(String email) {
-        return UserMapper.getUserIDByEmail(email);
-    }
+//
+//    public static int getUserIDByEmail(String email) throws LoginSampleException, LoginSampleException, ClassNotFoundException {
+//        return UserMapper.getUserIDByEmail(email);
+//    }
 
 }
