@@ -126,5 +126,15 @@ public class Calculators {
                     
         }
     }
+    
+    public static double shedWallCalc (int shedLength, int shedWidth, double materialWidth) {
+        return (int)((shedWidth / materialWidth) + (shedLength / materialWidth)) + 1;
+    }
+
+    static double shedWallLength(int height) {
+        return height;
+    }
+    
+    
 
 }

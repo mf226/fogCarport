@@ -108,5 +108,12 @@ public class LogicFacade {
     public static List<Order> getAllOrders() throws LoginSampleException{
         return MaterialAndOrderMapper.getAllOrders();
     }
+    
+    public static void createShed(Order order, int wallType) throws LoginSampleException {
+        WoodMaterial wallMaterial = MaterialAndOrderMapper.getWoodMaterial(wallType);
+        double wallAmount = Calculators.shedWallCalc(order.getShedLength(), order.getShedWidth(), wallMaterial.getTopsideWidth());
+        double wallLengthEach = Calculators.shedWallLength(order.getHeight());
+        order.getShedWoodMaterials().put(RulesAndConstants.SHED_WALL_DESCRIPTION, new WoodDetails(wallMaterial, wallAmount, wallLengthEach));
+    }
 
 }

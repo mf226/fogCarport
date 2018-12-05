@@ -84,19 +84,19 @@ public class Order {
         this.shedExists = exists;
     }
 
-    public static HashMap<String, WoodDetails> getShedWoodMaterials() {
+    public HashMap<String, WoodDetails> getShedWoodMaterials() {
         return shedWoodMaterials;
     }
 
-    public static void setShedWoodMaterials(HashMap<String, WoodDetails> shedWoodMaterials) {
+    public void setShedWoodMaterials(HashMap<String, WoodDetails> shedWoodMaterials) {
         Order.shedWoodMaterials = shedWoodMaterials;
     }
 
-    public static HashMap<String, MetalDetails> getShedMetalMaterials() {
+    public HashMap<String, MetalDetails> getShedMetalMaterials() {
         return shedMetalMaterials;
     }
 
-    public static void setShedMetalMaterials(HashMap<String, MetalDetails> shedMetalMaterials) {
+    public void setShedMetalMaterials(HashMap<String, MetalDetails> shedMetalMaterials) {
         Order.shedMetalMaterials = shedMetalMaterials;
     }
 
