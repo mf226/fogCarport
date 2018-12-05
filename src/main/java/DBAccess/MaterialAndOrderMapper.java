@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -110,6 +112,54 @@ public class MaterialAndOrderMapper {
             return orders;
         } catch (SQLException | ClassNotFoundException ex) {
             throw new LoginSampleException(ex.getMessage());
+        }
+    }
+
+    public static ArrayList<Order> getOrdersByEmail(String email) {
+        ArrayList<Order> orders = new ArrayList();
+        try {
+
+            Connection con = Connector.connection();
+            String SQL = "SELECT orderID, length, width, height, angle, finalizedPrice FROM FogDB.Order "
+                    + "WHERE userID = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int orderID = rs.getInt("orderID");
+                int length = rs.getInt("length");
+                int width = rs.getInt("width");
+                int height = rs.getInt("height");
+                int angle = rs.getInt("angle");
+                double finalizedPrice = rs.getDouble("finalizedPrice");
+                orders.add(new Order(orderID, length, width, height, angle, finalizedPrice));
+
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return orders;
+    }
+
+//Mangler atstus
+    public void addOrder(Order order) {
+        try {
+            Connection con = Connector.connection();
+            con.setAutoCommit(false);
+            String SQL = "INSERT INTO `FogDB`.`Order` (userID, length, width, height, angle, finalizedPrice, status) VALUES ?,?,?,?,?,?,?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, order.getUserID());
+            ps.setInt(2, order.getLength());
+            ps.setInt(3, order.getWidth());
+            ps.setInt(4, order.getHeight());
+            ps.setInt(5, order.getAngle());
+            ps.setDouble(6, order.getFinalizedPrice());
+            ps.setObject(7, order.getStatus());
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

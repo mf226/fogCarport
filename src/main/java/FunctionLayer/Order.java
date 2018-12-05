@@ -51,6 +51,10 @@ public class Order {
         this.status = Status.UNFINISHED;
     }
 
+    public Order(int orderID, int length, int width, int height, int angle, double finalizedPrice) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getShedPlacement() {
         return shedPlacement;
     }
