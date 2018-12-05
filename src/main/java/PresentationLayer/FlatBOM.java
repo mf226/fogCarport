@@ -55,7 +55,7 @@ public class FlatBOM extends Command {
         request.setAttribute("table", table);
         request.setAttribute("sketchSV", sketchSV);
         request.setAttribute("sketchBE", sketchBE);
-        request.setAttribute("order", order);
+        request.getSession(false).setAttribute("order", order);
 
         return "BOMpage";
     }

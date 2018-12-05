@@ -11,5 +11,5 @@ package FunctionLayer;
  */
 public enum Status {
 
-    UNFINISHED, FINISHED;
+    pending, approved, shipped;
 }

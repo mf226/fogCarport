@@ -58,7 +58,7 @@ public class UserMapper {
         }
     }
 
-    public static User getUserIDByEmail(String email) throws LoginSampleException, ClassNotFoundException {
+    public static int getUserIDByEmail(String email) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT UserID FROM FogDB.User WHERE email = ?";
@@ -68,12 +68,12 @@ public class UserMapper {
 
             if (rs.next()) {
                 int userID = rs.getInt("UserID");
-                User user = new User(userID);
+                return userID;
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return 0;
     }
 
     public static void removeCustomerByEmail(int UserID) throws LoginSampleException {

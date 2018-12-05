@@ -23,6 +23,7 @@ body {
 }
 .tableContainer {
     float: right;
+    margin: 10px;
 }
 
 .togglebtn {

@@ -5,6 +5,8 @@ import FunctionLayer.Material;
 import FunctionLayer.MetalMaterial;
 import FunctionLayer.WoodMaterial;
 import FunctionLayer.Order;
+import FunctionLayer.Role;
+import FunctionLayer.Status;
 import FunctionLayer.User;
 import java.sql.Connection;
 import java.sql.Date;
@@ -98,11 +100,12 @@ public class MaterialAndOrderMapper {
                 int orderID = rs.getInt("orderID");
                 int userID = rs.getInt("userID");
                 int length = rs.getInt("length");
+                int angle = rs.getInt("angle");
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
                 double finalizedPrice = rs.getDouble("finalizedPrice");
 //                Date orderDate = rs.getDate("orderDate");
-                Order order = new Order(length, width, height, length);
+                Order order = new Order(length, width, height, angle);
                 order.setUserID(userID);
                 order.setFinalizedPrice(finalizedPrice);
                 orders.add(order);
@@ -202,6 +205,30 @@ public class MaterialAndOrderMapper {
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
             throw new LoginSampleException(ex.getMessage());
+        }
+
+    }
+
+    public static void addOrderToDB(Order order) throws LoginSampleException, SQLException, ClassNotFoundException {
+        try {
+            Connection con = Connector.connection();
+            con.setAutoCommit(false);
+            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `finalizedPrice`, `status`)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?);";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, order.getUserID());
+            ps.setInt(2, order.getLength());
+            ps.setInt(3, order.getWidth());
+            ps.setInt(4, order.getHeight());
+            ps.setInt(5, order.getAngle());
+            ps.setDouble(6, order.getFinalizedPrice());
+            ps.setString(7, order.getStatus().toString());
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+
         }
 
     }
