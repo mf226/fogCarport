@@ -152,9 +152,13 @@ public class HTMLGenerator {
                     + "<td>" + orders.get(i).getUserID() + "</td>\n"
                     + "<td>" + orders.get(i).getLength() + "</td>\n"
                     + "<td>" + orders.get(i).getWidth() + "</td>\n"
-                    + "<td>dato</td>\n"
-                    + "<td>pris</td>\n"
+                    + "<td>" + orders.get(i).getOrderDate() + "</td>\n"
+                    + "<td>" + orders.get(i).getPrice() + "</td>\n"
                     + "</tr>\n";
+            table += "<form action=\"FrontController\" method=\"POST\">\n"
+                    + " <input class=\"reviewBtn\" type=\"submit\" value=\"Review\" id=\"" + orders.get(i).getOrderID() + "\">\n"
+                    + "                <input type=\"hidden\" name=\"command\" value=\"reviewOrder\">\n"
+                    + "            </form>";
 
         }
         return table;

@@ -108,11 +108,14 @@ public class MaterialAndOrderMapper {
                 int angle = rs.getInt("angle");
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
-                double finalizedPrice = rs.getDouble("finalizedPrice");
+                double price = rs.getDouble("price");
+                Date date = rs.getDate("orderDate");
 //                Date orderDate = rs.getDate("orderDate");
                 Order order = new Order(length, width, height, angle);
+                order.setOrderID(orderID);
                 order.setUserID(userID);
-                order.setFinalizedPrice(finalizedPrice);
+                order.setPrice(price);
+                order.setOrderDate(date);
                 orders.add(order);
             }
             return orders;
@@ -121,31 +124,31 @@ public class MaterialAndOrderMapper {
         }
     }
 
-    public static ArrayList<Order> getOrdersByEmail(String email) {
-        ArrayList<Order> orders = new ArrayList();
-        try {
-
-            Connection con = Connector.connection();
-            String SQL = "SELECT * FROM FogDB.Order "
-                    + "WHERE userID = ?;";
-            PreparedStatement ps = con.prepareStatement(SQL);
-
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int orderID = rs.getInt("orderID");
-                int length = rs.getInt("length");
-                int width = rs.getInt("width");
-                int height = rs.getInt("height");
-                int angle = rs.getInt("angle");
-                double finalizedPrice = rs.getDouble("finalizedPrice");
-                orders.add(new Order(orderID, length, width, height, angle, finalizedPrice));
-
-            }
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        return orders;
-    }
+//    public static ArrayList<Order> getOrdersByEmail(String email) {
+//        ArrayList<Order> orders = new ArrayList();
+//        try {
+//
+//            Connection con = Connector.connection();
+//            String SQL = "SELECT * FROM FogDB.Order "
+//                    + "WHERE userID = ?;";
+//            PreparedStatement ps = con.prepareStatement(SQL);
+//
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                int orderID = rs.getInt("orderID");
+//                int length = rs.getInt("length");
+//                int width = rs.getInt("width");
+//                int height = rs.getInt("height");
+//                int angle = rs.getInt("angle");
+//                double finalizedPrice = rs.getDouble("finalizedPrice");
+//                orders.add(new Order(orderID, length, width, height, angle, finalizedPrice));
+//
+//            }
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+//        return orders;
+//    }
 
     public static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {
 
@@ -246,7 +249,7 @@ public class MaterialAndOrderMapper {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
-            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `finalizedPrice`, `status`)"
+            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `price`, `status`)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getUserID());
@@ -254,7 +257,7 @@ public class MaterialAndOrderMapper {
             ps.setInt(3, order.getWidth());
             ps.setInt(4, order.getHeight());
             ps.setInt(5, order.getAngle());
-            ps.setDouble(6, order.getFinalizedPrice());
+            ps.setDouble(6, order.getPrice());
             ps.setString(7, order.getStatus().toString());
             ps.executeUpdate();
             con.commit();

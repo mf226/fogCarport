@@ -1,5 +1,6 @@
 package FunctionLayer;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,10 +17,11 @@ public class Order {
     private int angle;
     private int shedLength;
     private int userID;
+    private int orderID;
 
     private int shedWidth;
 
-    private double finalizedPrice;
+    private double price;
 
     private HashMap<String, WoodDetails> carportWoodMaterials;
     private HashMap<String, MetalDetails> carportMetalMaterials;
@@ -28,7 +30,7 @@ public class Order {
 
     private String shedPlacement;
     private Status status;
-
+    private Date orderDate;
     //private int roofType;
     private boolean shedExists;
 
@@ -46,11 +48,12 @@ public class Order {
         this.shedLength = 0;
         this.shedWidth = 0;
         this.shedExists = false;
-        this.finalizedPrice = 0;
+        this.price = 0;
         this.userID = 0;
+        this.orderID = 0;
+        this.orderDate = null;
         this.status = Status.pending;
     }
-
     public void createShed(String placement, int shedLength, int shedWidth, boolean shedExists) {
         this.shedPlacement = placement;
         this.shedLength = shedLength;
@@ -61,8 +64,21 @@ public class Order {
 
     }
 
-    public Order(int orderID, int length, int width, int height, int angle, double finalizedPrice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
+    }
+    
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public String getShedPlacement() {
@@ -182,12 +198,12 @@ public class Order {
         this.userID = userID;
     }
 
-    public double getFinalizedPrice() {
-        return finalizedPrice;
+    public double getPrice() {
+        return price;
     }
 
-    public void setFinalizedPrice(double finalizedPrice) {
-        this.finalizedPrice = finalizedPrice;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Status getStatus() {
