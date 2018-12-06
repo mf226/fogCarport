@@ -32,7 +32,7 @@ public class Order {
     private Status status;
     private Date orderDate;
     private int roofType;
-    private int sideMat;
+    private int wallType;
     private boolean shedExists;
 
     public Order(int length, int width, int height, int angle, int roofType) {
@@ -41,7 +41,7 @@ public class Order {
         this.height = height;
         this.angle = angle;
         this.roofType = roofType;
-        this.sideMat = 0;
+        this.wallType = 0;
         this.carportWoodMaterials = new HashMap();
         this.carportMetalMaterials = new HashMap();
         this.shedWoodMaterials = null;
@@ -57,14 +57,14 @@ public class Order {
         this.status = Status.pending;
     }
 
-    public void createShed(String placement, int shedLength, int shedWidth, boolean shedExists, int sideMat) {
+    public void createShed(String placement, int shedLength, int shedWidth, boolean shedExists, int wallType) {
         this.shedPlacement = placement;
         this.shedLength = shedLength;
         this.shedWidth = shedWidth;
         this.shedExists = shedExists;
         this.shedWoodMaterials = new HashMap<String, WoodDetails>();
         this.shedMetalMaterials = new HashMap<String, MetalDetails>();
-        this.sideMat = sideMat;
+        this.wallType = wallType;
 
     }
     
@@ -76,12 +76,12 @@ public class Order {
         this.roofType = roofType;
     }
 
-    public int getSideMat() {
-        return sideMat;
+    public int getWallType() {
+        return wallType;
     }
 
-    public void setSideMat(int sideMat) {
-        this.sideMat = sideMat;
+    public void setWallType(int wallType) {
+        this.wallType = wallType;
     }
 
     public int getOrderID() {

@@ -112,10 +112,14 @@ public class LogicFacade {
     }
 
     public static void createShed(Order order) throws LoginSampleException {
-        WoodMaterial wallMaterial = MaterialAndOrderMapper.getWoodMaterial(order.getSideMat());
+        WoodMaterial wallMaterial = MaterialAndOrderMapper.getWoodMaterial(order.getWallType());
         double wallAmount = Calculators.shedWallCalc(order.getShedLength(), order.getShedWidth(), wallMaterial.getTopsideWidth());
         double wallLengthEach = Calculators.shedWallLength(order.getHeight());
         order.getShedWoodMaterials().put(RulesAndConstants.SHED_WALL_DESCRIPTION, new WoodDetails(wallMaterial, wallAmount, wallLengthEach));
+        MetalMaterial screw = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_SCREWS);
+        double screwAmount = Calculators.screwsAmountCalcForShed(order);
+        order.getCarportMetalMaterials().put(RulesAndConstants.SCREWS_SHED_DESCRIPTION, new MetalDetails(screw, screwAmount));
+
     }
 
     public static void addOrderToDB(Order order) throws LoginSampleException, SQLException, ClassNotFoundException {

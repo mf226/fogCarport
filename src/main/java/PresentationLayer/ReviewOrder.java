@@ -22,6 +22,11 @@ public class ReviewOrder extends Command {
         String orderID = request.getParameter("orderID");
         int id = Integer.parseInt(orderID);
         Order order = LogicFacade.getOrderByOrderID(id);
+        
+        LogicFacade.createCarport(order);
+        if(order.isShedExists()) {
+            LogicFacade.createShed(order);
+        }
         String table = gen.generateBOM(order);
         String sketchSV = "";
         String sketchBE = "";

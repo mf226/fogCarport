@@ -106,12 +106,13 @@ public class MaterialAndOrderMapper {
                 int userID = rs.getInt("userID");
                 int length = rs.getInt("length");
                 int angle = rs.getInt("angle");
+                int roofType = rs.getInt("roofType");
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
                 double price = rs.getDouble("price");
                 Date date = rs.getDate("orderDate");
 //                Date orderDate = rs.getDate("orderDate");
-                Order order = new Order(length, width, height, angle);
+                Order order = new Order(length, width, height, angle, roofType);
                 order.setOrderID(orderID);
                 order.setUserID(userID);
                 order.setPrice(price);
@@ -189,22 +190,28 @@ public class MaterialAndOrderMapper {
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
                 int angle = rs.getInt("angle");
+                int roofType = rs.getInt("roofType");
                 double price = rs.getDouble("price");
                 Date orderDate = rs.getDate("orderDate");
                 Boolean hasShed = rs.getBoolean("hasShed");
                 int shedLength = rs.getInt("shedLength");
                 int shedWidth = rs.getInt("shedWidth");
                 String shedPlacement = rs.getString("shedPlacement");
+                int wallType = rs.getInt("wallType");
 
-                order = new Order(length, width, height, angle);
+                order = new Order(length, width, height, angle, roofType);
                 order.setUserID(userID);
                 order.setOrderID(orderID);
                 order.setOrderDate(orderDate);
                 order.setPrice(price);
-                order.setShedExists(hasShed);
-                order.setShedLength(shedLength);
-                order.setShedWidth(shedWidth);
-                order.setShedPlacement(shedPlacement);
+                if (hasShed) {
+                    order.createShed(shedPlacement, shedLength, shedWidth, hasShed, wallType);
+                }
+//                order.setShedExists(hasShed);
+//                order.setShedLength(shedLength);
+//                order.setShedWidth(shedWidth);
+//                order.setShedPlacement(shedPlacement);
+//                order.setWallType(wallType);
                 return order;
             }
         } catch (ClassNotFoundException ex) {
@@ -314,20 +321,22 @@ public class MaterialAndOrderMapper {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
-            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `hasShed`, `shedLength`, `shedWidth`, `shedPlacement`, `price`, `status`)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `roofType`, `hasShed`, `shedLength`, `shedWidth`, `shedPlacement`, `wallType`, `price`, `status`)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getUserID());
             ps.setInt(2, order.getLength());
             ps.setInt(3, order.getWidth());
             ps.setInt(4, order.getHeight());
             ps.setInt(5, order.getAngle());
-            ps.setBoolean(6, order.isShedExists());
-            ps.setInt(7, order.getShedLength());
-            ps.setInt(8, order.getShedWidth());
-            ps.setString(9, order.getShedPlacement());
-            ps.setDouble(10, order.getPrice());
-            ps.setString(11, order.getStatus().toString());
+            ps.setInt(6, order.getRoofType());
+            ps.setBoolean(7, order.isShedExists());
+            ps.setInt(8, order.getShedLength());
+            ps.setInt(9, order.getShedWidth());
+            ps.setString(10, order.getShedPlacement());
+            ps.setInt(11, order.getWallType());
+            ps.setDouble(12, order.getPrice());
+            ps.setString(13, order.getStatus().toString());
             ps.executeUpdate();
             con.commit();
             con.setAutoCommit(true);

@@ -48,7 +48,7 @@ public class AngledBOM extends Command {
             request.setAttribute("shedSketch", shedSketch);
             return "shedpage";
         }
-
+        
         String table = gen.generateBOM(order);
         String sketchSV = gen.createSketchSideViewAngled(order);
         String sketchBE = gen.createSketchBirdsEyeView(order);
