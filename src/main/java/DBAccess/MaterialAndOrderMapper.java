@@ -37,7 +37,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
                 int lengthInStock = rs.getInt("stockLength");
-                materials.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock));
+                int amountInStock = rs.getInt("inStock");
+                materials.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock, amountInStock));
             }
             return materials;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -60,7 +61,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
                 int lengthInStock = rs.getInt("stockLength");
-                return new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock);
+                int amountInStock = rs.getInt("inStock");
+                return new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock, amountInStock);
             } else {
                 throw new LoginSampleException("Material doesn't exist.");
             }
@@ -83,7 +85,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
                 int soldInPacksOf = rs.getInt("amountInPackage");
-                return new MetalMaterial(itemNumber, materialName, unit, price, soldInPacksOf);
+                int amountInStock = rs.getInt("inStock");
+                return new MetalMaterial(itemNumber, materialName, unit, price, soldInPacksOf, amountInStock);
             } else {
                 throw new LoginSampleException("Material doesn't exist.");
             }
@@ -275,7 +278,8 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
-                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0));
+                int amountInStock = rs.getInt("inStock");
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0, amountInStock));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -298,7 +302,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
                 int lengthInStock = rs.getInt("stockLength");
-                material.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock));
+                int amountInStock = rs.getInt("inStock");
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock, amountInStock));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -320,7 +325,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
                 int soldInPacksOf = rs.getInt("amountInPackage");
-                material.add(new WoodMaterial(itemNumber, materialName, unit, price, soldInPacksOf));
+                int amountInStock = rs.getInt("inStock");
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, soldInPacksOf, amountInStock));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {

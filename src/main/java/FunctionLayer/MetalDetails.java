@@ -8,7 +8,14 @@ public class MetalDetails extends MaterialDetails {
 
     @Override
     public double getTotalItemPrice() {
-        return super.getMaterial().getPricePerUnit() * super.getAmount();
+        double numberOfUnits = Math.ceil(super.getAmount() / ((MetalMaterial) super.getMaterial()).getSoldInPacksOf());
+        return super.getMaterial().getPricePerUnit() * numberOfUnits; 
     }
+    
+    @Override
+    public double getAmount() {
+        return Math.ceil(super.getAmount() / ((MetalMaterial) super.getMaterial()).getSoldInPacksOf());
+    }
+    
     
 }
