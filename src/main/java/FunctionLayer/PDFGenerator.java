@@ -5,7 +5,6 @@
  */
 package FunctionLayer;
 
-import com.itextpdf.layout.Document;
 
 /**
  *
@@ -14,5 +13,7 @@ import com.itextpdf.layout.Document;
 public class PDFGenerator {
   
     public PDFGenerator(Order order){
+      
+        
         }
 }
