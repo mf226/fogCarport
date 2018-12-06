@@ -242,6 +242,7 @@ public class HTMLGenerator {
 
             }
         }
+
         table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
         return table;

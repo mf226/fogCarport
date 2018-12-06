@@ -67,8 +67,8 @@ public class Order {
         this.wallType = wallType;
 
     }
-    
-        public int getRoofType() {
+
+    public int getRoofType() {
         return roofType;
     }
 

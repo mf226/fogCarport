@@ -23,6 +23,11 @@ public class ApproveOrder extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         Order order = (Order) request.getSession(false).getAttribute("order");
         LogicFacade.approveOrder(order);
+        String newPrice_str = request.getParameter("newPrice");
+        double newPrice = Double.parseDouble(newPrice_str);
+        if(newPrice > order.getTotalOrderPrice()){
+            LogicFacade.editOrderPrice(order, newPrice);
+        }
         List<Order> orders = LogicFacade.getAllOrders();
         String ordersTable = gen.showAllOrders(orders);
         request.setAttribute("ordersTable", ordersTable);

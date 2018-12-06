@@ -137,5 +137,9 @@ public class LogicFacade {
     public static void approveOrder(Order order) throws LoginSampleException {
         MaterialAndOrderMapper.approveOrder(order);
     }
+
+    public static void editOrderPrice(Order order, double newPrice) {
+        MaterialAndOrderMapper.editOrderPrice(order, newPrice);
+    }
     
 }

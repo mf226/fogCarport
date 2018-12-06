@@ -114,7 +114,7 @@ public class MaterialAndOrderMapper {
                 double price = rs.getDouble("price");
                 Date date = rs.getDate("orderDate");
                 String status = rs.getString("status");
-                
+
 //                Date orderDate = rs.getDate("orderDate");
                 Order order = new Order(length, width, height, angle, roofType);
                 order.setOrderID(orderID);
@@ -373,6 +373,25 @@ public class MaterialAndOrderMapper {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, newAmountInStock);
             ps.setInt(2, itemNumber);
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void editOrderPrice(Order order, double newPrice) {
+        try {
+            Connection con = Connector.connection();
+            con.setAutoCommit(false);
+            String SQL = "UPDATE `FogDB`.`Order` SET `price` = ? WHERE (`orderID` = ?) and (`userID` = ?);";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setDouble(1, newPrice);
+            ps.setInt(2, order.getOrderID());
+            ps.setInt(3, order.getUserID());
             ps.executeUpdate();
             con.commit();
             con.setAutoCommit(true);
