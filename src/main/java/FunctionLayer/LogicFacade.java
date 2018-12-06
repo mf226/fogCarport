@@ -108,7 +108,7 @@ public class LogicFacade {
     public static List<Order> getAllOrders() throws LoginSampleException {
         return MaterialAndOrderMapper.getAllOrders();
     }
-    
+
     public static void createShed(Order order, int wallType) throws LoginSampleException {
         WoodMaterial wallMaterial = MaterialAndOrderMapper.getWoodMaterial(wallType);
         double wallAmount = Calculators.shedWallCalc(order.getShedLength(), order.getShedWidth(), wallMaterial.getTopsideWidth());
@@ -123,5 +123,9 @@ public class LogicFacade {
 //    public static int getUserIDByEmail(String email) throws LoginSampleException, LoginSampleException, ClassNotFoundException {
 //        return UserMapper.getUserIDByEmail(email);
 //    }
+
+    public static Order getOrderByOrderID(int id) {
+        return MaterialAndOrderMapper.getOrderByOrderID(id);
+    }
 
 }

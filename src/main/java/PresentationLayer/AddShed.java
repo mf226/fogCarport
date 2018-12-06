@@ -29,13 +29,8 @@ public class AddShed extends Command {
         String sideMat = request.getParameter("sideMat");
         int wallType = Integer.parseInt(sideMat);
         int width = Integer.parseInt(shedWidth);
-//        order.setShedLength(length);
-//        order.setShedWidth(width);
-//        order.setShedPlacement(placement);
-//        order.setShedExists(true);
         order.createShed(placement, length, width, true);
         LogicFacade.createShed(order, wallType);
-//        request.getSession(false).setAttribute("order", order);
         
         String table = gen.generateBOM(order);
         String sketchSV = "";
@@ -53,5 +48,5 @@ public class AddShed extends Command {
         request.setAttribute("sketchBE", sketchBE);
         return "BOMpage";
     }
-
+    
 }

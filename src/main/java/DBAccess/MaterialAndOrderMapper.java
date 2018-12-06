@@ -123,7 +123,7 @@ public class MaterialAndOrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-    
+
 //    public static ArrayList<Order> getOrdersByEmail(String email) {
 //        ArrayList<Order> orders = new ArrayList();
 //        try {
@@ -149,7 +149,6 @@ public class MaterialAndOrderMapper {
 //        }
 //        return orders;
 //    }
-
 //    public static ArrayList<Order> getOrdersByEmail(String email) {
 //        ArrayList<Order> orders = new ArrayList();
 //        try {
@@ -175,13 +174,13 @@ public class MaterialAndOrderMapper {
 //        } 
 //        return orders;
 //    }
-
-    public static List<Order> getOrderByOrderID(int orderID){
+    public static Order getOrderByOrderID(int orderID) {
         try {
-            ArrayList<Order> order = new ArrayList();
+            Order order;
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM FogDB.`Order` WHERE orderID = ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, orderID);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -189,18 +188,24 @@ public class MaterialAndOrderMapper {
                 int length = rs.getInt("length");
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
+                int angle = rs.getInt("angle");
                 double price = rs.getDouble("price");
                 Date orderDate = rs.getDate("orderDate");
-                order.add(new Order(userID, length, width, height));
-                
-                
+
+                order = new Order(length, width, height, angle);
+                order.setUserID(userID);
+                order.setOrderID(orderID);
+                order.setOrderDate(orderDate);
+                order.setPrice(price);
+
+                return order;
             }
-            return order;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
     public static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {
