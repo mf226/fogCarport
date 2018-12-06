@@ -6,7 +6,6 @@ import FunctionLayer.MetalMaterial;
 import FunctionLayer.WoodMaterial;
 import FunctionLayer.Order;
 import FunctionLayer.Role;
-import FunctionLayer.Status;
 import FunctionLayer.User;
 import java.sql.Connection;
 import java.sql.Date;
@@ -111,12 +110,15 @@ public class MaterialAndOrderMapper {
                 int height = rs.getInt("height");
                 double price = rs.getDouble("price");
                 Date date = rs.getDate("orderDate");
+                String status = rs.getString("status");
+                
 //                Date orderDate = rs.getDate("orderDate");
                 Order order = new Order(length, width, height, angle, roofType);
                 order.setOrderID(orderID);
                 order.setUserID(userID);
                 order.setPrice(price);
                 order.setOrderDate(date);
+                order.setStatus(status);
                 orders.add(order);
             }
             return orders;
@@ -207,19 +209,29 @@ public class MaterialAndOrderMapper {
                 if (hasShed) {
                     order.createShed(shedPlacement, shedLength, shedWidth, hasShed, wallType);
                 }
-//                order.setShedExists(hasShed);
-//                order.setShedLength(shedLength);
-//                order.setShedWidth(shedWidth);
-//                order.setShedPlacement(shedPlacement);
-//                order.setWallType(wallType);
                 return order;
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public static void approveOrder(Order order) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+            con.setAutoCommit(false);
+            String SQL = "UPDATE `FogDB`.`Order` SET `status` = 'approved' WHERE (`orderID` = ?) and (`userID` = ?);;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, order.getOrderID());
+            ps.setInt(2, order.getUserID());
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+
+        }
     }
 
     public static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {

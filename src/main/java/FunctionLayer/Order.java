@@ -29,7 +29,7 @@ public class Order {
     private HashMap<String, MetalDetails> shedMetalMaterials;
 
     private String shedPlacement;
-    private Status status;
+    private String status;
     private Date orderDate;
     private int roofType;
     private int wallType;
@@ -54,7 +54,7 @@ public class Order {
         this.userID = 0;
         this.orderID = 0;
         this.orderDate = null;
-        this.status = Status.pending;
+        this.status = "pending";
     }
 
     public void createShed(String placement, int shedLength, int shedWidth, boolean shedExists, int wallType) {
@@ -225,11 +225,11 @@ public class Order {
         this.price = price;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

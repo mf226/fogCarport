@@ -38,10 +38,10 @@ public class ReviewOrder extends Command {
                 sketchSV = gen.createSketchSideViewFlat(order);
                 sketchBE = gen.createSketchBirdsEyeView(order);
             }
-
             request.setAttribute("table", table);
             request.setAttribute("sketchSV", sketchSV);
             request.setAttribute("sketchBE", sketchBE);
+            request.getSession(false).setAttribute("order", order);
 
             return "reviewpage";
         }
