@@ -29,21 +29,23 @@ public class LogicFacade {
         return MaterialAndOrderMapper.getFlatRoofMat();
     }
 
-    public static Order createFlatRoofCarport(int length, int width, int height, int roofAngle, int roofType) throws LoginSampleException {
-        Order order = new Order(length, width, height, roofAngle);
-        double amountOfRafters = createFlatRoofRafters(order);
-        createRestOfCarport(order, amountOfRafters, roofType);
+    public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws LoginSampleException {
+        Order order = new Order(length, width, height, roofAngle, roofType);
+        createCarport(order);
         return order;
     }
 
-    public static Order createAngledRoofCarport(int length, int width, int height, int roofAngle, int roofType) throws LoginSampleException {
-        Order order = new Order(length, width, height, roofAngle);
-        double amountOfRafters = createAngledRoofRafters(order, roofAngle);
-        createRestOfCarport(order, amountOfRafters, roofType);
-        return order;
+    public static void createCarport(Order order) throws LoginSampleException {
+        if (order.getAngle() == 0) {
+            double amountOfRafters = createFlatRoofRafters(order);
+            createRestOfCarport(order, amountOfRafters);
+        } else {
+            double amountOfRafters = createAngledRoofRafters(order);
+            createRestOfCarport(order, amountOfRafters);
+        }
     }
 
-    private static void createRestOfCarport(Order order, double bottomRafterAmount, int roofType) throws LoginSampleException {
+    private static void createRestOfCarport(Order order, double bottomRafterAmount) throws LoginSampleException {
         double postsAmount = createPosts(order);
         MetalMaterial concrete = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
         double concreteAmount = Calculators.concreteAmountCalc(postsAmount);
@@ -62,7 +64,7 @@ public class LogicFacade {
 
         order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_REM_DESCRIPTION, new WoodDetails(rem, 2, remLength)); //There are always 2 REMME
 
-        MetalMaterial roof = MaterialAndOrderMapper.getMetalMaterial(roofType);
+        MetalMaterial roof = MaterialAndOrderMapper.getMetalMaterial(order.getRoofType());
         double roofAmount = Calculators.calcRoof(order);
         order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_ROOF_DESCRIPTION, new MetalDetails(roof, roofAmount));
 
@@ -88,14 +90,14 @@ public class LogicFacade {
         return postsAmount;
     }
 
-    private static double createAngledRoofRafters(Order order, int roofAngle) throws LoginSampleException {
+    private static double createAngledRoofRafters(Order order) throws LoginSampleException {
         WoodMaterial rafter = MaterialAndOrderMapper.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double bottomRafterAmount = Calculators.angledRoofRafterBottomAmountCalc(order.getLength());
         double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
         order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION, new WoodDetails(rafter, bottomRafterAmount, cmLengthEachBottomRafter));
 
         double sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
-        double cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), roofAngle);
+        double cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), order.getAngle());
         order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION, new WoodDetails(rafter, sideRafterAmount, cmLengthEachSideRafter));
 
         return bottomRafterAmount;
@@ -109,8 +111,8 @@ public class LogicFacade {
         return MaterialAndOrderMapper.getAllOrders();
     }
 
-    public static void createShed(Order order, int wallType) throws LoginSampleException {
-        WoodMaterial wallMaterial = MaterialAndOrderMapper.getWoodMaterial(wallType);
+    public static void createShed(Order order) throws LoginSampleException {
+        WoodMaterial wallMaterial = MaterialAndOrderMapper.getWoodMaterial(order.getSideMat());
         double wallAmount = Calculators.shedWallCalc(order.getShedLength(), order.getShedWidth(), wallMaterial.getTopsideWidth());
         double wallLengthEach = Calculators.shedWallLength(order.getHeight());
         order.getShedWoodMaterials().put(RulesAndConstants.SHED_WALL_DESCRIPTION, new WoodDetails(wallMaterial, wallAmount, wallLengthEach));
@@ -127,7 +129,5 @@ public class LogicFacade {
     public static Order getOrderByOrderID(int id) {
         return MaterialAndOrderMapper.getOrderByOrderID(id);
     }
-    
-   
 
 }
