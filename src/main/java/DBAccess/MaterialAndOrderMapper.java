@@ -191,13 +191,20 @@ public class MaterialAndOrderMapper {
                 int angle = rs.getInt("angle");
                 double price = rs.getDouble("price");
                 Date orderDate = rs.getDate("orderDate");
+                Boolean hasShed = rs.getBoolean("hasShed");
+                int shedLength = rs.getInt("shedLength");
+                int shedWidth = rs.getInt("shedWidth");
+                String shedPlacement = rs.getString("shedPlacement");
 
                 order = new Order(length, width, height, angle);
                 order.setUserID(userID);
                 order.setOrderID(orderID);
                 order.setOrderDate(orderDate);
                 order.setPrice(price);
-
+                order.setShedExists(hasShed);
+                order.setShedLength(shedLength);
+                order.setShedWidth(shedWidth);
+                order.setShedPlacement(shedPlacement);
                 return order;
             }
         } catch (ClassNotFoundException ex) {
@@ -307,16 +314,20 @@ public class MaterialAndOrderMapper {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
-            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `price`, `status`)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?);";
+            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `hasShed`, `shedLength`, `shedWidth`, `shedPlacement`, `price`, `status`)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getUserID());
             ps.setInt(2, order.getLength());
             ps.setInt(3, order.getWidth());
             ps.setInt(4, order.getHeight());
             ps.setInt(5, order.getAngle());
-            ps.setDouble(6, order.getPrice());
-            ps.setString(7, order.getStatus().toString());
+            ps.setBoolean(6, order.isShedExists());
+            ps.setInt(7, order.getShedLength());
+            ps.setInt(8, order.getShedWidth());
+            ps.setString(9, order.getShedPlacement());
+            ps.setDouble(10, order.getPrice());
+            ps.setString(11, order.getStatus().toString());
             ps.executeUpdate();
             con.commit();
             con.setAutoCommit(true);

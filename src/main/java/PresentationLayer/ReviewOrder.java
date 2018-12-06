@@ -26,17 +26,17 @@ public class ReviewOrder extends Command {
         String sketchSV = "";
         String sketchBE = "";
         if (null != order) {
-//            if (order.getAngle() != 0) {
-//                sketchSV = gen.createSketchSideViewAngled(order);
-//                sketchBE = gen.createSketchBirdsEyeView(order);
-//            } else {
-//                sketchSV = gen.createSketchSideViewFlat(order);
-//                sketchBE = gen.createSketchBirdsEyeView(order);
-//            }
+            if (order.getAngle() != 0) {
+                sketchSV = gen.createSketchSideViewAngled(order);
+                sketchBE = gen.createSketchBirdsEyeView(order);
+            } else {
+                sketchSV = gen.createSketchSideViewFlat(order);
+                sketchBE = gen.createSketchBirdsEyeView(order);
+            }
 
             request.setAttribute("table", table);
-//            request.setAttribute("sketchSV", sketchSV);
-//            request.setAttribute("sketchBE", sketchBE);
+            request.setAttribute("sketchSV", sketchSV);
+            request.setAttribute("sketchBE", sketchBE);
 
             return "reviewpage";
         }
