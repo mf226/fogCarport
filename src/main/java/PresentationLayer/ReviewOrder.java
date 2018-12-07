@@ -22,21 +22,26 @@ public class ReviewOrder extends Command {
         String orderID = request.getParameter("orderID");
         int id = Integer.parseInt(orderID);
         Order order = LogicFacade.getOrderByOrderID(id);
+        
+        LogicFacade.createCarport(order);
+        if(order.isShedExists()) {
+            LogicFacade.createShed(order);
+        }
         String table = gen.generateBOM(order);
         String sketchSV = "";
         String sketchBE = "";
         if (null != order) {
-//            if (order.getAngle() != 0) {
-//                sketchSV = gen.createSketchSideViewAngled(order);
-//                sketchBE = gen.createSketchBirdsEyeView(order);
-//            } else {
-//                sketchSV = gen.createSketchSideViewFlat(order);
-//                sketchBE = gen.createSketchBirdsEyeView(order);
-//            }
-
+            if (order.getAngle() != 0) {
+                sketchSV = gen.createSketchSideViewAngled(order);
+                sketchBE = gen.createSketchBirdsEyeView(order);
+            } else {
+                sketchSV = gen.createSketchSideViewFlat(order);
+                sketchBE = gen.createSketchBirdsEyeView(order);
+            }
             request.setAttribute("table", table);
-//            request.setAttribute("sketchSV", sketchSV);
-//            request.setAttribute("sketchBE", sketchBE);
+            request.setAttribute("sketchSV", sketchSV);
+            request.setAttribute("sketchBE", sketchBE);
+            request.getSession(false).setAttribute("order", order);
 
             return "reviewpage";
         }

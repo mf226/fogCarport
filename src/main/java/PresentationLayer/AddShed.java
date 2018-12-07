@@ -29,8 +29,8 @@ public class AddShed extends Command {
         String sideMat = request.getParameter("sideMat");
         int wallType = Integer.parseInt(sideMat);
         int width = Integer.parseInt(shedWidth);
-        order.createShed(placement, length, width, true);
-        LogicFacade.createShed(order, wallType);
+        order.createShed(placement, length, width, true, wallType);
+        LogicFacade.createShed(order);
         
         String table = gen.generateBOM(order);
         String sketchSV = "";

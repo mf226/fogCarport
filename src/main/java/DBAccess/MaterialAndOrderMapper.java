@@ -6,7 +6,6 @@ import FunctionLayer.MetalMaterial;
 import FunctionLayer.WoodMaterial;
 import FunctionLayer.Order;
 import FunctionLayer.Role;
-import FunctionLayer.Status;
 import FunctionLayer.User;
 import java.sql.Connection;
 import java.sql.Date;
@@ -38,7 +37,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
                 int lengthInStock = rs.getInt("stockLength");
-                materials.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock));
+                int amountInStock = rs.getInt("inStock");
+                materials.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock, amountInStock));
             }
             return materials;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -61,7 +61,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
                 int lengthInStock = rs.getInt("stockLength");
-                return new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock);
+                int amountInStock = rs.getInt("inStock");
+                return new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock, amountInStock);
             } else {
                 throw new LoginSampleException("Material doesn't exist.");
             }
@@ -84,7 +85,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 double price = rs.getDouble("price");
                 int soldInPacksOf = rs.getInt("amountInPackage");
-                return new MetalMaterial(itemNumber, materialName, unit, price, soldInPacksOf);
+                int amountInStock = rs.getInt("inStock");
+                return new MetalMaterial(itemNumber, materialName, unit, price, soldInPacksOf, amountInStock);
             } else {
                 throw new LoginSampleException("Material doesn't exist.");
             }
@@ -106,16 +108,20 @@ public class MaterialAndOrderMapper {
                 int userID = rs.getInt("userID");
                 int length = rs.getInt("length");
                 int angle = rs.getInt("angle");
+                int roofType = rs.getInt("roofType");
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
                 double price = rs.getDouble("price");
                 Date date = rs.getDate("orderDate");
+                String status = rs.getString("status");
+
 //                Date orderDate = rs.getDate("orderDate");
-                Order order = new Order(length, width, height, angle);
+                Order order = new Order(length, width, height, angle, roofType);
                 order.setOrderID(orderID);
                 order.setUserID(userID);
                 order.setPrice(price);
                 order.setOrderDate(date);
+                order.setStatus(status);
                 orders.add(order);
             }
             return orders;
@@ -189,23 +195,46 @@ public class MaterialAndOrderMapper {
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
                 int angle = rs.getInt("angle");
+                int roofType = rs.getInt("roofType");
                 double price = rs.getDouble("price");
                 Date orderDate = rs.getDate("orderDate");
+                Boolean hasShed = rs.getBoolean("hasShed");
+                int shedLength = rs.getInt("shedLength");
+                int shedWidth = rs.getInt("shedWidth");
+                String shedPlacement = rs.getString("shedPlacement");
+                int wallType = rs.getInt("wallType");
 
-                order = new Order(length, width, height, angle);
+                order = new Order(length, width, height, angle, roofType);
                 order.setUserID(userID);
                 order.setOrderID(orderID);
                 order.setOrderDate(orderDate);
                 order.setPrice(price);
-
+                if (hasShed) {
+                    order.createShed(shedPlacement, shedLength, shedWidth, hasShed, wallType);
+                }
                 return order;
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public static void approveOrder(Order order) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+            con.setAutoCommit(false);
+            String SQL = "UPDATE `FogDB`.`Order` SET `status` = 'approved' WHERE (`orderID` = ?) and (`userID` = ?);;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, order.getOrderID());
+            ps.setInt(2, order.getUserID());
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+
+        }
     }
 
     public static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {
@@ -249,7 +278,8 @@ public class MaterialAndOrderMapper {
                 String materialName = rs.getString("materialName");
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
-                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0));
+                int amountInStock = rs.getInt("inStock");
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, 0, amountInStock));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -272,7 +302,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
                 int lengthInStock = rs.getInt("stockLength");
-                material.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock));
+                int amountInStock = rs.getInt("inStock");
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock, amountInStock));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -294,7 +325,8 @@ public class MaterialAndOrderMapper {
                 String unit = rs.getString("unit");
                 int price = rs.getInt("price");
                 int soldInPacksOf = rs.getInt("amountInPackage");
-                material.add(new WoodMaterial(itemNumber, materialName, unit, price, soldInPacksOf));
+                int amountInStock = rs.getInt("inStock");
+                material.add(new WoodMaterial(itemNumber, materialName, unit, price, soldInPacksOf, amountInStock));
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -307,16 +339,22 @@ public class MaterialAndOrderMapper {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
-            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `price`, `status`)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?);";
+            String SQL = "INSERT INTO `FogDB`.`Order` (`userID`, `length`, `width`, `height`, `angle`, `roofType`, `hasShed`, `shedLength`, `shedWidth`, `shedPlacement`, `wallType`, `price`, `status`)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getUserID());
             ps.setInt(2, order.getLength());
             ps.setInt(3, order.getWidth());
             ps.setInt(4, order.getHeight());
             ps.setInt(5, order.getAngle());
-            ps.setDouble(6, order.getPrice());
-            ps.setString(7, order.getStatus().toString());
+            ps.setInt(6, order.getRoofType());
+            ps.setBoolean(7, order.isShedExists());
+            ps.setInt(8, order.getShedLength());
+            ps.setInt(9, order.getShedWidth());
+            ps.setString(10, order.getShedPlacement());
+            ps.setInt(11, order.getWallType());
+            ps.setDouble(12, order.getPrice());
+            ps.setString(13, order.getStatus().toString());
             ps.executeUpdate();
             con.commit();
             con.setAutoCommit(true);
@@ -335,6 +373,25 @@ public class MaterialAndOrderMapper {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, newAmountInStock);
             ps.setInt(2, itemNumber);
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MaterialAndOrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void editOrderPrice(Order order, double newPrice) {
+        try {
+            Connection con = Connector.connection();
+            con.setAutoCommit(false);
+            String SQL = "UPDATE `FogDB`.`Order` SET `price` = ? WHERE (`orderID` = ?) and (`userID` = ?);";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setDouble(1, newPrice);
+            ps.setInt(2, order.getOrderID());
+            ps.setInt(3, order.getUserID());
             ps.executeUpdate();
             con.commit();
             con.setAutoCommit(true);

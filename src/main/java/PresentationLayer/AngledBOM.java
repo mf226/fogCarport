@@ -34,7 +34,7 @@ public class AngledBOM extends Command {
         String roofType = request.getParameter("roofType");
 
         int roofTypeNumber = Integer.parseInt(roofType);
-        Order order = LogicFacade.createAngledRoofCarport(l, w, h, a, roofTypeNumber);
+        Order order = LogicFacade.createOrder(l, w, h, a, roofTypeNumber);
         
         String check = request.getParameter("skur");
 
@@ -48,7 +48,7 @@ public class AngledBOM extends Command {
             request.setAttribute("shedSketch", shedSketch);
             return "shedpage";
         }
-
+        
         String table = gen.generateBOM(order);
         String sketchSV = gen.createSketchSideViewAngled(order);
         String sketchBE = gen.createSketchBirdsEyeView(order);

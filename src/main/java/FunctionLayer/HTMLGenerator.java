@@ -242,6 +242,7 @@ public class HTMLGenerator {
 
             }
         }
+
         table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
         return table;
@@ -273,7 +274,7 @@ public class HTMLGenerator {
         shed += sideMaterial(sideMat);
         shed += "<h4>Vælg hvor dit skur skal placeres</h4>\n"
                 + "         <div class=\"shedPlacements\">\n"
-                + "         <div class=\"upperleft\" style=\"height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
+                + "         <div class=\"upperleft\" style=\"height:" +(width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input type=\"radio\" name=\"placement\" value=UL>"
                 + "                 <label for=\"UL\">øvre venstre</label>\n"
                 + "         </div>"
@@ -281,11 +282,11 @@ public class HTMLGenerator {
                 + "                <input style=\"float:right;\" type=\"radio\" name=\"placement\" value=UR checked>"
                 + "                 <label style=\"float:right;\" for=\"UR\">øvre højre</label>\n"
                 + "         </div>"
-                + "         <div class=\"lowerleft\" style=\"margin-top:" + (width / 2) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
+                + "         <div class=\"lowerleft\" style=\"margin-top:" + ((width / 2)*0.8) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input id=\"LL\" type=\"radio\" name=\"placement\" value=LL>"
                 + "                 <label for=\"LL\">nedre venstre</label>\n"
                 + "         </div>"
-                + "         <div class=\"lowerright\" style=\"margin-top:" + (width / 2) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
+                + "         <div class=\"lowerright\" style=\"margin-top:" + ((width / 2)*0.8) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input style=\"float:right;\" id=\"LR\" type=\"radio\" name=\"placement\" value=LR>"
                 + "                 <label style=\"float:right;\" for=\"LR\">nedre højre</label>\n"
                 + "         </div>"

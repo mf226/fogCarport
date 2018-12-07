@@ -7,11 +7,12 @@ public class Material {
     private double pricePerUnit;
     private int amountInStock;
 
-    public Material(int itemNumber, String name, String unit, double price) {
+    public Material(int itemNumber, String name, String unit, double price, int amountInStock) {
         this.itemNumber = itemNumber;
         this.name = name;
         this.unit = unit;
         this.pricePerUnit = price;
+        this.amountInStock = amountInStock;
     }
 
     public int getItemNumber() {

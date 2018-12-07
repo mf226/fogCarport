@@ -3,10 +3,9 @@ package FunctionLayer;
 public class WoodMaterial extends Material {
 
     private int lengthInStock;
-    private int amountInStock;
 
-    public WoodMaterial(int itemNumber, String name, String unit, double price, int lengthInStock) {
-        super(itemNumber, name, unit, price);
+    public WoodMaterial(int itemNumber, String name, String unit, double price, int lengthInStock, int amountInStock) {
+        super(itemNumber, name, unit, price, amountInStock);
         this.lengthInStock = lengthInStock;
     }
 
