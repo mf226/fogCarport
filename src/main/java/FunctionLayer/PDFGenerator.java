@@ -52,7 +52,6 @@ public class PDFGenerator {
             list.setListSymbol("\u2022");
             list.setFont(font);
 
-            
             // Add ListItem objects
             list.add(new ListItem("Item 1"))
                     .add(new ListItem("Item 2"))
