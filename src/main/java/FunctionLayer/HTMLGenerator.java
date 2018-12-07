@@ -373,10 +373,10 @@ public class HTMLGenerator {
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
         //OuterHeight
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY - (rafter.getTopsideWidth() * 2)) + "\" x2=\"" + 0 + "\" y2=\"" + (innerY + innerHeight) + "\"" + style;
-        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
+        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight()/ 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
         //InnerHeight
         sketch += "<line x1=\"" + 22 + "\" y1=\"" + innerY + "\" x2=\"" + 22 + "\" y2=\"" + (order.getHeight() + innerY) + "\"" + style;
-        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
+        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight()/ 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount() / 2;
         WoodDetails poles = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION);
@@ -447,10 +447,10 @@ public class HTMLGenerator {
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
         //OuterHeight
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY - (rafter.getTopsideWidth() * 2)) + "\" x2=\"" + 0 + "\" y2=\"" + (innerY + innerHeight) + "\"" + style;
-        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
+        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight()/ 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
         //InnerHeight
         sketch += "<line x1=\"" + 22 + "\" y1=\"" + innerY + "\" x2=\"" + 22 + "\" y2=\"" + (order.getHeight() + innerY) + "\"" + style;
-        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
+        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight()/ 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount() / 2;
         WoodDetails poles = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION);
