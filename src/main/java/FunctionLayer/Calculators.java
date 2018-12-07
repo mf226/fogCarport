@@ -17,11 +17,16 @@ public class Calculators {
         if (carportLength < RulesAndConstants.MINLENGTH || carportLength > RulesAndConstants.MAXLENGTH || carportWidth < RulesAndConstants.MINWIDTH || carportWidth > RulesAndConstants.MAXWIDTH) {
             throw new IllegalArgumentException("Number exceeds parameters!");
         }
-        int posts = (int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_POSTS + 1); //+1 for the first post
+        int posts = 4; // A carport has atleast 4 posts.
+        if (carportLength > RulesAndConstants.MINLENGTH) {
+            posts = (int) ((carportLength * 2) / RulesAndConstants.DISTANCE_BETWEEN_POSTS) - 2; 
 //        if (width >= 500) { //if width is bigger than 5
 //            posts++;
+        }
+//        if (posts < amountInStock) {
+//            throw new NotInStockException("Not enough posts in stock");
 //        }
-        return posts * 2; //both sides
+        return posts; //both sides
     }
 
     public static double postsLengthCalc(int carportHeight) {
@@ -110,7 +115,7 @@ public class Calculators {
     }
 
     public static double screwsAmountCalcForShed(Order order) {
-        double screws = 0;
+        double screws = screwsAmountCalc(order);
         screws += order.getShedWoodMaterials().get(RulesAndConstants.SHED_WALL_DESCRIPTION).getAmount() * RulesAndConstants.SCREWS_PER_WALL;
 
         return screws;

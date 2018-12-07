@@ -21,7 +21,7 @@ public class RulesAndConstants {
     public final static int MOUNT_PER_POST = 1;
     public final static int MOUNT_PER_RAFTER = 2;
     public final static int SCREWS_PER_MOUNT = 4;
-    public final static int SCREWS_PER_WALL = 4;
+    public final static int SCREWS_PER_WALL = 6;
     public final static int TILES_PER_SQUAREMETER = 12;
 
     //Preferred materials from DB for, as their itemNumber in DB
@@ -31,6 +31,7 @@ public class RulesAndConstants {
     public final static int PREFERRED_MATERIAL_CONCRETE = 8;
     public final static int PREFERRED_MATERIAL_MOUNT = 4;
     public final static int PREFERRED_MATERIAL_SCREWS = 3;
+    public final static int PREFERRED_MATERIAL_DOOR = 11;
 
     //Material descriptions
     public final static String CARPORT_CONCRETE_DESCRIPTION = "Cement";
@@ -48,6 +49,7 @@ public class RulesAndConstants {
 
     public final static String SHED_WALL_DESCRIPTION = "Skur beklædning";
     public final static String SHED_POST_DESCRIPTION = "Skur stolper";
+    public final static String SHED_DOOR_DESCRIPTUIN = "Dør til skur";
 
     //Calculator parameters
     public final static int MAXLENGTH = 500;
