@@ -40,12 +40,9 @@
         <div class ="pageContent">
             <div class="tableContainer">
                 <%=request.getAttribute("table")%>
-                <form action="FrontController" method="POST">
-                    <input type="submit" value="Godkend">
-                    <input type="hidden" name="command" value="approveOrder">
-                    <input type="number" placeholder="indtast ny pris" name="newPrice">
-                </form>
-                    
+                <%=request.getAttribute("approve")%>
+
+
 
 
             </div>
