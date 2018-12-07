@@ -189,6 +189,7 @@ public class HTMLGenerator {
                 + "                <th>Enhed</th>\n"
                 + "                <th>Pris pr. enhed</th>\n"
                 + "                <th>Antal</th>\n"
+                + "                <th>Lagerbeholdning</th>\n"
                 + "                <th>Samlet pris</th>\n"
                 + "            </tr>\n"
                 + "            </thead>\n";
@@ -202,6 +203,7 @@ public class HTMLGenerator {
             table += "<td>" + mapWood.getValue().getMaterial().getUnit() + "</td>";
             table += "<td>" + mapWood.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
             table += "<td>" + mapWood.getValue().getAmount() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getAmountInStock() + "</td>";
             table += "<td>" + mapWood.getValue().getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
 
@@ -217,6 +219,8 @@ public class HTMLGenerator {
             table += "<td>" + mapShedMetal.getValue().getMaterial().getUnit() + "</td>";
             table += "<td>" + mapShedMetal.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
             table += "<td>" + mapShedMetal.getValue().getAmount() + "</td>";
+            table += "<td>" + mapShedMetal.getValue().getMaterial().getAmountInStock() + "</td>";
+
             table += "<td>" + mapShedMetal.getValue().getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
 
@@ -233,6 +237,8 @@ public class HTMLGenerator {
                 table += "<td>" + mapShedWood.getValue().getMaterial().getUnit() + "</td>";
                 table += "<td>" + mapShedWood.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
                 table += "<td>" + mapShedWood.getValue().getAmount() + "</td>";
+                table += "<td>" + mapShedWood.getValue().getMaterial().getAmountInStock() + "</td>";
+
                 table += "<td>" + mapShedWood.getValue().getTotalItemPrice() + "  kr </td>";
                 table += "</tr>";
 
@@ -248,13 +254,15 @@ public class HTMLGenerator {
                 table += "<td>" + mapMetal.getValue().getMaterial().getUnit() + "</td>";
                 table += "<td>" + mapMetal.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
                 table += "<td>" + mapMetal.getValue().getAmount() + "</td>";
+                table += "<td>" + mapMetal.getValue().getMaterial().getAmountInStock() + "</td>";
+
                 table += "<td>" + mapMetal.getValue().getTotalItemPrice() + "  kr </td>";
                 table += "</tr>";
 
             }
         }
 
-        table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
+        table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
         return table;
     }
@@ -373,10 +381,10 @@ public class HTMLGenerator {
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
         //OuterHeight
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY - (rafter.getTopsideWidth() * 2)) + "\" x2=\"" + 0 + "\" y2=\"" + (innerY + innerHeight) + "\"" + style;
-        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight()/ 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
+        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
         //InnerHeight
         sketch += "<line x1=\"" + 22 + "\" y1=\"" + innerY + "\" x2=\"" + 22 + "\" y2=\"" + (order.getHeight() + innerY) + "\"" + style;
-        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight()/ 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
+        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount() / 2;
         WoodDetails poles = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION);
@@ -447,10 +455,10 @@ public class HTMLGenerator {
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
         //OuterHeight
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY - (rafter.getTopsideWidth() * 2)) + "\" x2=\"" + 0 + "\" y2=\"" + (innerY + innerHeight) + "\"" + style;
-        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight()/ 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
+        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
         //InnerHeight
         sketch += "<line x1=\"" + 22 + "\" y1=\"" + innerY + "\" x2=\"" + 22 + "\" y2=\"" + (order.getHeight() + innerY) + "\"" + style;
-        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight()/ 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
+        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount() / 2;
         WoodDetails poles = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION);
