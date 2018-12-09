@@ -23,13 +23,16 @@ public class EditOrder extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         Order order = (Order) request.getSession(false).getAttribute("order");
         String status = request.getParameter("status");
-        LogicFacade.editOrderStatus(order, status);
         String newPrice_str = request.getParameter("newPrice");
-        if (!newPrice_str.isEmpty()) {
-            double newPrice = Double.parseDouble(newPrice_str);
-            LogicFacade.editOrderPrice(order, newPrice);
+        if (null != newPrice_str) {
+        double newPrice = Double.parseDouble(newPrice_str);
+            if (newPrice >= order.getTotalOrderPrice()) {
+                LogicFacade.editOrderPrice(order, newPrice);
+                LogicFacade.editOrderStatus(order, status);
 
+            }
         }
+        LogicFacade.editOrderStatus(order, status);
         List<Order> orders = LogicFacade.getAllOrders();
         String ordersTable = gen.showAllOrders(orders);
         request.setAttribute("ordersTable", ordersTable);

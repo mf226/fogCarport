@@ -3,9 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FunctionLayer;
+package PresentationLayer;
 
+import FunctionLayer.MetalDetails;
+import FunctionLayer.Order;
+import FunctionLayer.Role;
+import FunctionLayer.RulesAndConstants;
 import FunctionLayer.User;
+import FunctionLayer.User;
+import FunctionLayer.WoodDetails;
+import FunctionLayer.WoodMaterial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -133,36 +140,24 @@ public class HTMLGenerator {
                 + "</div>";
     }
 
-    public String editOrderButtons(Order order) {
+    public String updateOrderInput(Order order) {
 
-        //Approve
-        String btns = "<form action=\"FrontController\" method=\"POST\">\n"
-                + "                    <input type=\"submit\" value=\"approve\">\n"
-                + "                    <input type=\"hidden\" name=\"command\" value=\"editOrder\">\n"
-                + "                    <input type=\"hidden\" name=\"status\" value=\"approved\">\n";
-
-        btns += "                    <input type=\"number\" name=\"newPrice\" value=\""
-                + order.getTotalOrderPrice()
-                + "\">\n"
-                + "                </form>";
-
-        //Pending
-        btns += "<form action=\"FrontController\" method=\"POST\">\n"
-                + "                    <input type=\"submit\" value=\"pending\">\n"
-                + "                    <input type=\"hidden\" name=\"command\" value=\"editOrder\">\n"
-                + "                    <input type=\"hidden\" name=\"status\" value=\"pending\">\n"
-                + "                </form>";
-        //Denied
-        btns += "<form action=\"FrontController\" method=\"POST\">\n"
-                + "                    <input type=\"submit\" value=\"denied\">\n"
-                + "                    <input type=\"hidden\" name=\"command\" value=\"editOrder\">\n"
-                + "                    <input type=\"hidden\" name=\"status\" value=\"denied\">\n"
+        String btns = "<form action=\"FrontController\" method=\"POST\">\n";
+        btns += "<select name=\"status\">\n"
+                + "  <option value=\"approved\" Selected>Approved</option>\n"
+                + "  <option value=\"pending\">Pending</option>\n"
+                + "  <option value=\"denied\">Denied</option>\n"
+                + "</select>"
+                + "                    <input type=\"submit\" value=\"Update Order\">\n"
+                + "                    <input type=\"hidden\" name=\"command\" value=\"updateOrder\">\n"
+                + "                    <input type=\"number\" name=\"newPrice\" value=\""
+                + order.getTotalOrderPrice() + "\">\n"
                 + "                </form>";
         return btns;
     }
 
     public String showAllOrders(List<Order> orders) {
-        String table = "<table id=\"table\">\n"
+        String table = "<table id=\"reviewTable\">\n"
                 + "            <thead>\n"
                 + "            <tr>\n"
                 + "                <th>Ordre ID</th>\n"
@@ -179,13 +174,13 @@ public class HTMLGenerator {
             table += "<form action=\"FrontController\" method=\"POST\">\n"
                     + " <input type=\"hidden\" name=\"command\" value=\"reviewOrder\">\n"
                     + " <input type=\"hidden\" name=\"orderID\" value=\"" + orders.get(i).getOrderID() + "\">\n"
-                    + "<td>" + orders.get(i).getOrderID() + "</td>\n"
-                    + "<td>" + orders.get(i).getStatus() + "</td>\n"
-                    + "<td>" + orders.get(i).getUserID() + "</td>\n"
-                    + "<td>" + orders.get(i).getLength() + "</td>\n"
-                    + "<td>" + orders.get(i).getWidth() + "</td>\n"
-                    + "<td>" + orders.get(i).getOrderDate() + "</td>\n"
-                    + "<td>" + orders.get(i).getPrice() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getOrderID() + "</td>\n"
+                    + "<td class=\"reviewData\" id=\"statusField\">" + orders.get(i).getStatus() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getUserID() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getLength() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getWidth() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getOrderDate() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getPrice() + "</td>\n"
                     + "<td><input class=\"reviewBtn\" type=\"submit\" value=\"Review\"></td>\n"
                     + "</tr>\n"
                     + "</form>";

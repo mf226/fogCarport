@@ -5,7 +5,6 @@
  */
 package PresentationLayer;
 
-import FunctionLayer.HTMLGenerator;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import java.io.IOException;

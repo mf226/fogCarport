@@ -1,6 +1,5 @@
 package PresentationLayer;
 
-import FunctionLayer.HTMLGenerator;
 import FunctionLayer.LoginSampleException;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
