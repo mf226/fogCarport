@@ -133,8 +133,11 @@ public class LogicFacade {
         return MaterialAndOrderMapper.getOrderByOrderID(id);
     }
     
-    public static void approveOrder(Order order) throws LoginSampleException {
-        MaterialAndOrderMapper.approveOrder(order);
+//    public static void approveOrder(Order order) throws LoginSampleException {
+//        MaterialAndOrderMapper.approveOrder(order);
+//    }
+    public static void editOrderStatus(Order order, String status) throws LoginSampleException {
+        MaterialAndOrderMapper.editOrderStatus(order, status);
     }
 
     public static void editOrderPrice(Order order, double newPrice) {

@@ -40,7 +40,7 @@
         <div class ="pageContent">
             <div class="tableContainer">
                 <%=request.getAttribute("table")%>
-                <%=request.getAttribute("approve")%>
+                <%=request.getAttribute("editStatus")%>
 
 
 

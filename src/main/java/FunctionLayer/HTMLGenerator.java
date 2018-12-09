@@ -133,15 +133,32 @@ public class HTMLGenerator {
                 + "</div>";
     }
 
-    public String approveElements(Order order) {
-        String approve = "<form action=\"FrontController\" method=\"POST\">\n"
-                + "                    <input type=\"submit\" value=\"Godkend\">\n"
-                + "                    <input type=\"hidden\" name=\"command\" value=\"approveOrder\">\n";
-        approve += "                    <input type=\"number\" name=\"newPrice\" value=\""
+    public String editOrderButtons(Order order) {
+
+        //Approve
+        String btns = "<form action=\"FrontController\" method=\"POST\">\n"
+                + "                    <input type=\"submit\" value=\"approve\">\n"
+                + "                    <input type=\"hidden\" name=\"command\" value=\"editOrder\">\n"
+                + "                    <input type=\"hidden\" name=\"status\" value=\"approved\">\n";
+
+        btns += "                    <input type=\"number\" name=\"newPrice\" value=\""
                 + order.getTotalOrderPrice()
                 + "\">\n"
                 + "                </form>";
-        return approve;
+
+        //Pending
+        btns += "<form action=\"FrontController\" method=\"POST\">\n"
+                + "                    <input type=\"submit\" value=\"pending\">\n"
+                + "                    <input type=\"hidden\" name=\"command\" value=\"editOrder\">\n"
+                + "                    <input type=\"hidden\" name=\"status\" value=\"pending\">\n"
+                + "                </form>";
+        //Denied
+        btns += "<form action=\"FrontController\" method=\"POST\">\n"
+                + "                    <input type=\"submit\" value=\"denied\">\n"
+                + "                    <input type=\"hidden\" name=\"command\" value=\"editOrder\">\n"
+                + "                    <input type=\"hidden\" name=\"status\" value=\"denied\">\n"
+                + "                </form>";
+        return btns;
     }
 
     public String showAllOrders(List<Order> orders) {

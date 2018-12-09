@@ -17,16 +17,16 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jonab
  */
-public class ApproveOrder extends Command {
+public class EditOrder extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         Order order = (Order) request.getSession(false).getAttribute("order");
-        LogicFacade.approveOrder(order);
-
+        String status = request.getParameter("status");
+        LogicFacade.editOrderStatus(order, status);
         String newPrice_str = request.getParameter("newPrice");
-        double newPrice = Double.parseDouble(newPrice_str);
-        if (newPrice >= order.getTotalOrderPrice()) {
+        if (!newPrice_str.isEmpty()) {
+            double newPrice = Double.parseDouble(newPrice_str);
             LogicFacade.editOrderPrice(order, newPrice);
 
         }
