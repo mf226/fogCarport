@@ -14,7 +14,7 @@ abstract class Command {
         commands = new HashMap<>();
         commands.put("addShed", new AddShed());
         commands.put("Adminpage", new Adminpage());
-        commands.put("editOrder", new EditOrder());
+        commands.put("updateOrder", new EditOrder());
         commands.put("createOrder", new CreateOrder());
         commands.put("Customerpage", new Customerpage());
         commands.put("Employeepage", new Employeepage());

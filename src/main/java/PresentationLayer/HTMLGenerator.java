@@ -148,10 +148,9 @@ public class HTMLGenerator {
                 + "  <option value=\"pending\">Pending</option>\n"
                 + "  <option value=\"denied\">Denied</option>\n"
                 + "</select>"
-                + "                    <input type=\"submit\" value=\"Update Order\">\n"
-                + "                    <input type=\"hidden\" name=\"command\" value=\"updateOrder\">\n"
-                + "                    <input type=\"number\" name=\"newPrice\" value=\""
-                + order.getTotalOrderPrice() + "\">\n"
+                + "  <input type=\"submit\" value=\"Update Order\">\n"
+                + "  <input type=\"hidden\" name=\"command\" value=\"updateOrder\">\n"
+                + "  <input type=\"number\" name=\"newPrice\" value=\"" + order.getTotalOrderPrice() + "\">\n"
                 + "                </form>";
         return btns;
     }
