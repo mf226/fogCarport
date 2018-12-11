@@ -1,14 +1,11 @@
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
-import FunctionLayer.Role;
-import FunctionLayer.User;
+import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Entity.Role;
+import FunctionLayer.Entity.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;

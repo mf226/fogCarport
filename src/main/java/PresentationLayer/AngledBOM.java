@@ -6,11 +6,10 @@
 package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.LoginSampleException;
-import FunctionLayer.Order;
-import FunctionLayer.WoodMaterial;
+import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Entity.Order;
+import FunctionLayer.Entity.WoodMaterial;
 import static PresentationLayer.Command.gen;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

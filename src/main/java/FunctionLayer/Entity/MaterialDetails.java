@@ -1,13 +1,22 @@
-package FunctionLayer;
+package FunctionLayer.Entity;
 
 public abstract class MaterialDetails {
 
     private double amount;
     private Material material;
+    private boolean isEnoughInStock = false;
 
     public MaterialDetails(Material material, double amount) {
         this.material = material;
         this.amount = amount;
+        material.withdrawAmountInStock(amount);
+        this.isEnoughInStock = true;
+        
+    }
+
+    public boolean isEnoughInStock() {
+        return this.isEnoughInStock;
+//        return amount <= material.getAmountInStock();
     }
 
     public Material getMaterial() {

@@ -1,4 +1,4 @@
-package FunctionLayer;
+package FunctionLayer.Entity;
 
 public class Material {
 
@@ -13,6 +13,14 @@ public class Material {
         this.unit = unit;
         this.pricePerUnit = price;
         this.amountInStock = amountInStock;
+    }
+
+    public boolean withdrawAmountInStock(double amountToWithdraw) {
+        if (this.amountInStock >= amountToWithdraw) {
+            this.amountInStock -= amountToWithdraw;
+            return true;
+        } else
+            return false;
     }
 
     public int getItemNumber() {
@@ -46,7 +54,7 @@ public class Material {
     public void setPricePerUnit(double pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
     }
-    
+
     public int getAmountInStock() {
         return amountInStock;
     }

@@ -6,8 +6,8 @@
 package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.LoginSampleException;
-import FunctionLayer.WoodMaterial;
+import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Entity.WoodMaterial;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

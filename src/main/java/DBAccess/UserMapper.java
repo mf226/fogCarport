@@ -1,8 +1,8 @@
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
-import FunctionLayer.Role;
-import FunctionLayer.User;
+import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Entity.Role;
+import FunctionLayer.Entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

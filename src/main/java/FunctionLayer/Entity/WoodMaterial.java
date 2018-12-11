@@ -1,4 +1,4 @@
-package FunctionLayer;
+package FunctionLayer.Entity;
 
 public class WoodMaterial extends Material {
 

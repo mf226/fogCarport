@@ -6,9 +6,9 @@
 package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.LoginSampleException;
-import FunctionLayer.Order;
-import FunctionLayer.User;
+import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Entity.Order;
+import FunctionLayer.Entity.User;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,10 +33,8 @@ public class CreateOrder extends Command {
                 order.setPrice(order.getTotalOrderPrice());
                 LogicFacade.addOrderToDB(order);
                 return "index";
-            } catch (SQLException ex) {
-                Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (LoginSampleException ex) {
+                System.out.println(ex.getMessage());
             }
         }
         String error = "not logged in";

@@ -5,14 +5,14 @@
  */
 package PresentationLayer;
 
-import FunctionLayer.MetalDetails;
-import FunctionLayer.Order;
-import FunctionLayer.Role;
+import FunctionLayer.Entity.MetalDetails;
+import FunctionLayer.Entity.Order;
+import FunctionLayer.Entity.Role;
 import FunctionLayer.RulesAndConstants;
-import FunctionLayer.User;
-import FunctionLayer.User;
-import FunctionLayer.WoodDetails;
-import FunctionLayer.WoodMaterial;
+import FunctionLayer.Entity.User;
+import FunctionLayer.Entity.User;
+import FunctionLayer.Entity.WoodDetails;
+import FunctionLayer.Entity.WoodMaterial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

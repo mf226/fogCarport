@@ -1,4 +1,4 @@
-package FunctionLayer;
+package FunctionLayer.Entity;
 
 import java.sql.Date;
 import java.util.ArrayList;

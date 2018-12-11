@@ -1,5 +1,5 @@
 
-package FunctionLayer;
+package FunctionLayer.Entity;
 
 
 public class MetalMaterial extends Material {
