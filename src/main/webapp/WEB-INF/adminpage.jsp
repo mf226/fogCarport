@@ -19,7 +19,23 @@
 
         <title>adminpage</title>
     </head>
-    <body>
+    <script>
+        function statusColors() {
+            var field = document.getElementById("statusField");
+            var i;
+            if (field.value.equals === "approved") {
+                field.style.backgroundColor = "green";
+            }
+            if (field.value.equals === "pending") {
+                field.style.backgroundColor = "yellow";
+            }
+            if (field.value.equals === "denied") {
+                field.style.backgroundColor = "red";
+            }
+        }
+
+    </script>
+    <body onload="statusColors()">
         <%=request.getAttribute("menu")%>
         <div class ="pageHeader">
             <h2>Admin</h2>

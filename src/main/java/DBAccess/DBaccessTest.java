@@ -5,7 +5,7 @@
  */
 package DBAccess;
 
-import FunctionLayer.HTMLGenerator;
+import PresentationLayer.HTMLGenerator;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.WoodMaterial;

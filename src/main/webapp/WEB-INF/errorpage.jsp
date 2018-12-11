@@ -22,6 +22,8 @@
         <div class ="pageHeader">
             <h2>Error</h2>
         </div>
+        <div class="pageContent">
         <%=request.getAttribute("error")%>
+        </div>
     </body>
 </html>

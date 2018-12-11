@@ -116,26 +116,28 @@ public class LogicFacade {
         double wallAmount = Calculators.shedWallCalc(order.getShedLength(), order.getShedWidth(), wallMaterial.getTopsideWidth());
         double wallLengthEach = Calculators.shedWallLength(order.getHeight());
         order.getShedWoodMaterials().put(RulesAndConstants.SHED_WALL_DESCRIPTION, new WoodDetails(wallMaterial, wallAmount, wallLengthEach));
+        
         MetalMaterial screw = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_SCREWS);
         double screwAmount = Calculators.screwsAmountCalcForShed(order);
-        order.getCarportMetalMaterials().put(RulesAndConstants.SCREWS_SHED_DESCRIPTION, new MetalDetails(screw, screwAmount));
+        order.getCarportMetalMaterials().put(RulesAndConstants.SCREWS_DESCRIPTION, new MetalDetails(screw, screwAmount));
         
+        MetalMaterial door = MaterialAndOrderMapper.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_DOOR);
+        order.getShedMetalMaterials().put(RulesAndConstants.SHED_DOOR_DESCRIPTUIN, new MetalDetails(door, 1));
     }
     
     public static void addOrderToDB(Order order) throws LoginSampleException, SQLException, ClassNotFoundException {
         MaterialAndOrderMapper.addOrderToDB(order);
     }
-//
-//    public static int getUserIDByEmail(String email) throws LoginSampleException, LoginSampleException, ClassNotFoundException {
-//        return UserMapper.getUserIDByEmail(email);
-//    }
 
     public static Order getOrderByOrderID(int id) {
         return MaterialAndOrderMapper.getOrderByOrderID(id);
     }
     
-    public static void approveOrder(Order order) throws LoginSampleException {
-        MaterialAndOrderMapper.approveOrder(order);
+//    public static void approveOrder(Order order) throws LoginSampleException {
+//        MaterialAndOrderMapper.approveOrder(order);
+//    }
+    public static void editOrderStatus(Order order, String status) throws LoginSampleException {
+        MaterialAndOrderMapper.editOrderStatus(order, status);
     }
 
     public static void editOrderPrice(Order order, double newPrice) {

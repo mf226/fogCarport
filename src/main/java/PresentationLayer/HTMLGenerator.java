@@ -3,9 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FunctionLayer;
+package PresentationLayer;
 
+import FunctionLayer.MetalDetails;
+import FunctionLayer.Order;
+import FunctionLayer.Role;
+import FunctionLayer.RulesAndConstants;
 import FunctionLayer.User;
+import FunctionLayer.User;
+import FunctionLayer.WoodDetails;
+import FunctionLayer.WoodMaterial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -133,8 +140,23 @@ public class HTMLGenerator {
                 + "</div>";
     }
 
+    public String updateOrderInput(Order order) {
+
+        String btns = "<form action=\"FrontController\" method=\"POST\">\n";
+        btns += "<select name=\"status\">\n"
+                + "  <option value=\"approved\" Selected>Approved</option>\n"
+                + "  <option value=\"pending\">Pending</option>\n"
+                + "  <option value=\"denied\">Denied</option>\n"
+                + "</select>"
+                + "  <input type=\"submit\" value=\"Update Order\">\n"
+                + "  <input type=\"hidden\" name=\"command\" value=\"updateOrder\">\n"
+                + "  <input type=\"number\" name=\"newPrice\" value=\"" + order.getTotalOrderPrice() + "\">\n"
+                + "                </form>";
+        return btns;
+    }
+
     public String showAllOrders(List<Order> orders) {
-        String table = "<table id=\"table\">\n"
+        String table = "<table id=\"reviewTable\">\n"
                 + "            <thead>\n"
                 + "            <tr>\n"
                 + "                <th>Ordre ID</th>\n"
@@ -151,13 +173,13 @@ public class HTMLGenerator {
             table += "<form action=\"FrontController\" method=\"POST\">\n"
                     + " <input type=\"hidden\" name=\"command\" value=\"reviewOrder\">\n"
                     + " <input type=\"hidden\" name=\"orderID\" value=\"" + orders.get(i).getOrderID() + "\">\n"
-                    + "<td>" + orders.get(i).getOrderID() + "</td>\n"
-                    + "<td>" + orders.get(i).getStatus() + "</td>\n"
-                    + "<td>" + orders.get(i).getUserID() + "</td>\n"
-                    + "<td>" + orders.get(i).getLength() + "</td>\n"
-                    + "<td>" + orders.get(i).getWidth() + "</td>\n"
-                    + "<td>" + orders.get(i).getOrderDate() + "</td>\n"
-                    + "<td>" + orders.get(i).getPrice() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getOrderID() + "</td>\n"
+                    + "<td class=\"reviewData\" id=\"statusField\">" + orders.get(i).getStatus() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getUserID() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getLength() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getWidth() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getOrderDate() + "</td>\n"
+                    + "<td class=\"reviewData\">" + orders.get(i).getPrice() + "</td>\n"
                     + "<td><input class=\"reviewBtn\" type=\"submit\" value=\"Review\"></td>\n"
                     + "</tr>\n"
                     + "</form>";
@@ -178,6 +200,7 @@ public class HTMLGenerator {
                 + "                <th>Enhed</th>\n"
                 + "                <th>Pris pr. enhed</th>\n"
                 + "                <th>Antal</th>\n"
+                + "                <th>Lagerbeholdning</th>\n"
                 + "                <th>Samlet pris</th>\n"
                 + "            </tr>\n"
                 + "            </thead>\n";
@@ -191,6 +214,7 @@ public class HTMLGenerator {
             table += "<td>" + mapWood.getValue().getMaterial().getUnit() + "</td>";
             table += "<td>" + mapWood.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
             table += "<td>" + mapWood.getValue().getAmount() + "</td>";
+            table += "<td>" + mapWood.getValue().getMaterial().getAmountInStock() + "</td>";
             table += "<td>" + mapWood.getValue().getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
 
@@ -206,6 +230,8 @@ public class HTMLGenerator {
             table += "<td>" + mapShedMetal.getValue().getMaterial().getUnit() + "</td>";
             table += "<td>" + mapShedMetal.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
             table += "<td>" + mapShedMetal.getValue().getAmount() + "</td>";
+            table += "<td>" + mapShedMetal.getValue().getMaterial().getAmountInStock() + "</td>";
+
             table += "<td>" + mapShedMetal.getValue().getTotalItemPrice() + "  kr </td>";
             table += "</tr>";
 
@@ -222,6 +248,8 @@ public class HTMLGenerator {
                 table += "<td>" + mapShedWood.getValue().getMaterial().getUnit() + "</td>";
                 table += "<td>" + mapShedWood.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
                 table += "<td>" + mapShedWood.getValue().getAmount() + "</td>";
+                table += "<td>" + mapShedWood.getValue().getMaterial().getAmountInStock() + "</td>";
+
                 table += "<td>" + mapShedWood.getValue().getTotalItemPrice() + "  kr </td>";
                 table += "</tr>";
 
@@ -237,13 +265,15 @@ public class HTMLGenerator {
                 table += "<td>" + mapMetal.getValue().getMaterial().getUnit() + "</td>";
                 table += "<td>" + mapMetal.getValue().getMaterial().getPricePerUnit() + "  kr </td>";
                 table += "<td>" + mapMetal.getValue().getAmount() + "</td>";
+                table += "<td>" + mapMetal.getValue().getMaterial().getAmountInStock() + "</td>";
+
                 table += "<td>" + mapMetal.getValue().getTotalItemPrice() + "  kr </td>";
                 table += "</tr>";
 
             }
         }
 
-        table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
+        table += "<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + order.getTotalOrderPrice() + " kr </td></tr>";
         table += "</table>";
         return table;
     }
@@ -274,7 +304,7 @@ public class HTMLGenerator {
         shed += sideMaterial(sideMat);
         shed += "<h4>Vælg hvor dit skur skal placeres</h4>\n"
                 + "         <div class=\"shedPlacements\">\n"
-                + "         <div class=\"upperleft\" style=\"height:" +(width / 2) + "px; width: " + (length / 2) + "px;\">\n"
+                + "         <div class=\"upperleft\" style=\"height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input type=\"radio\" name=\"placement\" value=UL>"
                 + "                 <label for=\"UL\">øvre venstre</label>\n"
                 + "         </div>"
@@ -282,11 +312,11 @@ public class HTMLGenerator {
                 + "                <input style=\"float:right;\" type=\"radio\" name=\"placement\" value=UR checked>"
                 + "                 <label style=\"float:right;\" for=\"UR\">øvre højre</label>\n"
                 + "         </div>"
-                + "         <div class=\"lowerleft\" style=\"margin-top:" + ((width / 2)*0.8) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
+                + "         <div class=\"lowerleft\" style=\"margin-top:" + ((width / 2) * 0.8) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input id=\"LL\" type=\"radio\" name=\"placement\" value=LL>"
                 + "                 <label for=\"LL\">nedre venstre</label>\n"
                 + "         </div>"
-                + "         <div class=\"lowerright\" style=\"margin-top:" + ((width / 2)*0.8) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
+                + "         <div class=\"lowerright\" style=\"margin-top:" + ((width / 2) * 0.8) + "px; height:" + (width / 2) + "px; width: " + (length / 2) + "px;\">\n"
                 + "                <input style=\"float:right;\" id=\"LR\" type=\"radio\" name=\"placement\" value=LR>"
                 + "                 <label style=\"float:right;\" for=\"LR\">nedre højre</label>\n"
                 + "         </div>"
@@ -362,10 +392,10 @@ public class HTMLGenerator {
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
         //OuterHeight
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY - (rafter.getTopsideWidth() * 2)) + "\" x2=\"" + 0 + "\" y2=\"" + (innerY + innerHeight) + "\"" + style;
-        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
+        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
         //InnerHeight
         sketch += "<line x1=\"" + 22 + "\" y1=\"" + innerY + "\" x2=\"" + 22 + "\" y2=\"" + (order.getHeight() + innerY) + "\"" + style;
-        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
+        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount() / 2;
         WoodDetails poles = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION);
@@ -436,10 +466,10 @@ public class HTMLGenerator {
         sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
         //OuterHeight
         sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY - (rafter.getTopsideWidth() * 2)) + "\" x2=\"" + 0 + "\" y2=\"" + (innerY + innerHeight) + "\"" + style;
-        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
+        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
         //InnerHeight
         sketch += "<line x1=\"" + 22 + "\" y1=\"" + innerY + "\" x2=\"" + 22 + "\" y2=\"" + (order.getHeight() + innerY) + "\"" + style;
-        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
+        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount() / 2;
         WoodDetails poles = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION);

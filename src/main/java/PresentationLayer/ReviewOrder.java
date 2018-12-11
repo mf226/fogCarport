@@ -28,6 +28,7 @@ public class ReviewOrder extends Command {
             LogicFacade.createShed(order);
         }
         String table = gen.generateBOM(order);
+        String updateOrder = gen.updateOrderInput(order);
         String sketchSV = "";
         String sketchBE = "";
         if (null != order) {
@@ -38,6 +39,7 @@ public class ReviewOrder extends Command {
                 sketchSV = gen.createSketchSideViewFlat(order);
                 sketchBE = gen.createSketchBirdsEyeView(order);
             }
+            request.setAttribute("updateOrder", updateOrder);
             request.setAttribute("table", table);
             request.setAttribute("sketchSV", sketchSV);
             request.setAttribute("sketchBE", sketchBE);

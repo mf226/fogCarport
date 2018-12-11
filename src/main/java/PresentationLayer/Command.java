@@ -1,6 +1,5 @@
 package PresentationLayer;
 
-import FunctionLayer.HTMLGenerator;
 import FunctionLayer.LoginSampleException;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,7 @@ abstract class Command {
         commands = new HashMap<>();
         commands.put("addShed", new AddShed());
         commands.put("Adminpage", new Adminpage());
-        commands.put("approveOrder", new ApproveOrder());
+        commands.put("updateOrder", new EditOrder());
         commands.put("createOrder", new CreateOrder());
         commands.put("Customerpage", new Customerpage());
         commands.put("Employeepage", new Employeepage());

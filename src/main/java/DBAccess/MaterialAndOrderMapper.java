@@ -237,6 +237,24 @@ public class MaterialAndOrderMapper {
         }
     }
 
+    public static void editOrderStatus(Order order, String status) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+            con.setAutoCommit(false);
+            String SQL = "UPDATE `FogDB`.`Order` SET `status` = ? WHERE (`orderID` = ?) and (`userID` = ?);";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, status);
+            ps.setInt(2, order.getOrderID());
+            ps.setInt(3, order.getUserID());
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+
+        }
+    }
+
     public static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {
 
         try {

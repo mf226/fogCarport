@@ -39,6 +39,8 @@ public class CreateOrder extends Command {
                 Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        String error = "not logged in";
+        request.setAttribute("error", error);
         return "errorpage";
     }
 

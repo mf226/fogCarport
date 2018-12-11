@@ -46,4 +46,9 @@ public class Material {
     public void setPricePerUnit(double pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
     }
+    
+    public int getAmountInStock() {
+        return amountInStock;
+    }
+
 }
