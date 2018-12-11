@@ -15,8 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class OrderMapper {
 
-    public static List<Order> getAllOrders() throws LoginSampleException {
+    static List<Order> getAllOrders() throws LoginSampleException {
         try {
             ArrayList<Order> orders = new ArrayList();
             Connection con = Connector.connection();
@@ -59,7 +57,7 @@ public class OrderMapper {
         }
     }
 
-    public static Order getOrderByOrderID(int orderID) throws LoginSampleException {
+    static Order getOrderByOrderID(int orderID) throws LoginSampleException {
         try {
             Order order;
             Connection con = Connector.connection();
@@ -99,7 +97,7 @@ public class OrderMapper {
         return null;
     }
 
-    public static void approveOrder(Order order) throws LoginSampleException {
+    static void approveOrder(Order order) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -116,7 +114,7 @@ public class OrderMapper {
         }
     }
 
-    public static void editOrderStatus(Order order, String status) throws LoginSampleException {
+    static void editOrderStatus(Order order, String status) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -133,7 +131,7 @@ public class OrderMapper {
         }
     }
 
-    public static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {
+    static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {
 
         try {
             ArrayList<Order> orders = new ArrayList();
@@ -161,7 +159,7 @@ public class OrderMapper {
 
     }
 
-    public static void addOrderToDB(Order order) throws LoginSampleException {
+    static void addOrderToDB(Order order) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -191,7 +189,7 @@ public class OrderMapper {
 
     }
 
-    public static void editOrderPrice(Order order, double newPrice) throws LoginSampleException {
+    static void editOrderPrice(Order order, double newPrice) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);

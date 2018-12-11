@@ -1,5 +1,6 @@
 package DBAccess;
 
+import FunctionLayer.Entity.MetalMaterial;
 import FunctionLayer.Exceptions.LoginSampleException;
 import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.Role;
@@ -17,6 +18,14 @@ public class DBFacade {
         User user = new User(email, password, role);
         UserMapper.createUser(user);
         return user;
+    }
+    
+    public static MetalMaterial getMetalMaterial(int itemNumber) throws LoginSampleException {
+        return MaterialMapper.getMetalMaterial(itemNumber);
+    }
+    
+    public static WoodMaterial getWoodMaterial(int itemNumber) throws LoginSampleException {
+        return MaterialMapper.getWoodMaterial(itemNumber);
     }
 
     public static List<WoodMaterial> getAllMaterials() throws LoginSampleException {

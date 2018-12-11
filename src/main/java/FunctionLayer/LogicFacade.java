@@ -6,6 +6,7 @@ import FunctionLayer.Entity.WoodMaterial;
 import FunctionLayer.Entity.Role;
 import FunctionLayer.Exceptions.LoginSampleException;
 import DBAccess.DBFacade;
+import FunctionLayer.Entity.MetalMaterial;
 import java.util.List;
 
 public class LogicFacade {
@@ -16,6 +17,14 @@ public class LogicFacade {
 
     public static User createUser(String email, String password, Role role) throws LoginSampleException {
         return DBFacade.createUser(email, password, role);
+    }
+    
+    public static MetalMaterial getMetalMaterial(int itemNumber) throws LoginSampleException {
+        return DBFacade.getMetalMaterial(itemNumber);
+    }
+    
+    public static WoodMaterial getWoodMaterial(int itemNumber) throws LoginSampleException {
+        return DBFacade.getWoodMaterial(itemNumber);
     }
 
     public static List<WoodMaterial> getAllMaterials() throws LoginSampleException {

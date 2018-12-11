@@ -1,21 +1,14 @@
 package DBAccess;
 
 import FunctionLayer.Exceptions.LoginSampleException;
-import FunctionLayer.Entity.Material;
 import FunctionLayer.Entity.MetalMaterial;
 import FunctionLayer.Entity.WoodMaterial;
-import FunctionLayer.Entity.Order;
-import FunctionLayer.Entity.Role;
-import FunctionLayer.Entity.User;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class MaterialMapper {
 
-    public static List<WoodMaterial> getAllMaterials() throws LoginSampleException {
+    static List<WoodMaterial> getAllMaterials() throws LoginSampleException {
         try {
             ArrayList<WoodMaterial> materials = new ArrayList();
             Connection con = Connector.connection();
@@ -46,7 +39,7 @@ public class MaterialMapper {
         }
     }
 
-    public static WoodMaterial getWoodMaterial(int itemNumber) throws LoginSampleException {
+    static WoodMaterial getWoodMaterial(int itemNumber) throws LoginSampleException {
         try {
 
             Connection con = Connector.connection();
@@ -71,7 +64,7 @@ public class MaterialMapper {
         }
     }
 
-    public static MetalMaterial getMetalMaterial(int itemNumber) throws LoginSampleException {
+    static MetalMaterial getMetalMaterial(int itemNumber) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM FogDB.Materials "
@@ -95,7 +88,7 @@ public class MaterialMapper {
         }
     }
 
-    public static List<WoodMaterial> getAngledRoofMat() throws LoginSampleException {
+    static List<WoodMaterial> getAngledRoofMat() throws LoginSampleException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
@@ -118,7 +111,7 @@ public class MaterialMapper {
 
     }
 
-    public static List<WoodMaterial> getSideMat() throws LoginSampleException {
+    static List<WoodMaterial> getSideMat() throws LoginSampleException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
@@ -141,7 +134,7 @@ public class MaterialMapper {
         }
     }
 
-    public static List<WoodMaterial> getFlatRoofMat() throws LoginSampleException {
+    static List<WoodMaterial> getFlatRoofMat() throws LoginSampleException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
@@ -165,7 +158,7 @@ public class MaterialMapper {
 
     }
 
-    public static void updateStock(int newAmountInStock, int itemNumber) throws LoginSampleException {
+    static void updateStock(int newAmountInStock, int itemNumber) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);

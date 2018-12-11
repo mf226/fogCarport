@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class UserMapper {
 
-    public static void createUser(User user) throws LoginSampleException {
+    static void createUser(User user) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO User (email, password, role) VALUES (?, ?, ?)";
@@ -35,7 +35,7 @@ public class UserMapper {
         }
     }
 
-    public static User login(String email, String password) throws LoginSampleException {
+    static User login(String email, String password) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT UserID, role FROM User "
@@ -58,7 +58,7 @@ public class UserMapper {
         }
     }
 
-    public static int getUserIDByEmail(String email) throws LoginSampleException {
+    static int getUserIDByEmail(String email) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT UserID FROM FogDB.User WHERE email = ?";
@@ -76,7 +76,7 @@ public class UserMapper {
         return 0;
     }
 
-    public static void removeCustomerByEmail(int UserID) throws LoginSampleException {
+    static void removeCustomerByUserID(int UserID) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE FROM `FogDB`.`User` "
