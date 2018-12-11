@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.Commands;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.Exceptions.LoginSampleException;
 import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.WoodMaterial;
-import static PresentationLayer.Command.gen;
+import PresentationLayer.HTMLGenerator;
+import PresentationLayer.SVGGenerator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AngledBOM extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         String height = request.getParameter("height");
         int h = Integer.parseInt(height);
         String width = request.getParameter("width");
@@ -40,17 +41,17 @@ public class AngledBOM extends Command {
         if (check != null) {
             List<WoodMaterial> sideMaterials = LogicFacade.getSideMaterials();
             request.getSession(false).setAttribute("order", order);
-            String shedSketch = gen.shedPlacement(order);
-            String shedOptions = gen.generateShedMeasurements(l, w, sideMaterials);
+            String shedSketch = SVGGenerator.shedPlacement(order);
+            String shedOptions = HTMLGenerator.generateShedMeasurements(l, w, sideMaterials);
 
             request.setAttribute("shedOptions", shedOptions);
             request.setAttribute("shedSketch", shedSketch);
             return "shedpage";
         }
         
-        String table = gen.generateBOM(order);
-        String sketchSV = gen.createSketchSideViewAngled(order);
-        String sketchBE = gen.createSketchBirdsEyeView(order);
+        String table = HTMLGenerator.generateBOM(order);
+        String sketchSV = SVGGenerator.createSketchSideViewAngled(order);
+        String sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
 
         request.setAttribute("table", table);
         request.setAttribute("sketchSV", sketchSV);

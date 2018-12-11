@@ -5,6 +5,7 @@
  */
 package PresentationLayer;
 
+import PresentationLayer.Commands.Command;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.Exceptions.LoginSampleException;
 import java.io.IOException;
@@ -22,11 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet {
 
     private LogicFacade loginFacade;
-    private HTMLGenerator gen;
 
     public FrontController() {
         this.loginFacade = new LogicFacade();
-        this.gen = new HTMLGenerator();
     }
 
     /**
@@ -41,11 +40,11 @@ public class FrontController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            request.setAttribute("menu", gen.generateMenu(request));
+            request.setAttribute("menu", HTMLGenerator.generateMenu(request));
             Command action = Command.from(request);
             String view = action.execute(request, response);
             if (view.equals("index")) {
-                request.setAttribute("menu", gen.generateMenu(request));
+                request.setAttribute("menu", HTMLGenerator.generateMenu(request));
                 request.getRequestDispatcher(view + ".jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("/WEB-INF/" + view + ".jsp").forward(request, response);

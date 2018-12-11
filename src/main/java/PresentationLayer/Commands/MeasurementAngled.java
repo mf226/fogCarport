@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.Commands;
 
+import PresentationLayer.Commands.Command;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.Exceptions.LoginSampleException;
 import FunctionLayer.Entity.WoodMaterial;
-import static PresentationLayer.Command.gen;
+import PresentationLayer.HTMLGenerator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 public class MeasurementAngled extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         List<WoodMaterial> roofs = LogicFacade.getAngledroofs();
-        String roof = gen.createRoofTypesAngled(roofs);
+        String roof = HTMLGenerator.createRoofTypesAngled(roofs);
         request.setAttribute("roof", roof);
         return "measurementsAngled";
     }

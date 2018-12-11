@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.Commands;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.Exceptions.LoginSampleException;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateOrder extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         User user;
         user = (User) request.getSession(false).getAttribute("user");
         Order order = (Order) request.getSession(false).getAttribute("order");

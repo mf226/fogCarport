@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.Commands;
 
+import PresentationLayer.Commands.Command;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.Exceptions.LoginSampleException;
 import FunctionLayer.Entity.Order;
+import PresentationLayer.HTMLGenerator;
+import PresentationLayer.SVGGenerator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ReviewOrder extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         String orderID = request.getParameter("orderID");
         int id = Integer.parseInt(orderID);
         Order order = LogicFacade.getOrderByOrderID(id);
@@ -27,17 +30,17 @@ public class ReviewOrder extends Command {
         if(order.isShedExists()) {
             LogicFacade.createShed(order);
         }
-        String table = gen.generateBOM(order);
-        String updateOrder = gen.updateOrderInput(order);
+        String table = HTMLGenerator.generateBOM(order);
+        String updateOrder = HTMLGenerator.updateOrderInput(order);
         String sketchSV = "";
         String sketchBE = "";
         if (null != order) {
             if (order.getAngle() != 0) {
-                sketchSV = gen.createSketchSideViewAngled(order);
-                sketchBE = gen.createSketchBirdsEyeView(order);
+                sketchSV = SVGGenerator.createSketchSideViewAngled(order);
+                sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
             } else {
-                sketchSV = gen.createSketchSideViewFlat(order);
-                sketchBE = gen.createSketchBirdsEyeView(order);
+                sketchSV = SVGGenerator.createSketchSideViewFlat(order);
+                sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
             }
             request.setAttribute("updateOrder", updateOrder);
             request.setAttribute("table", table);

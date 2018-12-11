@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.Commands;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.Exceptions.LoginSampleException;
 import FunctionLayer.Entity.Order;
+import PresentationLayer.HTMLGenerator;
+import PresentationLayer.SVGGenerator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddShed extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         Order order = (Order) request.getSession(false).getAttribute("order");
         String placement = request.getParameter("placement");
         String shedLength = request.getParameter("shedLength");
@@ -30,15 +32,15 @@ public class AddShed extends Command {
         order.createShed(placement, length, width, true, wallType);
         LogicFacade.createShed(order);
         
-        String table = gen.generateBOM(order);
+        String table = HTMLGenerator.generateBOM(order);
         String sketchSV = "";
         String sketchBE = "";
         if (order.getAngle() != 0) {
-            sketchSV = gen.createSketchSideViewAngled(order);
-            sketchBE = gen.createSketchBirdsEyeView(order);
+            sketchSV = SVGGenerator.createSketchSideViewAngled(order);
+            sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
         } else {
-            sketchSV = gen.createSketchSideViewFlat(order);
-            sketchBE = gen.createSketchBirdsEyeView(order);
+            sketchSV = SVGGenerator.createSketchSideViewFlat(order);
+            sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
         }
 
         request.setAttribute("table", table);

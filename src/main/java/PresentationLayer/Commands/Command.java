@@ -1,14 +1,13 @@
-package PresentationLayer;
+package PresentationLayer.Commands;
 
 import FunctionLayer.Exceptions.LoginSampleException;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-abstract class Command {
+public abstract class Command {
 
     private static HashMap<String, Command> commands;
-    static HTMLGenerator gen = new HTMLGenerator();
 
     private static void initCommands() {
         commands = new HashMap<>();
@@ -31,7 +30,7 @@ abstract class Command {
 
     }
 
-    static Command from(HttpServletRequest request) {
+    public static Command from(HttpServletRequest request) {
         String commandName = request.getParameter("command");
         if (commands == null) {
             initCommands();
@@ -39,7 +38,7 @@ abstract class Command {
         return commands.getOrDefault(commandName, new UnknownCommand());
     }
 
-    abstract String execute(HttpServletRequest request, HttpServletResponse response)
+    public abstract String execute(HttpServletRequest request, HttpServletResponse response)
             throws LoginSampleException;
 
 }

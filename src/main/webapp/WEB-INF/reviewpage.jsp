@@ -41,10 +41,6 @@
             <div class="tableContainer">
                 <%=request.getAttribute("table")%>
                 <%=request.getAttribute("updateOrder")%>
-
-
-
-
             </div>
             <div class="sketchContainer">
                 <button class="togglebtn" onclick="toggleSketch()">Toggle View</button>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.Commands;
 
 import FunctionLayer.Exceptions.LoginSampleException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jonab
  */
-public class Customerpage extends Command {
+public class Employeepage extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-        return "customerpage";
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+        return "employeepage";
     }
 
 }

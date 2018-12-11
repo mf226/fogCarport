@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.Commands;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.Exceptions.LoginSampleException;
 import FunctionLayer.Entity.Order;
+import PresentationLayer.HTMLGenerator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 public class Adminpage extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         List<Order> orders = LogicFacade.getAllOrders();
-        String ordersTable = gen.showAllOrders(orders);
+        String ordersTable = HTMLGenerator.showAllOrders(orders);
         request.setAttribute("ordersTable", ordersTable);
         return "adminpage";
     }

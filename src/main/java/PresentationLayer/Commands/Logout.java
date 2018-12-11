@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.Commands;
 
+import PresentationLayer.Commands.Command;
 import FunctionLayer.Exceptions.LoginSampleException;
+import PresentationLayer.HTMLGenerator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,10 +19,10 @@ import javax.servlet.http.HttpSession;
 public class Logout extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         HttpSession session = request.getSession();
         session.invalidate();
-        request.setAttribute("menu", gen.generateMenu(request));
+        request.setAttribute("menu", HTMLGenerator.generateMenu(request));
         return "index";
     }
 
