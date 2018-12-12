@@ -31,6 +31,20 @@
 
             }
         }
+        function toggleRoof() {
+            var roof = document.getElementsByClassName("roof");
+
+
+
+            if (roof.style.display === "none") {
+                roof.style.display = "block";
+
+            } else {
+                roof.style.display = "none";
+
+
+            }
+        }
     </script>
     <body onload="toggleSketch()">
         <%=request.getAttribute("menu")%>
@@ -49,6 +63,7 @@
             </div>
             <div class="sketchContainer">
                 <button class="togglebtn" onclick="toggleSketch()">Toggle View</button>
+                <button class="togglebtn" onclick="toggleRoof()">Toggle Roof</button>
 
                 <div id="sketchBE" class="sketchBE">
                     <%=request.getAttribute("sketchBE")%>

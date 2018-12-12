@@ -37,10 +37,10 @@ public class AddShed extends Command {
         String sketchBE = "";
         if (order.getAngle() != 0) {
             sketchSV = SVGGenerator.createSketchSideViewAngled(order);
-            sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
+            sketchBE = SVGGenerator.createSketchBirdsEyeViewAngled(order);
         } else {
             sketchSV = SVGGenerator.createSketchSideViewFlat(order);
-            sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
+            sketchBE = SVGGenerator.createSketchBirdsEyeViewFlat(order);
         }
 
         request.setAttribute("table", table);

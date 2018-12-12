@@ -51,7 +51,7 @@ public class FlatBOM extends Command {
 
         String table = HTMLGenerator.generateBOM(order);
         String sketchSV = SVGGenerator.createSketchSideViewFlat(order);
-        String sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
+        String sketchBE = SVGGenerator.createSketchBirdsEyeViewFlat(order);
         
         request.setAttribute("table", table);
         request.setAttribute("sketchSV", sketchSV);

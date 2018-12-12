@@ -37,10 +37,10 @@ public class ReviewOrder extends Command {
         if (null != order) {
             if (order.getAngle() != 0) {
                 sketchSV = SVGGenerator.createSketchSideViewAngled(order);
-                sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
+                sketchBE = SVGGenerator.createSketchBirdsEyeViewFlat(order);
             } else {
                 sketchSV = SVGGenerator.createSketchSideViewFlat(order);
-                sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
+                sketchBE = SVGGenerator.createSketchBirdsEyeViewFlat(order);
             }
             request.setAttribute("updateOrder", updateOrder);
             request.setAttribute("table", table);

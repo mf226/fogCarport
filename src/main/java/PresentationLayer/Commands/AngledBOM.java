@@ -51,7 +51,7 @@ public class AngledBOM extends Command {
         
         String table = HTMLGenerator.generateBOM(order);
         String sketchSV = SVGGenerator.createSketchSideViewAngled(order);
-        String sketchBE = SVGGenerator.createSketchBirdsEyeView(order);
+        String sketchBE = SVGGenerator.createSketchBirdsEyeViewAngled(order);
 
         request.setAttribute("table", table);
         request.setAttribute("sketchSV", sketchSV);
