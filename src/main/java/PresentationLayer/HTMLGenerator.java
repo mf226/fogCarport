@@ -21,8 +21,6 @@ import javax.servlet.http.HttpServletRequest;
  * @author jonab
  */
 public class HTMLGenerator {
-    
-    
 
     private static String active = "class=\"active\"";
 
@@ -74,32 +72,30 @@ public class HTMLGenerator {
             + "             </img>"
             + "             </form>";
 
-  
-
     public static String userDropdown(User user) {
         StringBuilder sb = new StringBuilder();
         String roleLC = user.getRole().toString().toLowerCase() + "page";
         String role = roleLC.substring(0, 1).toUpperCase() + roleLC.substring(1, roleLC.length());
         sb.append("  <div class=\"userdropdown\">\n");
         sb.append("             <button class=\"userdropbtn\">Logged in as ").append(user.getEmail()).append("\n");
-        sb.append( "                <i class=\"fa fa-caret-down\"></i>\n");
-        sb.append( "                </button>\n");
-        sb.append( "                <div class=\"userdropdown-content\">\n");
-        sb.append( "                 <form action=\"FrontController\" method=\"POST\">\n");
+        sb.append("                <i class=\"fa fa-caret-down\"></i>\n");
+        sb.append("                </button>\n");
+        sb.append("                <div class=\"userdropdown-content\">\n");
+        sb.append("                 <form action=\"FrontController\" method=\"POST\">\n");
         sb.append("                     <input type=\"submit\" value=\"").append(role).append("\">\n");
         sb.append("                     <input type=\"hidden\" name=\"command\" value=\"").append(role).append("\">\n");
-        sb.append( "                 </form>");
-        sb.append( "                 <form id=\"logout\" action=\"FrontController\" method=\"POST\">\n");
-        sb.append( "                     <input type=\"hidden\" name=\"command\" value=\"logout\">\n");
-        sb.append( "                     <input id=\"btn\" type=\"submit\" value=\"Logout\">\n");
-        sb.append( "                 </form>");
-        sb.append( "                </div>\n");
-        sb.append( "              </div>");
+        sb.append("                 </form>");
+        sb.append("                 <form id=\"logout\" action=\"FrontController\" method=\"POST\">\n");
+        sb.append("                     <input type=\"hidden\" name=\"command\" value=\"logout\">\n");
+        sb.append("                     <input id=\"btn\" type=\"submit\" value=\"Logout\">\n");
+        sb.append("                 </form>");
+        sb.append("                </div>\n");
+        sb.append("              </div>");
         return sb.toString();
     }
 
     public static String generateMenu(HttpServletRequest request) {
-        
+
         User user;
         if (request.getSession(false) != null) {
             try {
@@ -153,6 +149,40 @@ public class HTMLGenerator {
         return sb.toString();
     }
 
+    public static String showAllOrdersByUser(List<Order> orders) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<table id=\"reviewTable\">\n");
+        sb.append("            <thead>\n");
+        sb.append("            <tr>\n");
+        sb.append("                <th>Ordre ID</th>\n");
+        sb.append("                <th>Status</th>\n");
+        sb.append("                <th>User</th>\n");
+        sb.append("                <th>Længde</th>\n");
+        sb.append("                <th>Bredde</th>\n");
+        sb.append("                <th>Dato</th>\n");
+        sb.append("                <th>Pris</th>\n");
+        sb.append("            </tr>\n");
+        sb.append("            </thead>\n");
+
+        for (int i = 0; i < orders.size(); i++) {
+            sb.append("<form action=\"FrontController\" method=\"POST\">\n");
+            sb.append(" <input type=\"hidden\" name=\"command\" value=\"customerReview\">\n");
+            sb.append(" <input type=\"hidden\" name=\"orderID\" value=\"").append(orders.get(i).getOrderID()).append("\">\n");
+            sb.append("<td class=\"reviewData\">").append(orders.get(i).getOrderID()).append("</td>\n");
+            sb.append("<td class=\"reviewData\" id=\"statusField\">").append(orders.get(i).getStatus()).append("</td>\n");
+            sb.append("<td class=\"reviewData\">").append(orders.get(i).getUserID()).append("</td>\n");
+            sb.append("<td class=\"reviewData\">").append(orders.get(i).getLength()).append("</td>\n");
+            sb.append("<td class=\"reviewData\">").append(orders.get(i).getWidth()).append("</td>\n");
+            sb.append("<td class=\"reviewData\">").append(orders.get(i).getOrderDate()).append("</td>\n");
+            sb.append("<td class=\"reviewData\">").append(orders.get(i).getPrice()).append("</td>\n");
+            sb.append("<td><input class=\"reviewBtn\" type=\"submit\" value=\"Review\"></td>\n");
+            sb.append("</tr>\n");
+            sb.append("</form>");
+
+        }
+        return sb.toString();
+    }
+
     public static String showAllOrders(List<Order> orders) {
         StringBuilder sb = new StringBuilder();
         sb.append("<table id=\"reviewTable\">\n");
@@ -170,8 +200,8 @@ public class HTMLGenerator {
 
         for (int i = 0; i < orders.size(); i++) {
             sb.append("<form action=\"FrontController\" method=\"POST\">\n");
-            sb.append(" <input type=\"hidden\" name=\"command\" value=\"reviewOrder\">\n");
-            sb.append(" <input type=\"hidden\" name=\"orderID\" value=\"").append(orders.get(i).getOrderID()).append("\">\n");
+            sb.append("<input type=\"hidden\" name=\"command\" value=\"reviewOrder\">\n");
+            sb.append("<input type=\"hidden\" name=\"orderID\" value=\"").append(orders.get(i).getOrderID()).append("\">\n");
             sb.append("<td class=\"reviewData\">").append(orders.get(i).getOrderID()).append("</td>\n");
             sb.append("<td class=\"reviewData\" id=\"statusField\">").append(orders.get(i).getStatus()).append("</td>\n");
             sb.append("<td class=\"reviewData\">").append(orders.get(i).getUserID()).append("</td>\n");
@@ -280,7 +310,7 @@ public class HTMLGenerator {
 
     public static String generateShedMeasurements(int length, int width, List<WoodMaterial> sideMat) {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("<h4>Venligst vælg den ønskede størrelse af dit skur.</h4>\n");
         sb.append("            <form action=\"FrontController\" method=\"POST\">\n");
         sb.append("                <h5>Længde: </h5>\n");
@@ -323,13 +353,12 @@ public class HTMLGenerator {
         sb.append("         </div>");
         sb.append("       </div>\n");
         sb.append("                <input type=\"submit\" value=\"Fortsæt\">\n");
-        sb.append( "                <input type=\"hidden\" name=\"command\" value=\"addShed\">\n");
+        sb.append("                <input type=\"hidden\" name=\"command\" value=\"addShed\">\n");
         sb.append("            </form>");
 
         return sb.toString();
     }
-    
-        
+
     public static String createRoofTypesFlat(List<WoodMaterial> roofs) {
         StringBuilder sb = new StringBuilder();
         sb.append("<h5>Tagtype:</h5>\n");
@@ -343,7 +372,7 @@ public class HTMLGenerator {
 
         return sb.toString();
     }
-        
+
     public static String sideMaterial(List<WoodMaterial> sideMat) {
         StringBuilder sb = new StringBuilder();
         sb.append("<h5>Beklædningstype</h5>\n"

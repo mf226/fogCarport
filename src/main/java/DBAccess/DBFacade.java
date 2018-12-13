@@ -47,6 +47,9 @@ public class DBFacade {
     public static List<Order> getAllOrders() throws LoginSampleException {
         return OrderMapper.getAllOrders();
     }
+    public static List<Order> getAllOrdersByUser(int id) throws LoginSampleException {
+        return OrderMapper.getAllOrdersByUser(id);
+    }
 
     public static void addOrderToDB(Order order) throws LoginSampleException {
         OrderMapper.addOrderToDB(order);

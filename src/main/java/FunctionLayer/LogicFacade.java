@@ -46,6 +46,9 @@ public class LogicFacade {
     public static List<Order> getAllOrders() throws LoginSampleException {
         return DBFacade.getAllOrders();
     }
+    public static List<Order> getAllOrdersByUser(int id) throws LoginSampleException {
+        return DBFacade.getAllOrdersByUser(id);
+    }
     
     public static void addOrderToDB(Order order) throws LoginSampleException {
         DBFacade.addOrderToDB(order);

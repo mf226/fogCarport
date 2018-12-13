@@ -56,6 +56,43 @@ public class OrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
+    
+    static List<Order> getAllOrdersByUser(int id) throws LoginSampleException {
+        try {
+            ArrayList<Order> orders = new ArrayList();
+            Connection con = Connector.connection();
+            String SQL = "SELECT * FROM FogDB.`Order` WHERE userID = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int orderID = rs.getInt("orderID");
+                int userID = rs.getInt("userID");
+                int length = rs.getInt("length");
+                int angle = rs.getInt("angle");
+                int roofType = rs.getInt("roofType");
+                int width = rs.getInt("width");
+                int height = rs.getInt("height");
+                double price = rs.getDouble("price");
+                Date date = rs.getDate("orderDate");
+                String status = rs.getString("status");
+
+//                Date orderDate = rs.getDate("orderDate");
+                Order order = new Order(length, width, height, angle, roofType);
+                order.setOrderID(orderID);
+                order.setUserID(userID);
+                order.setPrice(price);
+                order.setOrderDate(date);
+                order.setStatus(status);
+                orders.add(order);
+            }
+            return orders;
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+
 
     static Order getOrderByOrderID(int orderID) throws LoginSampleException {
         try {
