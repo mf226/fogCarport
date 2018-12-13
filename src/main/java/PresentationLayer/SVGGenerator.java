@@ -249,7 +249,7 @@ public class SVGGenerator {
         x = innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
 
         y -= (b - rem.getTopsideWidth());
-        sketch += "<--! roof -->\n<rect class=\"roof\" x=\"" + x + "\" y=\"" + y + "\" width=\"" + (order.getLength() + RulesAndConstants.ROOF_LENGTH_EXTRA) + "\" height=\"" + b + "\"" + style;
+        sketch += "<--! roof -->\n<rect id=\"roofSV\" x=\"" + x + "\" y=\"" + y + "\" width=\"" + (order.getLength() + RulesAndConstants.ROOF_LENGTH_EXTRA) + "\" height=\"" + b + "\"" + style;
         sketch += "</svg>";
         return sketch;
     }
@@ -348,7 +348,7 @@ public class SVGGenerator {
 
         //Tag
         y = innerY;
-        sketch += "<--! Roof -->\n<rect class=\"roof\" x=\"" + x + "\" y=\"" + y + "\" width=\"" + (order.getLength() + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\" height=\"" + (order.getWidth() + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\"" + flatRoofStyle;
+        sketch += "<--! Roof -->\n<rect id=\"roofBE\" x=\"" + x + "\" y=\"" + y + "\" width=\"" + (order.getLength() + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\" height=\"" + (order.getWidth() + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\"" + flatRoofStyle;
 
         return sketch;
     }
@@ -445,7 +445,7 @@ public class SVGGenerator {
         //adding shed
         sketch += addShedBirdsEye(innerX, innerY, style, order.getShedLength(), order.getShedWidth(), order);
         y = innerY;
-        sketch += "<--! Roof -->\n<rect class=\"roof\" x=\"" + x + "\" y=\"" + y + "\" width=\"" + (order.getLength() + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\" height=\"" + (order.getWidth() + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\"" + roofStyle;
+        sketch += "<--! Roof -->\n<rect id=\"roofBE\" x=\"" + x + "\" y=\"" + y + "\" width=\"" + (order.getLength() + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\" height=\"" + (order.getWidth() + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\"" + roofStyle;
 
         sketch += "</svg>";
         return sketch;
@@ -523,7 +523,7 @@ public class SVGGenerator {
         }
         //Tag
         x = innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
-        sketch += "<--! roof -- >\n<rect class=\"roof\" x=\"" + x + "\" y=\"" + y + "\" width=\"" + (order.getLength() + RulesAndConstants.ROOF_LENGTH_EXTRA) + "\" height=\"" + 5 + "\"" + style;
+        sketch += "<--! roof -- >\n<rect id=\"roofSV\" x=\"" + x + "\" y=\"" + y + "\" width=\"" + (order.getLength() + RulesAndConstants.ROOF_LENGTH_EXTRA) + "\" height=\"" + 5 + "\"" + style;
         sketch += "</svg>";
         return sketch;
     }

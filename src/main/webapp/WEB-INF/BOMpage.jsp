@@ -32,17 +32,19 @@
             }
         }
         function toggleRoof() {
-            var roof = document.getElementsByClassName("roof");
+            var BE = document.getElementById("roofBE");
+            var SV = document.getElementById("roofSV");
 
 
 
-            if (roof.style.display === "none") {
-                roof.style.display = "block";
+            if (BE.style.display === "none") {
+                BE.style.display = "block";
+                SV.style.display = "block";
+
 
             } else {
-                roof.style.display = "none";
-
-
+                BE.style.display = "none";
+                SV.style.display = "none";
             }
         }
     </script>

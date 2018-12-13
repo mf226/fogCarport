@@ -31,12 +31,28 @@
 
             }
         }
+
+
         function toggleRoof() {
-            var x = document.getElementById("roof");
-            if (x.style.display === "none") {
-                x.style.display = "block";
+            var BEF = document.getElementById("roofBEF");
+            var SVF = document.getElementById("roofSVF");
+            var BEA = document.getElementById("roofBEA");
+            var SVA = document.getElementById("roofSVA");
+
+
+
+
+            if (BEF.style.display === "none") {
+                BEF.style.display = "block";
+                SVF.style.display = "block";
+                BEA.style.display = "block";
+                SVA.style.display = "block";
+
             } else {
-                x.style.display = "none";
+                BEF.style.display = "none";
+                SVF.style.display = "none";
+                BEA.style.display = "none";
+                SVA.style.display = "none";
             }
         }
     </script>
