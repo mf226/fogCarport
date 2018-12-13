@@ -34,25 +34,19 @@
 
 
         function toggleRoof() {
-            var BEF = document.getElementById("roofBEF");
-            var SVF = document.getElementById("roofSVF");
-            var BEA = document.getElementById("roofBEA");
-            var SVA = document.getElementById("roofSVA");
+            var BE = document.getElementById("roofBE");
+            var SV = document.getElementById("roofSV");
 
 
 
+            if (BE.style.display === "none") {
+                BE.style.display = "block";
+                SV.style.display = "block";
 
-            if (BEF.style.display === "none") {
-                BEF.style.display = "block";
-                SVF.style.display = "block";
-                BEA.style.display = "block";
-                SVA.style.display = "block";
 
             } else {
-                BEF.style.display = "none";
-                SVF.style.display = "none";
-                BEA.style.display = "none";
-                SVA.style.display = "none";
+                BE.style.display = "none";
+                SV.style.display = "none";
             }
         }
     </script>
