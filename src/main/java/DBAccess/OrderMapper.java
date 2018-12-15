@@ -5,7 +5,7 @@
  */
 package DBAccess;
 
-import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Exceptions.LoginException;
 import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.User;
 import java.sql.Connection;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class OrderMapper {
 
-    static List<Order> getAllOrders() throws LoginSampleException {
+    static List<Order> getAllOrders() throws LoginException {
         try {
             ArrayList<Order> orders = new ArrayList();
             Connection con = Connector.connection();
@@ -53,11 +53,11 @@ public class OrderMapper {
             }
             return orders;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    static Order getOrderByOrderID(int orderID) throws LoginSampleException {
+    static Order getOrderByOrderID(int orderID) throws LoginException {
         try {
             Order order;
             Connection con = Connector.connection();
@@ -92,12 +92,12 @@ public class OrderMapper {
                 return order;
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
         return null;
     }
 
-    static void approveOrder(Order order) throws LoginSampleException {
+    static void approveOrder(Order order) throws LoginException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -109,12 +109,12 @@ public class OrderMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
 
         }
     }
 
-    static void editOrderStatus(Order order, String status) throws LoginSampleException {
+    static void editOrderStatus(Order order, String status) throws LoginException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -127,11 +127,11 @@ public class OrderMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    static List<Order> getOrdersbyUserID(User user) throws LoginSampleException {
+    static List<Order> getOrdersbyUserID(User user) throws LoginException {
 
         try {
             ArrayList<Order> orders = new ArrayList();
@@ -154,12 +154,12 @@ public class OrderMapper {
             }
             return orders;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
 
     }
 
-    static void addOrderToDB(Order order) throws LoginSampleException {
+    static void addOrderToDB(Order order) throws LoginException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -183,13 +183,13 @@ public class OrderMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
 
         }
 
     }
 
-    static void editOrderPrice(Order order, double newPrice) throws LoginSampleException {
+    static void editOrderPrice(Order order, double newPrice) throws LoginException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -202,7 +202,7 @@ public class OrderMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (ClassNotFoundException | SQLException EX) {
-            throw new LoginSampleException(EX.getMessage());
+            throw new LoginException(EX.getMessage());
 
         }
 

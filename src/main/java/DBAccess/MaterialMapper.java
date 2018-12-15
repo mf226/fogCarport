@@ -1,6 +1,6 @@
 package DBAccess;
 
-import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Exceptions.LoginException;
 import FunctionLayer.Entity.MetalMaterial;
 import FunctionLayer.Entity.WoodMaterial;
 import java.sql.Connection;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class MaterialMapper {
 
-    static List<WoodMaterial> getAllMaterials() throws LoginSampleException {
+    static List<WoodMaterial> getAllMaterials() throws LoginException {
         try {
             ArrayList<WoodMaterial> materials = new ArrayList();
             Connection con = Connector.connection();
@@ -35,11 +35,11 @@ public class MaterialMapper {
             }
             return materials;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    static WoodMaterial getWoodMaterial(int itemNumber) throws LoginSampleException {
+    static WoodMaterial getWoodMaterial(int itemNumber) throws LoginException {
         try {
 
             Connection con = Connector.connection();
@@ -57,14 +57,14 @@ public class MaterialMapper {
                 int amountInStock = rs.getInt("inStock");
                 return new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock, amountInStock);
             } else {
-                throw new LoginSampleException("Material doesn't exist.");
+                throw new LoginException("Material doesn't exist.");
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    static MetalMaterial getMetalMaterial(int itemNumber) throws LoginSampleException {
+    static MetalMaterial getMetalMaterial(int itemNumber) throws LoginException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM FogDB.Materials "
@@ -81,14 +81,14 @@ public class MaterialMapper {
                 int amountInStock = rs.getInt("inStock");
                 return new MetalMaterial(itemNumber, materialName, unit, price, soldInPacksOf, amountInStock);
             } else {
-                throw new LoginSampleException("Material doesn't exist.");
+                throw new LoginException("Material doesn't exist.");
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    static List<WoodMaterial> getAngledRoofMat() throws LoginSampleException {
+    static List<WoodMaterial> getAngledRoofMat() throws LoginException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
@@ -106,12 +106,12 @@ public class MaterialMapper {
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
 
     }
 
-    static List<WoodMaterial> getSideMat() throws LoginSampleException {
+    static List<WoodMaterial> getSideMat() throws LoginException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
@@ -130,11 +130,11 @@ public class MaterialMapper {
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    static List<WoodMaterial> getFlatRoofMat() throws LoginSampleException {
+    static List<WoodMaterial> getFlatRoofMat() throws LoginException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
@@ -153,12 +153,12 @@ public class MaterialMapper {
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
 
     }
 
-    static void updateStock(int newAmountInStock, int itemNumber) throws LoginSampleException {
+    static void updateStock(int newAmountInStock, int itemNumber) throws LoginException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -170,7 +170,7 @@ public class MaterialMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 

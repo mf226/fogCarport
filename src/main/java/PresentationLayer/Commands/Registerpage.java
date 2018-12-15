@@ -6,7 +6,7 @@
 package PresentationLayer.Commands;
 
 import PresentationLayer.Commands.Command;
-import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Exceptions.LoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +20,7 @@ public class Registerpage extends Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
         return "registerpage";
     }
 

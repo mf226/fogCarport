@@ -7,7 +7,7 @@ package PresentationLayer.Commands;
 
 import PresentationLayer.Commands.Command;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Exceptions.LoginException;
 import FunctionLayer.Entity.Order;
 import PresentationLayer.HTMLGenerator;
 import PresentationLayer.SVGGenerator;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ReviewOrder extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
         String orderID = request.getParameter("orderID");
         int id = Integer.parseInt(orderID);
         Order order = LogicFacade.getOrderByOrderID(id);

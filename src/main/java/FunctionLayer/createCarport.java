@@ -5,18 +5,18 @@ import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.WoodMaterial;
 import FunctionLayer.Entity.WoodDetails;
 import FunctionLayer.Entity.MetalDetails;
-import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Exceptions.LoginException;
 import DBAccess.MaterialMapper;
 
 public class createCarport {
 
-    public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws LoginSampleException {
+    public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws LoginException {
         Order order = new Order(length, width, height, roofAngle, roofType);
         createCarport(order);
         return order;
     }
 
-    public static void createCarport(Order order) throws LoginSampleException {
+    public static void createCarport(Order order) throws LoginException {
         if (order.getAngle() == 0) {
             double amountOfRafters = createFlatRoofRafters(order);
             createRestOfCarport(order, amountOfRafters);
@@ -26,7 +26,7 @@ public class createCarport {
         }
     }
 
-    private static void createRestOfCarport(Order order, double bottomRafterAmount) throws LoginSampleException {
+    private static void createRestOfCarport(Order order, double bottomRafterAmount) throws LoginException {
         double postsAmount = createPosts(order);
         
         MetalMaterial concrete = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
@@ -54,7 +54,7 @@ public class createCarport {
         order.getCarportMetalMaterials().put(RulesAndConstants.SCREWS_DESCRIPTION, new MetalDetails(screw, screwAmount));
     }
 
-    private static double createFlatRoofRafters(Order order) throws LoginSampleException {
+    private static double createFlatRoofRafters(Order order) throws LoginException {
         WoodMaterial rafter = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double raftersAmount = Calculators.flatRoofRafterAmountCalc(order.getLength());
         double cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
@@ -62,7 +62,7 @@ public class createCarport {
         return raftersAmount;
     }
 
-    private static double createPosts(Order order) throws LoginSampleException {
+    private static double createPosts(Order order) throws LoginException {
         WoodMaterial post = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_POSTS);
         double postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
         double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
@@ -71,7 +71,7 @@ public class createCarport {
         return postsAmount;
     }
 
-    private static double createAngledRoofRafters(Order order) throws LoginSampleException {
+    private static double createAngledRoofRafters(Order order) throws LoginException {
         WoodMaterial rafter = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double bottomRafterAmount = Calculators.angledRoofRafterBottomAmountCalc(order.getLength());
         double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
@@ -84,7 +84,7 @@ public class createCarport {
         return bottomRafterAmount;
     }
 
-    public static void createShed(Order order) throws LoginSampleException {
+    public static void createShed(Order order) throws LoginException {
         WoodMaterial wallMaterial = LogicFacade.getWoodMaterial(order.getWallType());
         double wallAmount = Calculators.shedWallCalc(order.getShedLength(), order.getShedWidth(), wallMaterial.getTopsideWidth());
         double wallLengthEach = Calculators.shedWallLength(order.getHeight());

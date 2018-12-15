@@ -1,6 +1,6 @@
 package DBAccess;
 
-import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Exceptions.LoginException;
 import FunctionLayer.Entity.Role;
 import FunctionLayer.Entity.User;
 import java.sql.Connection;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class UserMapper {
 
-    static void createUser(User user) throws LoginSampleException {
+    static void createUser(User user) throws LoginException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO User (email, password, role) VALUES (?, ?, ?)";
@@ -31,11 +31,11 @@ public class UserMapper {
             int id = ids.getInt(1);
             user.setId(id);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    static User login(String email, String password) throws LoginSampleException {
+    static User login(String email, String password) throws LoginException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT UserID, role FROM User "
@@ -51,14 +51,14 @@ public class UserMapper {
                 user.setId(id);
                 return user;
             } else {
-                throw new LoginSampleException("Could not validate user");
+                throw new LoginException("Could not validate user");
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    static int getUserIDByEmail(String email) throws LoginSampleException {
+    static int getUserIDByEmail(String email) throws LoginException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT UserID FROM FogDB.User WHERE email = ?";
@@ -76,7 +76,7 @@ public class UserMapper {
         return 0;
     }
 
-    static void removeCustomerByUserID(int UserID) throws LoginSampleException {
+    static void removeCustomerByUserID(int UserID) throws LoginException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE FROM `FogDB`.`User` "
@@ -89,7 +89,7 @@ public class UserMapper {
         }
     }
 
-//    public static User getUser(String email, String password) throws LoginSampleException {
+//    public static User getUser(String email, String password) throws LoginException {
 //        try {
 //            Connection con = Connector.connection();
 //            String SQL = "SELECT email, password FROM User "
@@ -107,10 +107,10 @@ public class UserMapper {
 //                return user;
 //
 //            } else {
-//                throw new LoginSampleException("Could not validate user");
+//                throw new LoginException("Could not validate user");
 //            }
 //        } catch (ClassNotFoundException | SQLException ex) {
-//            throw new LoginSampleException(ex.getMessage());
+//            throw new LoginException(ex.getMessage());
 //        }
 //
 //    }
