@@ -20,7 +20,7 @@ public class BaseException extends Exception {
      *
      * @param msg the detail message.
      */
-    public BaseException(String msg) throws Exception {
+    public BaseException(String msg){
         super(msg);
         // do some logging
     }
