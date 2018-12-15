@@ -6,6 +6,10 @@ public class MetalDetails extends MaterialDetails {
         super(material, amount);
     }
 
+    public MetalDetails(Material material, double amount, String description) {
+        super(material, amount, description);
+    }
+
     @Override
     public double getTotalItemPrice() {
         double numberOfUnits = Math.ceil(super.getAmount() / ((MetalMaterial) super.getMaterial()).getSoldInPacksOf());
@@ -16,6 +20,4 @@ public class MetalDetails extends MaterialDetails {
     public double getAmount() {
         return Math.ceil(super.getAmount() / ((MetalMaterial) super.getMaterial()).getSoldInPacksOf());
     }
-    
-    
 }

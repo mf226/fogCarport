@@ -5,97 +5,98 @@ import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.WoodMaterial;
 import FunctionLayer.Entity.WoodDetails;
 import FunctionLayer.Entity.MetalDetails;
-import FunctionLayer.Exceptions.LoginSampleException;
-import DBAccess.MaterialMapper;
+import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Entity.MaterialDetails;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class createCarport {
 
-    public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws LoginSampleException {
+    public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws LoginException {
         Order order = new Order(length, width, height, roofAngle, roofType);
         createCarport(order);
         return order;
     }
 
-    public static void createCarport(Order order) throws LoginSampleException {
+    public static void createCarport(Order order) throws LoginException {
         if (order.getAngle() == 0) {
-            double amountOfRafters = createFlatRoofRafters(order);
-            createRestOfCarport(order, amountOfRafters);
+            createFlatRoofRafters(order);
         } else {
-            double amountOfRafters = createAngledRoofRafters(order);
-            createRestOfCarport(order, amountOfRafters);
+            createAngledRoofRafters(order);
         }
+
+        addAllWoodMaterialsToList(order);
+        addAllMetalMaterialsToList(order);
     }
 
-    private static void createRestOfCarport(Order order, double bottomRafterAmount) throws LoginSampleException {
-        double postsAmount = createPosts(order);
-        
-        MetalMaterial concrete = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
-        double concreteAmount = Calculators.concreteAmountCalc(postsAmount);
-        order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION, new MetalDetails(concrete, concreteAmount));
-
-        MetalMaterial mount = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_MOUNT);
-        double postMountAmount = Calculators.mountPerPost(postsAmount);
-        order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION, new MetalDetails(mount, postMountAmount));
-
-        double rafterMountAmount = Calculators.mountPerRafter(bottomRafterAmount);
-        order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION, new MetalDetails(mount, rafterMountAmount));
-
-        WoodMaterial rem = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
-        double remLength = Calculators.remLengthCalc(order.getLength());
-
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_REM_DESCRIPTION, new WoodDetails(rem, 2, remLength)); //There are always 2 REMME
-
-        MetalMaterial roof = LogicFacade.getMetalMaterial(order.getRoofType());
+    private static void addAllMetalMaterialsToList(Order order) throws LoginException {
+        double concreteAmount = Calculators.concreteAmountCalc(order.getPostsAmount());
+        double postMountAmount = Calculators.mountPerPost(order.getPostsAmount());
         double roofAmount = Calculators.calcRoof(order);
-        order.getCarportMetalMaterials().put(RulesAndConstants.CARPORT_ROOF_DESCRIPTION, new MetalDetails(roof, roofAmount));
+        double rafterMountAmount = Calculators.mountPerRafter(order.getAmountOfRoofRafters());
 
+        MetalMaterial concrete = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_CONCRETE);
+        MetalMaterial mount = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_MOUNT);
+        MetalMaterial roof = LogicFacade.getMetalMaterial(order.getRoofType());
         MetalMaterial screw = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_SCREWS);
-        double screwAmount = Calculators.screwsAmountCalc(order);
-        order.getCarportMetalMaterials().put(RulesAndConstants.SCREWS_DESCRIPTION, new MetalDetails(screw, screwAmount));
+
+        ArrayList<MaterialDetails> list = new ArrayList();
+
+        list.add(new MetalDetails(concrete, concreteAmount, RulesAndConstants.CARPORT_CONCRETE_DESCRIPTION));
+        list.add(new MetalDetails(mount, postMountAmount, RulesAndConstants.CARPORT_MOUNTS_POST_DESCRIPTION));
+        list.add(new MetalDetails(roof, roofAmount, RulesAndConstants.CARPORT_ROOF_DESCRIPTION));
+        list.add(new MetalDetails(mount, rafterMountAmount, RulesAndConstants.CARPORT_MOUNTS_RAFTERS_DESCRIPTION));
+
+        list.forEach(m -> putIntoList(order.getCarportMetalMaterials(), m));
+
+        MetalDetails m = new MetalDetails(screw, Calculators.screwsAmountCalc(order), RulesAndConstants.SCREWS_DESCRIPTION);
+        order.getCarportMetalMaterials().put(m.getDescription(), m);
     }
 
-    private static double createFlatRoofRafters(Order order) throws LoginSampleException {
-        WoodMaterial rafter = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
-        double raftersAmount = Calculators.flatRoofRafterAmountCalc(order.getLength());
-        double cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON, new WoodDetails(rafter, raftersAmount, cmLengthEach));
-        return raftersAmount;
-    }
-
-    private static double createPosts(Order order) throws LoginSampleException {
-        WoodMaterial post = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_POSTS);
-        double postsAmount = Calculators.postsAmountCalc(order.getLength(), order.getWidth());
+    private static void addAllWoodMaterialsToList(Order order) throws LoginException {
         double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_POSTS_DESCRIPTION, new WoodDetails(post, postsAmount, cmLengthEach));
+        double remLength = Calculators.remLengthCalc(order.getLength());
+        WoodMaterial rem = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
+        WoodMaterial post = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_POSTS);
 
-        return postsAmount;
+        putIntoList(order.getCarportWoodMaterials(), new WoodDetails(post, order.getPostsAmount(), cmLengthEach, RulesAndConstants.CARPORT_POSTS_DESCRIPTION));
+        putIntoList(order.getCarportWoodMaterials(), new WoodDetails(rem, 2, remLength, RulesAndConstants.CARPORT_REM_DESCRIPTION));
+
     }
 
-    private static double createAngledRoofRafters(Order order) throws LoginSampleException {
+    private static void createFlatRoofRafters(Order order) throws LoginException {
         WoodMaterial rafter = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
-        double bottomRafterAmount = Calculators.angledRoofRafterBottomAmountCalc(order.getLength());
-        double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION, new WoodDetails(rafter, bottomRafterAmount, cmLengthEachBottomRafter));
+        double cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
 
+        putIntoList(order.getCarportWoodMaterials(), new WoodDetails(rafter, order.getAmountOfRoofRafters(), cmLengthEach, RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON));
+    }
+
+    private static void createAngledRoofRafters(Order order) throws LoginException {
+        double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
         double sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
         double cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), order.getAngle());
-        order.getCarportWoodMaterials().put(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION, new WoodDetails(rafter, sideRafterAmount, cmLengthEachSideRafter));
+        WoodMaterial rafter = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
 
-        return bottomRafterAmount;
+        putIntoList(order.getCarportWoodMaterials(), new WoodDetails(rafter, order.getAmountOfRoofRafters(), cmLengthEachBottomRafter, RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION));
+        putIntoList(order.getCarportWoodMaterials(), new WoodDetails(rafter, sideRafterAmount, cmLengthEachSideRafter, RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION));
     }
 
-    public static void createShed(Order order) throws LoginSampleException {
+    public static void createShed(Order order) throws LoginException {
+        MetalMaterial screw = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_SCREWS);
+        MetalMaterial door = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_DOOR);
         WoodMaterial wallMaterial = LogicFacade.getWoodMaterial(order.getWallType());
         double wallAmount = Calculators.shedWallCalc(order.getShedLength(), order.getShedWidth(), wallMaterial.getTopsideWidth());
         double wallLengthEach = Calculators.shedWallLength(order.getHeight());
-        order.getShedWoodMaterials().put(RulesAndConstants.SHED_WALL_DESCRIPTION, new WoodDetails(wallMaterial, wallAmount, wallLengthEach));
 
-        MetalMaterial screw = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_SCREWS);
+        putIntoList(order.getShedWoodMaterials(), new WoodDetails(wallMaterial, wallAmount, wallLengthEach, RulesAndConstants.SHED_WALL_DESCRIPTION));
+        putIntoList(order.getShedMetalMaterials(), new MetalDetails(door, 1, RulesAndConstants.SHED_DOOR_DESCRIPTUIN));
+
         double screwAmount = Calculators.screwsAmountCalcForShed(order);
-        order.getCarportMetalMaterials().put(RulesAndConstants.SCREWS_DESCRIPTION, new MetalDetails(screw, screwAmount));
+        putIntoList(order.getShedMetalMaterials(), new MetalDetails(screw, screwAmount, RulesAndConstants.SCREWS_DESCRIPTION));
+    }
 
-        MetalMaterial door = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_DOOR);
-        order.getShedMetalMaterials().put(RulesAndConstants.SHED_DOOR_DESCRIPTUIN, new MetalDetails(door, 1));
+    private static void putIntoList(HashMap map, MaterialDetails mat) {
+        map.put(mat.getDescription(), mat);
     }
 
 }

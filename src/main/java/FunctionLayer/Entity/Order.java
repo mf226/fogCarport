@@ -1,5 +1,6 @@
 package FunctionLayer.Entity;
 
+import FunctionLayer.Calculators;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -231,6 +232,16 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+    public double getAmountOfRoofRafters()
+    {
+        return Calculators.flatRoofRafterAmountCalc(this.getLength());
+    }
+    
+    public double getPostsAmount()
+    {
+        return Calculators.postsAmountCalc(this.getLength(), this.getWidth());
     }
 
 }

@@ -9,7 +9,7 @@ package FunctionLayer.Exceptions;
  *
  * @author Fen
  */
-public class NotInStockException extends Exception {
+public class NotInStockException extends BaseException {
 
     /**
      * Creates a new instance of <code>NotInStockException</code> without detail
