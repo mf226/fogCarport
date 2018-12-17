@@ -25,6 +25,7 @@ public abstract class Command {
         commands.put("register", new Register());
         commands.put("registerpage", new Registerpage());
         commands.put("reviewOrder", new ReviewOrder());
+        commands.put("customerReview", new UserReviewOrder());
         commands.put("SelectFlat", new FlatBOM());
         commands.put("SelectAngled", new AngledBOM());
 

@@ -5,10 +5,9 @@
  */
 package PresentationLayer.Commands;
 
-import PresentationLayer.Commands.Command;
-import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginException;
 import FunctionLayer.Entity.Order;
+import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.LogicFacade;
 import PresentationLayer.HTMLGenerator;
 import PresentationLayer.SVGGenerator;
 import javax.servlet.http.HttpServletRequest;
@@ -18,16 +17,16 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jonab
  */
-public class ReviewOrder extends Command {
+public class UserReviewOrder extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
         String orderID = request.getParameter("orderID");
         int id = Integer.parseInt(orderID);
         Order order = LogicFacade.getOrderByOrderID(id);
-        
+
         LogicFacade.createCarport(order);
-        if(order.isShedExists()) {
+        if (order.isShedExists()) {
             LogicFacade.createShed(order);
         }
         String table = HTMLGenerator.generateBOM(order);
@@ -48,9 +47,9 @@ public class ReviewOrder extends Command {
             request.setAttribute("sketchBE", sketchBE);
             request.getSession(false).setAttribute("order", order);
 
-            return "reviewpage";
+            return "customerreview";
         }
         return "errorpage";
     }
-
+    
 }

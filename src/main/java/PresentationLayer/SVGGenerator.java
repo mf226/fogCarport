@@ -22,7 +22,7 @@ public class SVGGenerator {
     private static final int innerCanvasW = 600;
     private static final int innerCanvasl = 600;
 
-     public static String addShedBirdsEye(final int innerX, final int innerY, String style, int length, int width, Order order) {
+    public static String addShedBirdsEye(final int innerX, final int innerY, String style, int length, int width, Order order) {
         String shed = "";
         if (length == 0 || width == 0) {
             return shed;
