@@ -6,7 +6,7 @@
 package PresentationLayer.Commands;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Exceptions.LoginException;
 import FunctionLayer.Entity.WoodMaterial;
 import FunctionLayer.Entity.WoodDetails;
 import FunctionLayer.Entity.Order;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class FlatBOM extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
         String height = request.getParameter("height");
         int h = Integer.parseInt(height);
         String width = request.getParameter("width");

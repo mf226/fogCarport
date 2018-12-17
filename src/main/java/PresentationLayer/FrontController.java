@@ -6,9 +6,9 @@
 package PresentationLayer;
 
 import PresentationLayer.Commands.Command;
-import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Exceptions.LoginException;
 import java.io.IOException;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,11 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
 public class FrontController extends HttpServlet {
 
-    private LogicFacade loginFacade;
-
-    public FrontController() {
-        this.loginFacade = new LogicFacade();
-    }
+    private static final Logger logger = Logger.getLogger(FrontController.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,6 +33,7 @@ public class FrontController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -49,7 +46,7 @@ public class FrontController extends HttpServlet {
             } else {
                 request.getRequestDispatcher("/WEB-INF/" + view + ".jsp").forward(request, response);
             }
-        } catch (LoginSampleException ex) {
+        } catch (LoginException ex) {
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("index.jsp").forward(request, response);
             ex.printStackTrace();

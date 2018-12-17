@@ -7,7 +7,7 @@ package PresentationLayer.Commands;
 
 import PresentationLayer.Commands.Command;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginSampleException;
+import FunctionLayer.Exceptions.LoginException;
 import FunctionLayer.Entity.WoodMaterial;
 import PresentationLayer.HTMLGenerator;
 import java.util.List;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MeasurementAngled extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
         List<WoodMaterial> roofs = LogicFacade.getAngledroofs();
         String roof = HTMLGenerator.createRoofTypesAngled(roofs);
         request.setAttribute("roof", roof);

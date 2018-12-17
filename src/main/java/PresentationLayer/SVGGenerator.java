@@ -23,9 +23,9 @@ public class SVGGenerator {
     private static final int innerCanvasl = 600;
 
     public static String addShedBirdsEye(final int innerX, final int innerY, String style, int length, int width, Order order) {
-        String shed = "";
+        StringBuilder sb = new StringBuilder();
         if (length == 0 || width == 0) {
-            return shed;
+            return sb.toString();
         }
         double wallWidth = 0.25;
         int x = innerX;
@@ -33,68 +33,68 @@ public class SVGGenerator {
         //Upperleft
         if (order.getShedPlacement().equals("UL")) {
             //Length - N
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + wallWidth + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(length).append("\" height=\"").append(wallWidth).append("\"").append(style);
             //Length - S
             y += width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + wallWidth + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(length).append("\" height=\"").append(wallWidth).append("\"").append(style);
             //Width - W
             y -= width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + wallWidth + "\" height=\"" + width + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(wallWidth).append("\" height=\"").append(width).append("\"").append(style);
             //Width - E
             x += length;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + wallWidth + "\" height=\"" + width + "\"" + style;
-            return shed;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(wallWidth).append("\" height=\"").append(width).append("\"").append(style);
+            return sb.toString();
         }
         //Upperright
         if (order.getShedPlacement().equals("UR")) {
             //Length - N
             x += order.getLength() - length;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + wallWidth + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(length).append("\" height=\"").append(wallWidth).append("\"").append(style);
             //Length - S
             y += width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + wallWidth + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(length).append("\" height=\"").append(wallWidth).append("\"").append(style);
             //Width - W
             y -= width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + wallWidth + "\" height=\"" + width + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(wallWidth).append("\" height=\"").append(width).append("\"").append(style);
             //Width - E
             x += length;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + wallWidth + "\" height=\"" + width + "\"" + style;
-            return shed;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(wallWidth).append("\" height=\"").append(width).append("\"").append(style);
+            return sb.toString();
         }
         //Lowerright
         if (order.getShedPlacement().equals("LR")) {
             //Length - N
             x += order.getLength() - length;
             y += order.getWidth() - width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + wallWidth + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(length).append("\" height=\"").append(wallWidth).append("\"").append(style);
             //Length - S
             y += width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + wallWidth + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(length).append("\" height=\"").append(wallWidth).append("\"").append(style);
             //Width - W
             y -= width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + wallWidth + "\" height=\"" + width + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(wallWidth).append("\" height=\"").append(width).append("\"").append(style);
             //Width - E
             x += length;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + wallWidth + "\" height=\"" + width + "\"" + style;
-            return shed;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(wallWidth).append("\" height=\"").append(width).append("\"").append(style);
+            return sb.toString();
         }
         //Lowerleft
         if (order.getShedPlacement().equals("LL")) {
             //Length - N
             y += order.getWidth() - width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + wallWidth + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(length).append("\" height=\"").append(wallWidth).append("\"").append(style);
             //Length - S
             y += width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + length + "\" height=\"" + wallWidth + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(length).append("\" height=\"").append(wallWidth).append("\"").append(style);
             //Width - W
             y -= width;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + wallWidth + "\" height=\"" + width + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(wallWidth).append("\" height=\"").append(width).append("\"").append(style);
             //Width - E
             x += length;
-            shed += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + wallWidth + "\" height=\"" + width + "\"" + style;
-            return shed;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(wallWidth).append("\" height=\"").append(width).append("\"").append(style);
+            return sb.toString();
         }
-        return shed;
+        return sb.toString();
     }
 
     public static String addShedSideView(final int innerX, final int innerY, Order order) {
@@ -133,41 +133,43 @@ public class SVGGenerator {
     }
 
     public static String shedPlacement(Order order) {
+        StringBuilder sb = new StringBuilder();
         int innerX = 50;
         int innerY = 50;
-        String sketch = "<svg class=\"outerCanvas\" width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n";
+        sb.append("<svg class=\"outerCanvas\" width=\"" + 1000 + "\" height=\"" + 1000 + "\" scale>\n");
 
         //Inner Canvas
-        sketch += "<svg class=\"innerCanvas\" width=\"" + 800 + "\" height=\"" + 800 + "\" scale>\n";
+        sb.append("<svg class=\"innerCanvas\" width=\"" + 800 + "\" height=\"" + 800 + "\" scale>\n");
         String style = "style=\"\n"
                 + "                  fill:white;\n"
                 + "                  stroke-width:1;\n"
                 + "                  stroke:rgb(0,0,0)\" />\n";
 
-        sketch += "<rect x=\"" + innerX + "\" y=\"" + innerY + "\" width=\"" + order.getLength() + "\" height=\"" + order.getWidth() + "\"" + style;
+        sb.append("<rect x=\"").append(innerX).append("\" y=\"").append(innerY).append("\" width=\"").append(order.getLength()).append("\" height=\"").append(order.getWidth()).append("\"").append(style);
         //Upper Left - NW
-        sketch += "<rect x=\"" + innerX + "\" y=\"" + innerY + "\" width=\"" + order.getLength() / 2 + "\" height=\"" + order.getWidth() / 2 + "\"" + style;
+        sb.append("<rect x=\"").append(innerX).append("\" y=\"").append(innerY).append("\" width=\"").append(order.getLength() / 2).append("\" height=\"").append(order.getWidth() / 2).append("\"").append(style);
         //Upper Right - NE
-        sketch += "<rect x=\"" + (order.getLength() / 2 + innerX) + "\" y=\"" + innerY + "\" width=\"" + order.getLength() / 2 + "\" height=\"" + order.getWidth() / 2 + "\"" + style;
+        sb.append("<rect x=\"").append(order.getLength() / 2).append(innerX).append("\" y=\"").append(innerY).append("\" width=\"").append(order.getLength() / 2).append("\" height=\"").append(order.getWidth() / 2).append("\"").append(style);
         //Lower Left - SW
-        sketch += "<rect x=\"" + innerX + "\" y=\"" + (order.getWidth() / 2 + innerY) + "\" width=\"" + order.getLength() / 2 + "\" height=\"" + order.getWidth() / 2 + "\"" + style;
+        sb.append("<rect x=\"").append(innerX).append("\" y=\"").append(order.getWidth() / 2).append(innerY).append("\" width=\"").append(order.getLength() / 2).append("\" height=\"").append(order.getWidth() / 2).append("\"").append(style);
         //Lower Right - SE
-        sketch += "<rect x=\"" + (order.getLength() / 2 + innerX) + "\" y=\"" + (order.getWidth() / 2 + innerY) + "\" width=\"" + order.getLength() / 2 + "\" height=\"" + order.getWidth() / 2 + "\"" + style;
-        sketch += "</svg>";
+        sb.append("<rect x=\"").append(order.getLength() / 2).append(innerX).append("\" y=\"").append(order.getWidth() / 2).append(innerY).append("\" width=\"").append(order.getLength() / 2).append("\" height=\"").append(order.getWidth() / 2).append("\"").append(style);
+        sb.append("</svg>");
 
         //Outer Canvas
-        sketch += "<line x1=\"" + innerX + "\" y1=\"10\" x2=\"" + (order.getLength() + innerX) + "\" y2=\"10\"" + style;
-        sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"20\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + order.getLength() + " cm</text>";
-        sketch += "<line x1=\"" + 10 + "\" y1=\"" + innerY + "\" x2=\"" + 10 + "\" y2=\"" + (order.getWidth() + innerY) + "\"" + style;
-        sketch += "<text x=\"" + 20 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">bredde: " + order.getWidth() + " cm</text>";
+        sb.append("<line x1=\"").append(innerX).append("\" y1=\"10\" x2=\"").append(order.getLength()).append(innerX).append("\" y2=\"10\"").append(style);
+        sb.append("<text x=\"").append(order.getLength() / 2).append("\" y=\"20\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: ").append(order.getLength()).append(" cm</text>");
+        sb.append("<line x1=\"").append(10).append("\" y1=\"").append(innerY).append("\" x2=\"").append(10).append("\" y2=\"").append(order.getWidth()).append(innerY).append("\"").append(style);
+        sb.append("<text x=\"").append(20).append("\" y=\"").append(order.getWidth() / 2).append("\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">bredde: ").append(order.getWidth()).append(" cm</text>");
 
-        sketch += "</svg>";
+        sb.append("</svg>");
 
-        return sketch;
+        return sb.toString();
     }
 
     public static String createSketchSideViewAngled(Order order) {
         HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
+        StringBuilder sb = new StringBuilder();
         final int innerX = 75;
         final int innerY = 100;
         String style = "style=\"\n"
@@ -183,19 +185,19 @@ public class SVGGenerator {
         int innerLength = order.getLength();
         double innerHeight = order.getHeight();
         double outerHeight = order.getHeight() + (rem.getTopsideWidth() * 2);
-        String sketch = "<svg width=\"" + outerCanvasW + "\" height=\"" + outerCanvasL + "\"scale>\n";
+        sb.append("<svg width=\"").append(outerCanvasW).append("\" height=\"").append(outerCanvasL).append("\"scale>\n");
         //OuterLength
-        sketch += "<line x1=\"" + (innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2) + "\" y1=\"" + 0 + "\" x2=\"" + (innerX + (outerLength - RulesAndConstants.ROOF_WIDTH_EXTRA / 2)) + "\" y2=\"" + 0 + "\"" + style;
-        sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + outerLength + " cm</text>";
+        sb.append("<line x1=\"").append(innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2).append("\" y1=\"").append(0).append("\" x2=\"").append(innerX).append(outerLength - RulesAndConstants.ROOF_WIDTH_EXTRA / 2).append("\" y2=\"").append(0).append("\"").append(style);
+        sb.append("<text x=\"").append(order.getLength() / 2).append("\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: ").append(outerLength).append(" cm</text>");
         //InnerLength
-        sketch += "<line x1=\"" + innerX + "\" y1=\"" + 22 + "\" x2=\"" + (innerLength + innerX) + "\" y2=\"" + 22 + "\"" + style;
-        sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
+        sb.append("<line x1=\"").append(innerX).append("\" y1=\"").append(22).append("\" x2=\"").append(innerLength).append(innerX).append("\" y2=\"").append(22).append("\"").append(style);
+        sb.append("<text x=\"").append(order.getLength() / 2).append("\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: ").append(innerLength).append(" cm</text>");
         //OuterHeight
-        sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY - (rafter.getTopsideWidth() * 2)) + "\" x2=\"" + 0 + "\" y2=\"" + (innerY + innerHeight) + "\"" + style;
-        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
+        sb.append("<line x1=\"").append(0).append("\" y1=\"").append(innerY - (rafter.getTopsideWidth() * 2)).append("\" x2=\"").append(0).append("\" y2=\"").append(innerY).append(innerHeight).append("\"").append(style);
+        sb.append("<text x=\"").append(10).append("\" y=\"").append(order.getHeight() / 2).append("\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: ").append(outerHeight).append(" cm</text>");
         //InnerHeight
-        sketch += "<line x1=\"" + 22 + "\" y1=\"" + innerY + "\" x2=\"" + 22 + "\" y2=\"" + (order.getHeight() + innerY) + "\"" + style;
-        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
+        sb.append("<line x1=\"").append(22).append("\" y1=\"").append(innerY).append("\" x2=\"").append(22).append("\" y2=\"").append(order.getHeight()).append(innerY).append("\"").append(style);
+        sb.append("<text x=\"").append(32).append("\" y=\"").append(order.getHeight() / 2).append("\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: ").append(innerHeight).append(" cm</text>");
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount() / 2;
         WoodDetails poles = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION);
@@ -206,18 +208,18 @@ public class SVGGenerator {
         if (order.isShedExists()) {
 
             if (order.getShedWidth() < order.getWidth() || order.getShedPlacement().equals("UR") || order.getShedPlacement().equals("UL")) {
-                sketch += addShedSideView(innerX, innerY, order);
+                sb.append(addShedSideView(innerX, innerY, order));
             }
         }
         for (int i = 0; i < amount; i++) {
 
-            sketch += "<<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + pole.getTopsideLength() + "\" height=\"" + (poles.getCmLengthEach() - RulesAndConstants.LENGTH_UNDER_GROUND) + "\"" + style;
+            sb.append("<<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(pole.getTopsideLength()).append("\" height=\"").append(poles.getCmLengthEach() - RulesAndConstants.LENGTH_UNDER_GROUND).append("\"").append(style);
             x += xSpacing;
         }
         //adding Shed after poles
         if (order.isShedExists()) {
             if (order.getShedWidth() == order.getWidth() || order.getShedPlacement().equals("LR") || order.getShedPlacement().equals("LL")) {
-                sketch += addShedSideView(innerX, innerY, order);
+                sb.append(addShedSideView(innerX, innerY, order));
             }
         }
         //Remme
@@ -226,7 +228,7 @@ public class SVGGenerator {
         y = innerY - rem.getTopsideWidth();
         x = innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
         WoodMaterial mat = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getMaterial();
-        sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach() + "\" height=\"" + mat.getTopsideWidth() + "\"" + style;
+        sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach()).append("\" height=\"").append(mat.getTopsideWidth()).append("\"").append(style);
 
         //Spær - Horizontal
         amount = materials.get(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION).getAmount();
@@ -234,15 +236,16 @@ public class SVGGenerator {
         x = innerX;
         y -= rafter.getTopsideWidth();
         for (int i = 0; i < amount; i++) {
-            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"4.5\" height=\"" + rafter.getTopsideWidth() + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"4.5\" height=\"").append(rafter.getTopsideWidth()).append("\"").append(style);
             x += xSpacing;
         }
-        sketch += "</svg>";
-        return sketch;
+        sb.append("</svg>");
+        return sb.toString();
     }
 
     public static String createSketchBirdsEyeView(Order order) {
         HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
+        StringBuilder sb = new StringBuilder();
         final int innerX = 50;
         final int innerY = 50;
         String style = "style=\"\n"
@@ -255,19 +258,19 @@ public class SVGGenerator {
         int innerLength = order.getLength();
         int outerWidth = order.getWidth();
         int innerWidth = order.getWidth() - pole.getTopsideWidth() * 2;
-        String sketch = "<svg width=\"" + outerCanvasW + "\" height=\"" + outerCanvasL + "\" scale>\n";
+        sb.append("<svg width=\"").append(outerCanvasW).append("\" height=\"").append(outerCanvasL).append("\" scale>\n");
         //OuterLength
-        sketch += "<line x1=\"" + RulesAndConstants.ROOF_LENGTH_EXTRA / 2 + "\" y1=\"" + 0 + "\" x2=\"" + (outerLength + RulesAndConstants.ROOF_LENGTH_EXTRA / 2) + "\" y2=\"" + 0 + "\"" + style;
-        sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + outerLength + " cm</text>";
+        sb.append("<line x1=\"").append(RulesAndConstants.ROOF_LENGTH_EXTRA / 2).append("\" y1=\"").append(0).append("\" x2=\"").append(outerLength).append(RulesAndConstants.ROOF_LENGTH_EXTRA / 2).append("\" y2=\"").append(0).append("\"").append(style);
+        sb.append("<text x=\"").append(order.getLength() / 2).append("\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: ").append(outerLength).append(" cm</text>");
         //InnerLength
-        sketch += "<line x1=\"" + innerX + "\" y1=\"" + 22 + "\" x2=\"" + outerLength + "\" y2=\"" + 22 + "\"" + style;
-        sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
+        sb.append("<line x1=\"").append(innerX).append("\" y1=\"").append(22).append("\" x2=\"").append(outerLength).append("\" y2=\"").append(22).append("\"").append(style);
+        sb.append("<text x=\"").append(order.getLength() / 2).append("\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: ").append(innerLength).append(" cm</text>");
         //OuterWidth
-        sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY) + "\" x2=\"" + 0 + "\" y2=\"" + (order.getWidth() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA) + "\"" + style;
-        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Bredde: " + outerWidth + " cm</text>";
+        sb.append("<line x1=\"").append(0).append("\" y1=\"").append(innerY).append("\" x2=\"").append(0).append("\" y2=\"").append(order.getWidth()).append(innerY).append(RulesAndConstants.ROOF_WIDTH_EXTRA).append("\"").append(style);
+        sb.append("<text x=\"").append(10).append("\" y=\"").append(order.getWidth() / 2).append("\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Bredde: ").append(outerWidth).append(" cm</text>");
         //InnerWidth
-        sketch += "<line x1=\"" + 22 + "\" y1=\"" + ((innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) + pole.getTopsideWidth()) + "\" x2=\"" + 22 + "\" y2=\"" + ((order.getWidth() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) - pole.getTopsideWidth()) + "\"" + style;
-        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getWidth() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre bredde: " + innerWidth + " cm</text>";
+        sb.append("<line x1=\"").append(22).append("\" y1=\"").append(innerY).append(RulesAndConstants.ROOF_WIDTH_EXTRA / 2).append(pole.getTopsideWidth()).append("\" x2=\"").append(22).append("\" y2=\"").append((order.getWidth() + innerY + RulesAndConstants.ROOF_WIDTH_EXTRA / 2) - pole.getTopsideWidth()).append("\"").append(style);
+        sb.append("<text x=\"").append(32).append("\" y=\"").append(order.getWidth() / 2).append("\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre bredde: ").append(innerWidth).append(" cm</text>");
 
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount();
@@ -280,14 +283,14 @@ public class SVGGenerator {
 
             //Horizontal-North
             if (i < amount / 2) {
-                sketch += "<--! horizontal N-->\n<rect x=\"" + x + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style;
+                sb.append("<--! horizontal N-->\n<rect x=\"" + x + "\" y=\"" + y + "\" width=\"9.7\" height=\"9.7\"" + style);
                 x += xSpacing;
             }
             WoodMaterial mat = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getMaterial();
             //Horizontal-South
             int yPolePlacement = innerY + order.getWidth() + 25 - mat.getTopsideLength();
             if (i >= amount / 2) {
-                sketch += "<--! horizontal S-->\n<rect x=\"" + x1 + "\"y=\"" + yPolePlacement + "\" width=\"9.7\" height=\"9.7\"" + style;
+                sb.append("<--! horizontal S-->\n<rect x=\"" + x1 + "\"y=\"" + yPolePlacement + "\" width=\"9.7\" height=\"9.7\"" + style);
                 x1 += xSpacing;
             }
         }
@@ -304,10 +307,10 @@ public class SVGGenerator {
         y = innerY;
         for (int i = 0; i < amount; i++) {
             if (order.getAngle() != 0) {
-                sketch += "<rect x=\"" + x + "\" y=\"" + innerY + "\" width=\"4.5\" height=\"" + materials.get(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION).getCmLengthEach() + "\"" + style;
+                sb.append("<rect x=\"").append(x).append("\" y=\"").append(innerY).append("\" width=\"4.5\" height=\"").append(materials.get(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION).getCmLengthEach()).append("\"").append(style);
                 x += xSpacing;
             } else {
-                sketch += "<rect x=\"" + x + "\" y=\"" + innerY + "\" width=\"4.5\" height=\"" + materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getCmLengthEach() + "\"" + style;
+                sb.append("<rect x=\"").append(x).append("\" y=\"").append(innerY).append("\" width=\"4.5\" height=\"").append(materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getCmLengthEach()).append("\"").append(style);
                 x += xSpacing;
             }
         }
@@ -321,17 +324,18 @@ public class SVGGenerator {
 
         for (int i = 0; i < amount; i++) {
 
-            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach() + "\" height=\"" + mat.getTopsideLength() + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach()).append("\" height=\"").append(mat.getTopsideLength()).append("\"").append(style);
             y = ySpacing - mat.getTopsideLength();
         }
         //adding shed
-        sketch += addShedBirdsEye(innerX, innerY, style, order.getShedLength(), order.getShedWidth(), order);
-        sketch += "</svg>";
-        return sketch;
+        sb.append(addShedBirdsEye(innerX, innerY, style, order.getShedLength(), order.getShedWidth(), order));
+        sb.append("</svg>");
+        return sb.toString();
     }
-    
+
     public static String createSketchSideViewFlat(Order order) {
         HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
+        StringBuilder sb = new StringBuilder();
         final int innerX = 75;
         final int innerY = 100;
         String style = "style=\"\n"
@@ -347,19 +351,19 @@ public class SVGGenerator {
         int innerLength = order.getLength();
         double innerHeight = order.getHeight();
         double outerHeight = order.getHeight() + (rem.getTopsideWidth() * 2);
-        String sketch = "<svg width=\"" + outerCanvasW + "\" height=\"" + outerCanvasL + "\"scale>\n";
+        sb.append("<svg width=\"").append(outerCanvasW).append("\" height=\"").append(outerCanvasL).append("\"scale>\n");
         //OuterLength
-        sketch += "<line x1=\"" + (innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2) + "\" y1=\"" + 0 + "\" x2=\"" + (innerX + (outerLength - RulesAndConstants.ROOF_WIDTH_EXTRA / 2)) + "\" y2=\"" + 0 + "\"" + style;
-        sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: " + outerLength + " cm</text>";
+        sb.append("<line x1=\"").append(innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2).append("\" y1=\"").append(0).append("\" x2=\"").append(innerX).append(outerLength - RulesAndConstants.ROOF_WIDTH_EXTRA / 2).append("\" y2=\"").append(0).append("\"").append(style);
+        sb.append("<text x=\"").append(order.getLength() / 2).append("\" y=\"15\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Længde: ").append(outerLength).append(" cm</text>");
         //InnerLength
-        sketch += "<line x1=\"" + innerX + "\" y1=\"" + 22 + "\" x2=\"" + (innerLength + innerX) + "\" y2=\"" + 22 + "\"" + style;
-        sketch += "<text x=\"" + order.getLength() / 2 + "\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: " + innerLength + " cm</text>";
+        sb.append("<line x1=\"").append(innerX).append("\" y1=\"").append(22).append("\" x2=\"").append(innerLength).append(innerX).append("\" y2=\"").append(22).append("\"").append(style);
+        sb.append("<text x=\"").append(order.getLength() / 2).append("\" y=\"32\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre længde: ").append(innerLength).append(" cm</text>");
         //OuterHeight
-        sketch += "<line x1=\"" + 0 + "\" y1=\"" + (innerY - (rafter.getTopsideWidth() * 2)) + "\" x2=\"" + 0 + "\" y2=\"" + (innerY + innerHeight) + "\"" + style;
-        sketch += "<text x=\"" + 10 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: " + outerHeight + " cm</text>";
+        sb.append("<line x1=\"").append(0).append("\" y1=\"").append(innerY - (rafter.getTopsideWidth() * 2)).append("\" x2=\"").append(0).append("\" y2=\"").append(innerY).append(innerHeight).append("\"").append(style);
+        sb.append("<text x=\"").append(10).append("\" y=\"").append(order.getHeight() / 2).append("\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Højde: ").append(outerHeight).append(" cm</text>");
         //InnerHeight
-        sketch += "<line x1=\"" + 22 + "\" y1=\"" + innerY + "\" x2=\"" + 22 + "\" y2=\"" + (order.getHeight() + innerY) + "\"" + style;
-        sketch += "<text x=\"" + 32 + "\" y=\"" + order.getHeight() / 2 + "\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: " + innerHeight + " cm</text>";
+        sb.append("<line x1=\"").append(22).append("\" y1=\"").append(innerY).append("\" x2=\"").append(22).append("\" y2=\"").append(order.getHeight()).append(innerY).append("\"").append(style);
+        sb.append("<text x=\"").append(32).append("\" y=\"").append(order.getHeight() / 2).append("\" writing-mode=\"tb-rl\" glyph-orientation-vertical=\"0\" font-family=\"sans-serif\" font-size=\"12px\" fill=\"black\">Indre højde: ").append(innerHeight).append(" cm</text>");
         //Stolper
         double amount = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION).getAmount() / 2;
         WoodDetails poles = materials.get(RulesAndConstants.CARPORT_POSTS_DESCRIPTION);
@@ -369,18 +373,18 @@ public class SVGGenerator {
         //adding shed before poles
         if (order.isShedExists()) {
             if (order.getShedWidth() < order.getWidth() || order.getShedPlacement().equals("UR") || order.getShedPlacement().equals("UL")) {
-                sketch += addShedSideView(innerX, innerY, order);
+                sb.append(addShedSideView(innerX, innerY, order));
             }
         }
         for (int i = 0; i < amount; i++) {
 
-            sketch += "<<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + pole.getTopsideLength() + "\" height=\"" + (poles.getCmLengthEach() - RulesAndConstants.LENGTH_UNDER_GROUND) + "\"" + style;
+            sb.append("<<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(pole.getTopsideLength()).append("\" height=\"").append(poles.getCmLengthEach() - RulesAndConstants.LENGTH_UNDER_GROUND).append("\"").append(style);
             x += xSpacing;
         }
         //adding Shed after poles
         if (order.isShedExists()) {
             if (order.getShedWidth() == order.getWidth() || order.getShedPlacement().equals("LR") || order.getShedPlacement().equals("LL")) {
-                sketch += addShedSideView(innerX, innerY, order);
+                sb.append(addShedSideView(innerX, innerY, order));
             }
         }
         //Remme
@@ -389,7 +393,7 @@ public class SVGGenerator {
         y = innerY - rem.getTopsideWidth();
         x = innerX - RulesAndConstants.ROOF_LENGTH_EXTRA / 2;
         WoodMaterial mat = (WoodMaterial) materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getMaterial();
-        sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach() + "\" height=\"" + mat.getTopsideWidth() + "\"" + style;
+        sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(materials.get(RulesAndConstants.CARPORT_REM_DESCRIPTION).getCmLengthEach()).append("\" height=\"").append(mat.getTopsideWidth()).append("\"").append(style);
 
         //Spær - Horizontal
         amount = materials.get(RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON).getAmount();
@@ -397,12 +401,11 @@ public class SVGGenerator {
         x = innerX;
         y -= rafter.getTopsideWidth();
         for (int i = 0; i < amount; i++) {
-            sketch += "<rect x=\"" + x + "\" y=\"" + y + "\" width=\"4.5\" height=\"" + rafter.getTopsideWidth() + "\"" + style;
+            sb.append("<rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"4.5\" height=\"").append(rafter.getTopsideWidth()).append("\"").append(style);
             x += xSpacing;
         }
-        sketch += "</svg>";
-        return sketch;
+        sb.append("</svg>");
+        return sb.toString();
     }
-
 
 }
