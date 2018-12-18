@@ -67,14 +67,14 @@ public class LogicFacade {
     }
 
     public static void createShed(Order order) throws LoginException {
-        createCarport.createShed(order);
+        CreateCarport.createShed(order);
     }
 
     public static Order createOrder(int l, int w, int h, int a, int roofTypeNumber) throws LoginException {
-        return createCarport.createOrder(l, w, h, a, roofTypeNumber);
+        return CreateCarport.createOrder(l, w, h, a, roofTypeNumber);
     }
 
     public static void createCarport(Order order) throws LoginException {
-        createCarport.createCarport(order);
+        CreateCarport.createCarport(order);
     }
 }

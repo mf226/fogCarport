@@ -272,7 +272,6 @@ public class HTMLGenerator {
         }
         return sb.toString();
     }
-
     private static String getWoodMaterialsList(HashMap<String, WoodDetails> materialsWood) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, WoodDetails> mapWood : materialsWood.entrySet()) {

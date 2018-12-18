@@ -10,7 +10,7 @@ import FunctionLayer.Entity.MaterialDetails;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class createCarport {
+public class CreateCarport {
 
     public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws LoginException {
         Order order = new Order(length, width, height, roofAngle, roofType);
@@ -54,11 +54,13 @@ public class createCarport {
     }
 
     private static void addAllWoodMaterialsToList(Order order) throws LoginException {
+        //Calculate lengths
         double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
         double remLength = Calculators.remLengthCalc(order.getLength());
+        //Get materials from DB
         WoodMaterial rem = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_REM);
         WoodMaterial post = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_POSTS);
-
+        //Add to materialsList
         putIntoList(order.getCarportWoodMaterials(), new WoodDetails(post, order.getPostsAmount(), cmLengthEach, RulesAndConstants.CARPORT_POSTS_DESCRIPTION));
         putIntoList(order.getCarportWoodMaterials(), new WoodDetails(rem, 2, remLength, RulesAndConstants.CARPORT_REM_DESCRIPTION));
 
