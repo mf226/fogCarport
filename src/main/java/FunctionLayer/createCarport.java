@@ -10,7 +10,7 @@ import FunctionLayer.Entity.MaterialDetails;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CreateCarport {
+public class createCarport {
 
     public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws LoginException {
         Order order = new Order(length, width, height, roofAngle, roofType);
