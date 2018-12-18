@@ -235,22 +235,26 @@ public class HTMLGenerator {
         sb.append("            </tr>\n");
         sb.append("            </thead>\n");
 
-        for (Map.Entry<String, WoodDetails> mapWood : materialsWood.entrySet()) {
-            sb.append("<tr>");
-            sb.append("<td>").append(mapWood.getKey()).append("</td>");
-            sb.append("<td>").append(mapWood.getValue().getMaterial().getItemNumber()).append("</td>");
-            sb.append("<td>").append(mapWood.getValue().getMaterial().getName()).append("</td>");
-            sb.append("<td>").append(mapWood.getValue().getCmLengthEach()).append("</td>");
-            sb.append("<td>").append(mapWood.getValue().getMaterial().getUnit()).append("</td>");
-            sb.append("<td>").append(mapWood.getValue().getMaterial().getPricePerUnit()).append("  kr </td>");
-            sb.append("<td>").append(mapWood.getValue().getAmount()).append("</td>");
-            sb.append("<td>").append(mapWood.getValue().getMaterial().getAmountInStock()).append("</td>");
-            sb.append("<td>").append(mapWood.getValue().getTotalItemPrice()).append("  kr </td>");
-            sb.append("</tr>");
-
-        }
+        sb.append(getWoodMaterialsList(materialsWood));
         HashMap<String, MetalDetails> materialsMetal = order.getCarportMetalMaterials();
 
+        sb.append(getMetalMaterialsList(materialsMetal));
+        if (order.isShedExists()) {
+            HashMap<String, WoodDetails> shedMaterialsWood = order.getShedWoodMaterials();
+
+            sb.append(getWoodMaterialsList(shedMaterialsWood));
+            HashMap<String, MetalDetails> shedMaterialsMetal = order.getShedMetalMaterials();
+
+            sb.append(getMetalMaterialsList(shedMaterialsMetal));
+        }
+
+        sb.append("<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>").append(order.getTotalOrderPrice()).append(" kr </td></tr>");
+        sb.append("</table>");
+        return sb.toString();
+    }
+
+    private static String getMetalMaterialsList(HashMap<String, MetalDetails> materialsMetal) {
+        StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, MetalDetails> mapShedMetal : materialsMetal.entrySet()) {
             sb.append("<tr>");
             sb.append("<td>").append(mapShedMetal.getKey()).append("</td>");
@@ -266,45 +270,25 @@ public class HTMLGenerator {
             sb.append("</tr>");
 
         }
-        if (order.isShedExists()) {
-            HashMap<String, WoodDetails> shedMaterialsWood = order.getShedWoodMaterials();
+        return sb.toString();
+    }
 
-            for (Map.Entry<String, WoodDetails> mapShedWood : shedMaterialsWood.entrySet()) {
-                sb.append("<tr>");
-                sb.append("<td>").append(mapShedWood.getKey()).append("</td>");
-                sb.append("<td>").append(mapShedWood.getValue().getMaterial().getItemNumber()).append("</td>");
-                sb.append("<td>").append(mapShedWood.getValue().getMaterial().getName()).append("</td>");
-                sb.append("<td>").append(mapShedWood.getValue().getCmLengthEach()).append("</td>");
-                sb.append("<td>").append(mapShedWood.getValue().getMaterial().getUnit()).append("</td>");
-                sb.append("<td>").append(mapShedWood.getValue().getMaterial().getPricePerUnit()).append("  kr </td>");
-                sb.append("<td>").append(mapShedWood.getValue().getAmount()).append("</td>");
-                sb.append("<td>").append(mapShedWood.getValue().getMaterial().getAmountInStock()).append("</td>");
+    private static String getWoodMaterialsList(HashMap<String, WoodDetails> materialsWood) {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, WoodDetails> mapWood : materialsWood.entrySet()) {
+            sb.append("<tr>");
+            sb.append("<td>").append(mapWood.getKey()).append("</td>");
+            sb.append("<td>").append(mapWood.getValue().getMaterial().getItemNumber()).append("</td>");
+            sb.append("<td>").append(mapWood.getValue().getMaterial().getName()).append("</td>");
+            sb.append("<td>").append(mapWood.getValue().getCmLengthEach()).append("</td>");
+            sb.append("<td>").append(mapWood.getValue().getMaterial().getUnit()).append("</td>");
+            sb.append("<td>").append(mapWood.getValue().getMaterial().getPricePerUnit()).append("  kr </td>");
+            sb.append("<td>").append(mapWood.getValue().getAmount()).append("</td>");
+            sb.append("<td>").append(mapWood.getValue().getMaterial().getAmountInStock()).append("</td>");
+            sb.append("<td>").append(mapWood.getValue().getTotalItemPrice()).append("  kr </td>");
+            sb.append("</tr>");
 
-                sb.append("<td>").append(mapShedWood.getValue().getTotalItemPrice()).append("  kr </td>");
-                sb.append("</tr>");
-
-            }
-            HashMap<String, MetalDetails> shedMaterialsMetal = order.getShedMetalMaterials();
-
-            for (Map.Entry<String, MetalDetails> mapMetal : shedMaterialsMetal.entrySet()) {
-                sb.append("<tr>");
-                sb.append("<td>").append(mapMetal.getKey()).append("</td>");
-                sb.append("<td>").append(mapMetal.getValue().getMaterial().getItemNumber()).append("</td>");
-                sb.append("<td>").append(mapMetal.getValue().getMaterial().getName()).append("</td>");
-                sb.append("<td></td>");
-                sb.append("<td>").append(mapMetal.getValue().getMaterial().getUnit()).append("</td>");
-                sb.append("<td>").append(mapMetal.getValue().getMaterial().getPricePerUnit()).append("  kr </td>");
-                sb.append("<td>").append(mapMetal.getValue().getAmount()).append("</td>");
-                sb.append("<td>").append(mapMetal.getValue().getMaterial().getAmountInStock()).append("</td>");
-
-                sb.append("<td>").append(mapMetal.getValue().getTotalItemPrice()).append("  kr </td>");
-                sb.append("</tr>");
-
-            }
         }
-
-        sb.append("<tr><td>Ialt</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>").append(order.getTotalOrderPrice()).append(" kr </td></tr>");
-        sb.append("</table>");
         return sb.toString();
     }
 
