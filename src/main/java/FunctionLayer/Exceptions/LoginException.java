@@ -2,7 +2,7 @@ package FunctionLayer.Exceptions;
 
 /**
  * The purpose of LoginException is to...
- * @author kasper
+ * @author JMR
  */
 public class LoginException extends Exception {
 

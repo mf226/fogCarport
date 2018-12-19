@@ -48,7 +48,7 @@ public class MaterialMapper {
     /**
      * Returns a WoodMaterial from the database with the given itemNumber
      *
-     * @param itemNumber
+     * @param int itemNumber
      * @throws LoginException
      * @return WoodMaterial
      */
@@ -80,7 +80,7 @@ public class MaterialMapper {
     /**
      * Returns a MetalMaterial from the database with the given itemNumber
      *
-     * @param itemNumber
+     * @param int itemNumber
      * @throws LoginException
      * @return MetalMaterial
      */
@@ -195,8 +195,9 @@ public class MaterialMapper {
 
     }
     /**
-     * Updates amount in stock with given itemNumber
-     *
+     * Updates amount in stock with given amount on given itemNumber
+     * @param int newAmountInStock
+     * @param int itemNumber
      * @throws LoginException
      */
     static void updateStock(int newAmountInStock, int itemNumber) throws LoginException {

@@ -148,8 +148,8 @@ public class createCarport {
     /**
      * Puts MaterialDetails into given HashMap
      *
-     * @param HashMap
-     * @param MaterialDetails
+     * @param HashMap map
+     * @param MaterialDetails mat
      */
     private static void putIntoList(HashMap map, MaterialDetails mat) {
         map.put(mat.getDescription(), mat);

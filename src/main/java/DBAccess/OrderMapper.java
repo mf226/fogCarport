@@ -66,7 +66,7 @@ public class OrderMapper {
     /**
      * Returns a List of Orders from the database with given UserID
      *
-     * @param userID
+     * @param int userID
      * @throws LoginException
      * @return List<Order>
      */
@@ -109,7 +109,7 @@ public class OrderMapper {
     /**
      * Returns an Order from the database with given OrderID
      *
-     * @param OrderID
+     * @param int orderID
      * @throws LoginException
      * @return Order
      */
@@ -156,7 +156,7 @@ public class OrderMapper {
     /**
      * Updates order-status on given Order to 'Approved'
      *
-     * @param Order
+     * @param Order order
      * @throws LoginException
      */
     static void approveOrder(Order order) throws LoginException {
