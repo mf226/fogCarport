@@ -24,11 +24,27 @@
             var y = document.getElementById("sketchSV");
             if (x.style.display === "none") {
                 x.style.display = "block";
-                y.style.display = "none"
+                y.style.display = "none";
             } else {
                 x.style.display = "none";
-                y.style.display = "block"
+                y.style.display = "block";
 
+            }
+        }
+        function toggleRoof() {
+            var BE = document.getElementById("roofBE");
+            var SV = document.getElementById("roofSV");
+
+
+
+            if (BE.style.display === "none") {
+                BE.style.display = "block";
+                SV.style.display = "block";
+
+
+            } else {
+                BE.style.display = "none";
+                SV.style.display = "none";
             }
         }
     </script>
@@ -40,9 +56,16 @@
         <div class ="pageContent">
             <div class="tableContainer">
                 <%=request.getAttribute("table")%>
+                <form action="FrontController" method="POST">
+                    <input type="submit" value="Create Order">
+                    <input type="hidden" name="command" value="createOrder">
+                </form>
+
+
             </div>
             <div class="sketchContainer">
                 <button class="togglebtn" onclick="toggleSketch()">Toggle View</button>
+                <button class="togglebtn" onclick="toggleRoof()">Toggle Roof</button>
 
                 <div id="sketchBE" class="sketchBE">
                     <%=request.getAttribute("sketchBE")%>

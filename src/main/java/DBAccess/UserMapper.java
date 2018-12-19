@@ -1,8 +1,8 @@
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
-import FunctionLayer.Role;
-import FunctionLayer.User;
+import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Entity.Role;
+import FunctionLayer.Entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,13 +11,16 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * The purpose of UserMapper is to...
- *
- */
+
 public class UserMapper {
 
-    public static void createUser(User user) throws LoginSampleException {
+    /**
+     * Creates new User in DB
+     *
+     * @param User user
+     * @throws LoginException
+     */
+    static void createUser(User user) throws LoginException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO User (email, password, role) VALUES (?, ?, ?)";
@@ -31,11 +34,19 @@ public class UserMapper {
             int id = ids.getInt(1);
             user.setId(id);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    public static User login(String email, String password) throws LoginSampleException {
+    /**
+     * Selects User from DB if exists
+     *
+     * @param String email
+     * @param String password
+     * @throws LoginException
+     * @return User
+     */
+    static User login(String email, String password) throws LoginException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT UserID, role FROM User "
@@ -51,14 +62,21 @@ public class UserMapper {
                 user.setId(id);
                 return user;
             } else {
-                throw new LoginSampleException("Could not validate user");
+                throw new LoginException("Could not validate user");
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new LoginException(ex.getMessage());
         }
     }
 
-    public static User getUserIDByEmail(String email) throws LoginSampleException, ClassNotFoundException {
+    /**
+     * Selects User with given email
+     *
+     * @param String email
+     * @throws LoginException
+     * @return userID
+     */
+    static int getUserIDByEmail(String email) throws LoginException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT UserID FROM FogDB.User WHERE email = ?";
@@ -68,50 +86,30 @@ public class UserMapper {
 
             if (rs.next()) {
                 int userID = rs.getInt("UserID");
-                User user = new User(userID);
+                return userID;
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return 0;
     }
 
-    public static void removeCustomerByEmail(int UserID) throws LoginSampleException {
+    /**
+     * Removes User with given UserID from DB
+     * @param int UserID
+     * @throws LoginException
+     */
+    static void removeCustomerByUserID(int UserID) throws LoginException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE FROM `FogDB`.`User` "
                     + "WHERE `UserID`= ?;";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, UserID);
-            ps.execute();
+            ps.executeUpdate();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-//    public static User getUser(String email, String password) throws LoginSampleException {
-//        try {
-//            Connection con = Connector.connection();
-//            String SQL = "SELECT email, password FROM User "
-//                    + "WHERE email=?";
-//            PreparedStatement ps = con.prepareStatement(SQL);
-//            ps.setString(1, email);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                String role = rs.getString("role");
-//                String userEmail = rs.getString("email");
-//                String userPW = rs.getString("password");
-//                int id = rs.getInt("id");
-//                User user = new User(email, password, Role.valueOf(role));
-//                user.setId(id);
-//                return user;
-//
-//            } else {
-//                throw new LoginSampleException("Could not validate user");
-//            }
-//        } catch (ClassNotFoundException | SQLException ex) {
-//            throw new LoginSampleException(ex.getMessage());
-//        }
-//
-//    }
 }

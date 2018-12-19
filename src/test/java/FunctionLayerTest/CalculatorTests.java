@@ -43,39 +43,54 @@ public class CalculatorTests {
     @Test
     public void testPostAmountCalc() {
         //To test if it calculates the correct value.
-        Calculators calc = new Calculators();
-        int caportLength = 300;
-        int caportWidth = 300;
-        int expResult = 8;
-        int result = (int) calc.postsAmountCalc(caportLength, caportWidth);
+        int carportLength = 200;
+        int carportWidth = 300;
+        int expResult = 4;
+        int result = (int) Calculators.postsAmountCalc(carportLength, carportWidth);
         assertEquals(expResult, result);
-
+        
+        carportLength = 250;
+        result = (int) Calculators.postsAmountCalc(carportLength, carportWidth);
+        assertEquals(expResult, result);
+        
+        carportLength = 300;
+        expResult = 6;
+        result = (int) Calculators.postsAmountCalc(carportLength, carportWidth);
+        assertEquals(expResult, result);
+        
+        carportLength = 400;
+        expResult = 8;
+        result = (int) Calculators.postsAmountCalc(carportLength, carportWidth);
+        assertEquals(expResult, result);
+        
+        carportLength = 500;
+        expResult = 10;
+        result = (int) Calculators.postsAmountCalc(carportLength, carportWidth);
+        assertEquals(expResult, result);
+        
     }
 
     //Tester grænseværdiere
     @Test(expected = IllegalArgumentException.class)
     public void testPostAmountCalcException() {
-        Calculators calc = new Calculators();
         int caportLength = RulesAndConstants.MAXLENGTH + 1;
         int caportWidth = RulesAndConstants.MAXWIDTH;
-        calc.postsAmountCalc(caportLength, caportWidth);
+        Calculators.postsAmountCalc(caportLength, caportWidth);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testPostAmountCalcNegative() {
-        Calculators calc = new Calculators();
         int caportLength = RulesAndConstants.MINLENGTH - 1;
         int caportWidth = RulesAndConstants.MINWIDTH - 1;
-        calc.postsAmountCalc(caportLength, caportWidth);
+        Calculators.postsAmountCalc(caportLength, caportWidth);
 
     }
 
     @Test
     public void testpostsLengthCalc() {
-        Calculators calc = new Calculators();
         int carportLength = 300;
         int expResult = 390;
-        int result = (int) calc.postsLengthCalc(carportLength);
+        int result = (int) Calculators.postsLengthCalc(carportLength);
         assertEquals(expResult, result);
     }
 
@@ -215,14 +230,6 @@ public class CalculatorTests {
         assertEquals(expResult, result);
     }
 
-//    @Test
-//    public void testmountPerRafterFail() {
-//        Calculators calc = new Calculators();
-//        int amountOfRafters = 12;
-//        int expResult = 12;
-//        int result = (int) calc.mountPerRafter(amountOfRafters);
-//        assertNotEquals(expResult, result);
-//    }
     @Test
     public void testremLengthCalc() {
         Calculators calc = new Calculators();

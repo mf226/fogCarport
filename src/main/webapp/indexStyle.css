@@ -1,6 +1,5 @@
 body {
     max-width: 1920px;
-    min-width: 1920px;
 }
 
 .pageHeader{
@@ -24,6 +23,7 @@ body {
 }
 .tableContainer {
     float: right;
+    margin: 10px;
 }
 
 .togglebtn {
@@ -343,5 +343,7 @@ tr:nth-child(even) {
 tr:last-child {
     background-color: #a9a9a9;
 }
-
-﻿
+.reviewBtn {
+    display: block;
+    margin: auto;
+}

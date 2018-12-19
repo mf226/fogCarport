@@ -5,10 +5,10 @@
  */
 package PresentationLayer;
 
-import FunctionLayer.HTMLGenerator;
-import FunctionLayer.LogicFacade;
-import FunctionLayer.LoginSampleException;
+import PresentationLayer.Commands.Command;
+import FunctionLayer.Exceptions.LoginException;
 import java.io.IOException;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,13 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
 public class FrontController extends HttpServlet {
 
-    private LogicFacade loginFacade;
-    private HTMLGenerator gen;
-
-    public FrontController() {
-        this.loginFacade = new LogicFacade();
-        this.gen = new HTMLGenerator();
-    }
+    private static final Logger logger = Logger.getLogger(FrontController.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,19 +33,20 @@ public class FrontController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            request.setAttribute("menu", gen.generateMenu(request));
+            request.setAttribute("menu", HTMLGenerator.generateMenu(request));
             Command action = Command.from(request);
             String view = action.execute(request, response);
             if (view.equals("index")) {
-                request.setAttribute("menu", gen.generateMenu(request));
+                request.setAttribute("menu", HTMLGenerator.generateMenu(request));
                 request.getRequestDispatcher(view + ".jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("/WEB-INF/" + view + ".jsp").forward(request, response);
             }
-        } catch (LoginSampleException ex) {
+        } catch (LoginException ex) {
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("index.jsp").forward(request, response);
             ex.printStackTrace();
