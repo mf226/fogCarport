@@ -19,7 +19,7 @@ public class Calculators {
         }
         int posts = 4; // A carport has atleast 4 posts.
         if (carportLength > RulesAndConstants.MINLENGTH) {
-            posts = (int) ((carportLength * 2) / RulesAndConstants.DISTANCE_BETWEEN_POSTS) - 2; 
+            posts = ((int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_POSTS)) * 2;
 //        if (width >= 500) { //if width is bigger than 5
 //            posts++;
         }
