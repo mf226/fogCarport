@@ -151,7 +151,7 @@ public class Order {
     
     /**
      * Calculates totalPrice of Order
-     * @return double
+     * @return totalOrderPrice
      */
     public double getTotalOrderPrice() {
         double totalOrderPrice = 0;

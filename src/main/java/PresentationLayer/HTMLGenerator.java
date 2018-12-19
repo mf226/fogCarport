@@ -72,6 +72,11 @@ public class HTMLGenerator {
             + "             </img>"
             + "             </form>";
 
+    /**
+     * returns HTML-string of userDropdown, containing User-attributes
+     *
+     * @return String
+     */
     public static String userDropdown(User user) {
         StringBuilder sb = new StringBuilder();
         String roleLC = user.getRole().toString().toLowerCase() + "page";
@@ -94,6 +99,12 @@ public class HTMLGenerator {
         return sb.toString();
     }
 
+    /**
+     * returns HTML-string of topmenu, containing User-attributes if exists
+     *
+     * @param HttpServletRequest request
+     * @return String
+     */
     public static String generateMenu(HttpServletRequest request) {
 
         User user;
@@ -134,6 +145,12 @@ public class HTMLGenerator {
                 + "</div>";
     }
 
+    /**
+     * returns HTML-string of a select-form
+     *
+     * @param Order order
+     * @return String
+     */
     public static String updateOrderInput(Order order) {
         StringBuilder sb = new StringBuilder();
         sb.append("<form action=\"FrontController\" method=\"POST\">\n");
@@ -149,6 +166,12 @@ public class HTMLGenerator {
         return sb.toString();
     }
 
+    /**
+     * returns HTML-string of a table, containing all orders made by user
+     *
+     * @param List<Order> orders
+     * @return String
+     */
     public static String showAllOrdersByUser(List<Order> orders) {
         StringBuilder sb = new StringBuilder();
         sb.append("<table id=\"reviewTable\">\n");
@@ -183,6 +206,12 @@ public class HTMLGenerator {
         return sb.toString();
     }
 
+    /**
+     * returns HTML-string of a table, containing all orders
+     *
+     * @param List<Order> orders
+     * @return String
+     */
     public static String showAllOrders(List<Order> orders) {
         StringBuilder sb = new StringBuilder();
         sb.append("<table id=\"reviewTable\">\n");
@@ -217,6 +246,12 @@ public class HTMLGenerator {
         return sb.toString();
     }
 
+    /**
+     * returns HTML-string of a table, containing orderDetails
+     *
+     * @param Order order
+     * @return String
+     */
     public static String generateBOM(Order order) {
         StringBuilder sb = new StringBuilder();
         HashMap<String, WoodDetails> materialsWood = order.getCarportWoodMaterials();
@@ -253,6 +288,12 @@ public class HTMLGenerator {
         return sb.toString();
     }
 
+    /**
+     * returns HTML-string of a table, containing metal materials
+     *
+     * @param HashMap<String, MetalDetails> materialsMetal
+     * @return String
+     */
     private static String getMetalMaterialsList(HashMap<String, MetalDetails> materialsMetal) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, MetalDetails> mapShedMetal : materialsMetal.entrySet()) {
@@ -272,6 +313,13 @@ public class HTMLGenerator {
         }
         return sb.toString();
     }
+
+    /**
+     * returns HTML-string of a table, containing wood materials
+     *
+     * @param HashMap<String, WoodDetails> materialsWood
+     * @return String
+     */
     private static String getWoodMaterialsList(HashMap<String, WoodDetails> materialsWood) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, WoodDetails> mapWood : materialsWood.entrySet()) {
@@ -291,6 +339,14 @@ public class HTMLGenerator {
         return sb.toString();
     }
 
+    /**
+     * returns HTML-string of a form containing shed placement
+     *
+     * @param int length
+     * @param int width
+     * @param List<WoodMaterial> sideMat
+     * @return String
+     */
     public static String generateShedMeasurements(int length, int width, List<WoodMaterial> sideMat) {
         StringBuilder sb = new StringBuilder();
 
@@ -342,6 +398,12 @@ public class HTMLGenerator {
         return sb.toString();
     }
 
+    /**
+     * returns HTML-string of a select-form, containing flat roof types
+     *
+     * @param List<WoodMaterial> roofs
+     * @return String
+     */
     public static String createRoofTypesFlat(List<WoodMaterial> roofs) {
         StringBuilder sb = new StringBuilder();
         sb.append("<h5>Tagtype:</h5>\n");
@@ -355,7 +417,12 @@ public class HTMLGenerator {
 
         return sb.toString();
     }
-
+    /**
+     * returns HTML-string of a select-form, containing side-materials for shed
+     *
+     * @param List<WoodMaterial> sideMat
+     * @return String
+     */
     public static String sideMaterial(List<WoodMaterial> sideMat) {
         StringBuilder sb = new StringBuilder();
         sb.append("<h5>Beklædningstype</h5>\n"
@@ -369,6 +436,12 @@ public class HTMLGenerator {
         return sb.toString();
     }
 
+    /**
+     * returns HTML-string of a select-form, containing angled roof types
+     *
+     * @param List<WoodMaterial> roofs
+     * @return String
+     */
     public static String createRoofTypesAngled(List<WoodMaterial> roofs) {
         StringBuilder sb = new StringBuilder();
         sb.append("<h5>Tagtype:</h5>\n");

@@ -21,7 +21,18 @@ public class SVGGenerator {
     private static final int outerCanvasL = 700;
     private static final int innerCanvasW = 600;
     private static final int innerCanvasl = 600;
-
+    /**
+     * returns SVG-sketch of shed from BirdsEyeView
+     *
+     * @param int innerX
+     * @param int innerY
+     * @param String style
+     * @param int length
+     * @param int width
+     * @param Order order
+     * 
+     * @return String
+     */
     public static String addShedBirdsEye(final int innerX, final int innerY, String style, int length, int width, Order order) {
         String shed = "";
         if (length == 0 || width == 0) {
@@ -96,7 +107,15 @@ public class SVGGenerator {
         }
         return shed;
     }
-
+    /**
+     * returns SVG-sketch of shed from the side
+     *
+     * @param int innerX
+     * @param int innerY
+     * @param Order order
+     * 
+     * @return String
+     */
     public static String addShedSideView(final int innerX, final int innerY, Order order) {
         String shed = "";
         if (order.getShedLength() == 0) {
@@ -131,7 +150,11 @@ public class SVGGenerator {
         }
         return shed;
     }
-
+    /**
+     * returns SVG-sketch of carport-preview, used to select shed placement
+     * @param Order order
+     * @return String
+     */
     public static String shedPlacement(Order order) {
         int innerX = 50;
         int innerY = 50;
@@ -165,7 +188,13 @@ public class SVGGenerator {
 
         return sketch;
     }
-
+    /**
+     * returns SVG-sketch of carport with angled roof from the side
+     *
+     * @param Order order
+     * 
+     * @return String
+     */
     public static String createSketchSideViewAngled(Order order) {
         HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
         double a = materials.get(RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_BOTTOM_DESCRIPTION).getCmLengthEach() / 2;
@@ -253,7 +282,13 @@ public class SVGGenerator {
         sketch += "</svg>";
         return sketch;
     }
-
+    /**
+     * returns SVG-sketch of carport with flat roof from BirdsEyeView
+     *
+     * @param Order order
+     * 
+     * @return String
+     */
     public static String createSketchBirdsEyeViewFlat(Order order) {
         HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
         final int innerX = 50;
@@ -352,7 +387,13 @@ public class SVGGenerator {
 
         return sketch;
     }
-
+    /**
+     * returns SVG-sketch of carport with angled roof from BirdsEyeView
+     *
+     * @param Order order
+     * 
+     * @return String
+     */
     public static String createSketchBirdsEyeViewAngled(Order order) {
         HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
         final int innerX = 50;
@@ -450,7 +491,13 @@ public class SVGGenerator {
         sketch += "</svg>";
         return sketch;
     }
-
+    /**
+     * returns SVG-sketch of carport with flat roof from the side
+     *
+     * @param Order order
+     * 
+     * @return String
+     */
     public static String createSketchSideViewFlat(Order order) {
         HashMap<String, WoodDetails> materials = order.getCarportWoodMaterials();
         final int innerX = 75;
