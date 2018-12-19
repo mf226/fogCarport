@@ -1,11 +1,8 @@
+-- MySQL Workbench Forward Engineering
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
--- -----------------------------------------------------
--- Schema FogDB
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `FogDB` ;
 
 -- -----------------------------------------------------
 -- Schema FogDB
@@ -22,9 +19,12 @@ CREATE TABLE IF NOT EXISTS `FogDB`.`Materials` (
   `unit` VARCHAR(45) NOT NULL,
   `price` DOUBLE NULL DEFAULT NULL,
   `category` VARCHAR(45) NOT NULL,
+  `amountInPackage` INT(11) NULL DEFAULT NULL,
+  `stockLength` INT(11) NULL DEFAULT NULL,
+  `inStock` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`itemNumber`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -40,8 +40,9 @@ CREATE TABLE IF NOT EXISTS `FogDB`.`User` (
   PRIMARY KEY (`UserID`),
   UNIQUE INDEX `UserID_UNIQUE` (`UserID` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 88
 DEFAULT CHARACTER SET = latin1;
+
 
 -- -----------------------------------------------------
 -- Table `FogDB`.`Order`
@@ -49,13 +50,19 @@ DEFAULT CHARACTER SET = latin1;
 CREATE TABLE IF NOT EXISTS `FogDB`.`Order` (
   `orderID` INT(11) NOT NULL AUTO_INCREMENT,
   `userID` INT(11) NOT NULL,
-  `length` INT(11) NULL,
-  `width` INT(11) NULL,
-  `height` INT(11) NULL,
-  `angle` INT(11) NULL,
-  `finalizedPrice` DOUBLE NULL DEFAULT NULL,
+  `length` INT(11) NULL DEFAULT NULL,
+  `width` INT(11) NULL DEFAULT NULL,
+  `height` INT(11) NULL DEFAULT NULL,
+  `angle` INT(11) NULL DEFAULT NULL,
+  `roofType` INT(11) NULL DEFAULT NULL,
+  `hasShed` TINYINT(4) NULL DEFAULT NULL,
+  `shedLength` INT(11) NULL DEFAULT NULL,
+  `shedWidth` INT(11) NULL DEFAULT NULL,
+  `shedPlacement` VARCHAR(45) NULL DEFAULT NULL,
+  `wallType` INT(11) NULL DEFAULT NULL,
+  `price` DOUBLE NULL DEFAULT NULL,
   `orderDate` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` ENUM('pending', 'approved', 'shipped') NULL,
+  `status` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`orderID`, `userID`),
   INDEX `fk_Order_User_idx` (`userID` ASC),
   CONSTRAINT `fk_Order_User`
@@ -64,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `FogDB`.`Order` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 15
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -89,18 +97,6 @@ CREATE TABLE IF NOT EXISTS `FogDB`.`OrderDetails` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-INSERT INTO `FogDB`.`Materials` (`itemNumber`, `materialName`, `unit`, `price`, `category`) VALUES ('1', '45x195', 'm', '100', 'Træ'),
-('2', '97x97', 'm', '90', 'Træ'),
-('3', '4,5x60 mm skruer á 200 stk', 'stk', '300', 'Skruer'), 
-('4', 'Vinkelbeslag 35', 'stk', '35', 'Beslag'),
-('5', 'Plastmo	Ecolite	blåtonet', 'kvm', '100', 'Tag'),
-('6', 'Røde tegl', 'stk', '25', 'Tagbelægning'),
-('7', '25x150', 'm', '60', 'Beklædning'),
-('8', 'Cement 10 kg', 'kg', '80', 'Andet'),
-('9', 'Sort glaserede tegl', 'stk', '55', 'Tagbeklædning'),
-('10', 'Plastmo	Ecolite	klar', 'stk', '52', 'Tag');
-INSERT INTO `FogDB`.`User` (`UserID`, `email`, `password`, `role`) VALUES ('1', 'testuser@test.com', 'test', 'Customer'),
-('2', 'admin', 'admin', 'ADMIN');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
