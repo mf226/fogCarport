@@ -11,12 +11,15 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * The purpose of UserMapper is to...
- *
- */
+
 public class UserMapper {
 
+    /**
+     * Creates new User in DB
+     *
+     * @param User user
+     * @throws LoginException
+     */
     static void createUser(User user) throws LoginException {
         try {
             Connection con = Connector.connection();
@@ -35,6 +38,14 @@ public class UserMapper {
         }
     }
 
+    /**
+     * Selects User from DB if exists
+     *
+     * @param String email
+     * @param String password
+     * @throws LoginException
+     * @return User
+     */
     static User login(String email, String password) throws LoginException {
         try {
             Connection con = Connector.connection();
@@ -58,6 +69,13 @@ public class UserMapper {
         }
     }
 
+    /**
+     * Selects User with given email
+     *
+     * @param String email
+     * @throws LoginException
+     * @return userID
+     */
     static int getUserIDByEmail(String email) throws LoginException {
         try {
             Connection con = Connector.connection();
@@ -76,6 +94,11 @@ public class UserMapper {
         return 0;
     }
 
+    /**
+     * Removes User with given UserID from DB
+     * @param int UserID
+     * @throws LoginException
+     */
     static void removeCustomerByUserID(int UserID) throws LoginException {
         try {
             Connection con = Connector.connection();
@@ -89,29 +112,4 @@ public class UserMapper {
         }
     }
 
-//    public static User getUser(String email, String password) throws LoginException {
-//        try {
-//            Connection con = Connector.connection();
-//            String SQL = "SELECT email, password FROM User "
-//                    + "WHERE email=?";
-//            PreparedStatement ps = con.prepareStatement(SQL);
-//            ps.setString(1, email);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                String role = rs.getString("role");
-//                String userEmail = rs.getString("email");
-//                String userPW = rs.getString("password");
-//                int id = rs.getInt("id");
-//                User user = new User(email, password, Role.valueOf(role));
-//                user.setId(id);
-//                return user;
-//
-//            } else {
-//                throw new LoginException("Could not validate user");
-//            }
-//        } catch (ClassNotFoundException | SQLException ex) {
-//            throw new LoginException(ex.getMessage());
-//        }
-//
-//    }
 }

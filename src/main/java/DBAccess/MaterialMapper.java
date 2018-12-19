@@ -16,6 +16,12 @@ import java.util.List;
  */
 public class MaterialMapper {
 
+    /**
+     * Returns a List of woodMaterials from the database
+     *
+     * @throws LoginException
+     * @return List<WoodMaterial>
+     */
     static List<WoodMaterial> getAllMaterials() throws LoginException {
         try {
             ArrayList<WoodMaterial> materials = new ArrayList();
@@ -39,6 +45,13 @@ public class MaterialMapper {
         }
     }
 
+    /**
+     * Returns a WoodMaterial from the database with the given itemNumber
+     *
+     * @param itemNumber
+     * @throws LoginException
+     * @return WoodMaterial
+     */
     static WoodMaterial getWoodMaterial(int itemNumber) throws LoginException {
         try {
 
@@ -64,6 +77,13 @@ public class MaterialMapper {
         }
     }
 
+    /**
+     * Returns a MetalMaterial from the database with the given itemNumber
+     *
+     * @param itemNumber
+     * @throws LoginException
+     * @return MetalMaterial
+     */
     static MetalMaterial getMetalMaterial(int itemNumber) throws LoginException {
         try {
             Connection con = Connector.connection();
@@ -88,6 +108,12 @@ public class MaterialMapper {
         }
     }
 
+    /**
+     * Returns a List of WoodMaterial from the database for creating angled roof
+     *
+     * @throws LoginException
+     * @return List<WoodMaterial>
+     */
     static List<WoodMaterial> getAngledRoofMat() throws LoginException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
@@ -111,6 +137,12 @@ public class MaterialMapper {
 
     }
 
+    /**
+     * Returns a List of WoodMaterial from the database for creating shed-sides
+     *
+     * @throws LoginException
+     * @return List<WoodMaterial>
+     */
     static List<WoodMaterial> getSideMat() throws LoginException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
@@ -133,7 +165,12 @@ public class MaterialMapper {
             throw new LoginException(ex.getMessage());
         }
     }
-
+    /**
+     * Returns a List of WoodMaterial from the database for creating flat roof
+     *
+     * @throws LoginException
+     * @return List<WoodMaterial>
+     */
     static List<WoodMaterial> getFlatRoofMat() throws LoginException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
@@ -157,7 +194,11 @@ public class MaterialMapper {
         }
 
     }
-
+    /**
+     * Updates amount in stock with given itemNumber
+     *
+     * @throws LoginException
+     */
     static void updateStock(int newAmountInStock, int itemNumber) throws LoginException {
         try {
             Connection con = Connector.connection();

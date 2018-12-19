@@ -22,6 +22,12 @@ import java.util.List;
  */
 public class OrderMapper {
 
+    /**
+     * Returns a List of all Orders from the database
+     *
+     * @throws LoginException
+     * @return List<Order>
+     */
     static List<Order> getAllOrders() throws LoginException {
         try {
             ArrayList<Order> orders = new ArrayList();
@@ -56,7 +62,14 @@ public class OrderMapper {
             throw new LoginException(ex.getMessage());
         }
     }
-    
+
+    /**
+     * Returns a List of Orders from the database with given UserID
+     *
+     * @param userID
+     * @throws LoginException
+     * @return List<Order>
+     */
     static List<Order> getAllOrdersByUser(int id) throws LoginException {
         try {
             ArrayList<Order> orders = new ArrayList();
@@ -93,7 +106,13 @@ public class OrderMapper {
         }
     }
 
-
+    /**
+     * Returns an Order from the database with given OrderID
+     *
+     * @param OrderID
+     * @throws LoginException
+     * @return Order
+     */
     static Order getOrderByOrderID(int orderID) throws LoginException {
         try {
             Order order;
@@ -134,6 +153,12 @@ public class OrderMapper {
         return null;
     }
 
+    /**
+     * Updates order-status on given Order to 'Approved'
+     *
+     * @param Order
+     * @throws LoginException
+     */
     static void approveOrder(Order order) throws LoginException {
         try {
             Connection con = Connector.connection();
@@ -151,6 +176,13 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * Updates order-status on given Order to status
+     *
+     * @param Order order
+     * @param String status
+     * @throws LoginException
+     */
     static void editOrderStatus(Order order, String status) throws LoginException {
         try {
             Connection con = Connector.connection();
@@ -168,6 +200,13 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * returns a list of all orders made by given User
+     *
+     * @param User user
+     * @throws LoginException
+     * @return List<Order>
+     */
     static List<Order> getOrdersbyUserID(User user) throws LoginException {
 
         try {
@@ -196,6 +235,12 @@ public class OrderMapper {
 
     }
 
+    /**
+     * Adds given Order to DB
+     *
+     * @param Order order
+     * @throws LoginException
+     */
     static void addOrderToDB(Order order) throws LoginException {
         try {
             Connection con = Connector.connection();
@@ -226,6 +271,13 @@ public class OrderMapper {
 
     }
 
+    /**
+     * Updates order-price on given Order to newPrice
+     *
+     * @param Order order
+     * @param double newPrice
+     * @throws LoginException
+     */
     static void editOrderPrice(Order order, double newPrice) throws LoginException {
         try {
             Connection con = Connector.connection();
