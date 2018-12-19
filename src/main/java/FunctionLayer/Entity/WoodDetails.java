@@ -15,7 +15,10 @@ public class WoodDetails extends MaterialDetails {
         super(material, amount, description);
         this.cmLengthEach = cmLengthEach;
     }
-
+     /**
+     * Calculates totalItemPrice depending on price per unit
+     * @return double
+     */
     @Override
     public double getTotalItemPrice() {
         return super.getMaterial().getPricePerUnit() * cmLengthEach * super.getAmount() / CM_TO_METER;

@@ -148,7 +148,11 @@ public class Order {
     public void setShedMetalMaterials(HashMap<String, MetalDetails> shedMetalMaterials) {
         this.shedMetalMaterials = shedMetalMaterials;
     }
-
+    
+    /**
+     * Calculates totalPrice of Order
+     * @return double
+     */
     public double getTotalOrderPrice() {
         double totalOrderPrice = 0;
         for (WoodDetails wd : carportWoodMaterials.values()) {
