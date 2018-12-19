@@ -106,92 +106,81 @@ public class CalculatorTests {
 
     @Test
     public void testflatRoofRafterAmountCalc() {
-        Calculators calc = new Calculators();
         int caportLength = 300;
         int expResult = 7;
-        int result = (int) calc.flatRoofRafterAmountCalc(caportLength);
+        int result = (int) Calculators.flatRoofRafterAmountCalc(caportLength);
         assertEquals(expResult, result);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testflatRoofRafterAmountCalcFail() {
-        Calculators calc = new Calculators();
         int caportLength = RulesAndConstants.MINLENGTH - 1;
-        calc.flatRoofRafterAmountCalc(caportLength);
+        Calculators.flatRoofRafterAmountCalc(caportLength);
     }
 
     @Test
     public void testrafterBottomLengthCalc() {
-        Calculators calc = new Calculators();
         int carportWidth = 300;
         int expResult = 350;
-        int result = (int) calc.rafterBottomLengthCalc(carportWidth);
+        int result = (int) Calculators.rafterBottomLengthCalc(carportWidth);
         assertEquals(expResult, result);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testrafterBottomLengthCalcFail() {
-        Calculators calc = new Calculators();
         int carportWidth = (int) Math.sqrt(300);
-        calc.rafterBottomLengthCalc(carportWidth);
+        Calculators.rafterBottomLengthCalc(carportWidth);
     }
 
     @Test
     public void testangledRoofRafterBottomAmountCalc() {
-        Calculators calc = new Calculators();
         int caportLength = 300;
         int expResult = 4;
-        int result = (int) calc.angledRoofRafterBottomAmountCalc(caportLength);
+        int result = (int) Calculators.angledRoofRafterBottomAmountCalc(caportLength);
         assertEquals(expResult, result);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testangledRoofRafterBottomAmountCalcFail() {
-        Calculators calc = new Calculators();
         int caportLength = RulesAndConstants.MAXLENGTH + 1;
-        calc.angledRoofRafterBottomAmountCalc(caportLength);
+        Calculators.angledRoofRafterBottomAmountCalc(caportLength);
     }
 
     @Test
     public void testangledRoofRafterSidesAmountCalc() {
-        Calculators calc = new Calculators();
         int caportLength = 500;
         int expResult = 12;
-        int result = (int) calc.angledRoofRafterSidesAmountCalc(caportLength);
+        int result = (int) Calculators.angledRoofRafterSidesAmountCalc(caportLength);
         assertEquals(expResult, result);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testangledRoofRafterSidesAmountCalcFail() {
-        Calculators calc = new Calculators();
         int caportLength = RulesAndConstants.MINLENGTH - 1;
-        calc.angledRoofRafterSidesAmountCalc(caportLength);
+        Calculators.angledRoofRafterSidesAmountCalc(caportLength);
     }
 
     @Test
     public void testangledRoofRafterSidesLengthCalc() {
-        Calculators calc = new Calculators();
         int caportLength = 500;
         int roofAngle = 15;
         int expResult = 284;
-        int result = (int) calc.angledRoofRafterSidesLengthCalc(caportLength, roofAngle);
+        int result = (int) Calculators.angledRoofRafterSidesLengthCalc(caportLength, roofAngle);
         assertEquals(expResult, result);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testangledRoofRafterSidesLengthCalcFail() {
-        Calculators calc = new Calculators();
         int caportLength = RulesAndConstants.MINLENGTH;
         int roofAngle = RulesAndConstants.MINROOFANGLE - 10;
-        calc.angledRoofRafterSidesLengthCalc(caportLength, roofAngle);
+        Calculators.angledRoofRafterSidesLengthCalc(caportLength, roofAngle);
     }
 
     @Test
     public void testconcreteAmountCalc() {
-        Calculators calc = new Calculators();
         int amountOfPosts = 12;
         int expResult = 12;
-        int result = (int) calc.concreteAmountCalc(amountOfPosts);
+        int result = (int) Calculators.concreteAmountCalc(amountOfPosts);
         assertEquals(expResult, result);
     }
 
@@ -205,10 +194,9 @@ public class CalculatorTests {
 //    }
     @Test
     public void testmountPerPost() {
-        Calculators calc = new Calculators();
         int amountOfPosts = 12;
         int expResult = 12;
-        int result = (int) calc.mountPerPost(amountOfPosts);
+        int result = (int) Calculators.mountPerPost(amountOfPosts);
         assertEquals(expResult, result);
     }
 //
@@ -223,26 +211,23 @@ public class CalculatorTests {
 
     @Test
     public void testmountPerRafter() {
-        Calculators calc = new Calculators();
         int amountOfRafters = 12;
         int expResult = 24;
-        int result = (int) calc.mountPerRafter(amountOfRafters);
+        int result = (int) Calculators.mountPerRafter(amountOfRafters);
         assertEquals(expResult, result);
     }
 
     @Test
     public void testremLengthCalc() {
-        Calculators calc = new Calculators();
         int carportLength = 400;
         int expResult = 450;
-        int result = (int) calc.remLengthCalc(carportLength);
+        int result = (int) Calculators.remLengthCalc(carportLength);
         assertEquals(expResult, result);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testremLengthCalcFail() {
-        Calculators calc = new Calculators();
         int carportLength = RulesAndConstants.MINLENGTH - 1;
-        calc.remLengthCalc(carportLength);
+        Calculators.remLengthCalc(carportLength);
     }
 }
