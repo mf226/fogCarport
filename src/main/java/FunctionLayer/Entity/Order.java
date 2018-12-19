@@ -1,6 +1,7 @@
 package FunctionLayer.Entity;
 
 import FunctionLayer.Calculators;
+import FunctionLayer.Exceptions.LogicException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -238,12 +239,12 @@ public class Order {
         this.status = status;
     }
     
-    public double getAmountOfRoofRafters()
+    public double getAmountOfRoofRafters() throws LogicException
     {
         return Calculators.flatRoofRafterAmountCalc(this.getLength());
     }
     
-    public double getPostsAmount()
+    public double getPostsAmount() throws LogicException
     {
         return Calculators.postsAmountCalc(this.getLength(), this.getWidth());
     }

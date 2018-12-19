@@ -7,7 +7,7 @@ package PresentationLayer.Commands;
 
 import PresentationLayer.Commands.Command;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.WoodMaterial;
 import PresentationLayer.HTMLGenerator;
 import java.util.List;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MeasurementFlat extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         List<WoodMaterial> roofs = LogicFacade.getFlatroofs();
         String roof = HTMLGenerator.createRoofTypesFlat(roofs);
         request.setAttribute("roof", roof);

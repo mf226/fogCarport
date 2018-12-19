@@ -6,8 +6,10 @@
 package PresentationLayer;
 
 import PresentationLayer.Commands.Command;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
+import FunctionLayer.Exceptions.LogicException;
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +48,11 @@ public class FrontController extends HttpServlet {
             } else {
                 request.getRequestDispatcher("/WEB-INF/" + view + ".jsp").forward(request, response);
             }
-        } catch (LoginException ex) {
+        } catch (DBException ex) {
+            request.setAttribute("error", ex.getMessage());
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+            ex.printStackTrace();
+        } catch (LogicException ex) {
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("index.jsp").forward(request, response);
             ex.printStackTrace();

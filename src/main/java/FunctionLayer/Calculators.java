@@ -6,6 +6,7 @@
 package FunctionLayer;
 
 import FunctionLayer.Entity.Order;
+import FunctionLayer.Exceptions.LogicException;
 
 /**
  *
@@ -13,9 +14,9 @@ import FunctionLayer.Entity.Order;
  */
 public class Calculators {
 
-    public static double postsAmountCalc(int carportLength, int carportWidth) {
+    public static double postsAmountCalc(int carportLength, int carportWidth) throws LogicException {
         if (carportLength < RulesAndConstants.MINLENGTH || carportLength > RulesAndConstants.MAXLENGTH || carportWidth < RulesAndConstants.MINWIDTH || carportWidth > RulesAndConstants.MAXWIDTH) {
-            throw new IllegalArgumentException("Number exceeds parameters!");
+            throw new LogicException("Number exceeds parameters!");
         }
         int posts = 4; // A carport has atleast 4 posts.
         if (carportLength > RulesAndConstants.MINLENGTH) {
@@ -29,52 +30,52 @@ public class Calculators {
         return posts; //both sides
     }
 
-    public static double postsLengthCalc(int carportHeight) {
+    public static double postsLengthCalc(int carportHeight) throws LogicException {
         if (carportHeight < RulesAndConstants.MINHEIGHT || carportHeight > RulesAndConstants.MAXHEIGHT) {
-            throw new IllegalArgumentException("Number exceeds parameters!");
+            throw new LogicException("Number exceeds parameters!");
         }
         double postLength = carportHeight + RulesAndConstants.LENGTH_UNDER_GROUND;
 
         return postLength;
     }
 
-    public static double flatRoofRafterAmountCalc(int carportLength) {
+    public static double flatRoofRafterAmountCalc(int carportLength) throws LogicException {
         if (carportLength < RulesAndConstants.MINLENGTH || carportLength > RulesAndConstants.MAXLENGTH) {
-            throw new IllegalArgumentException("Number exceeds parameters!");
+            throw new LogicException("Number exceeds parameters!");
         }
         int rafter = (int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_FLATROOF_RAFTERS + 1); //+1 for first rafter
         return rafter;
     }
 
-    public static double rafterBottomLengthCalc(int carportWidth) {
+    public static double rafterBottomLengthCalc(int carportWidth) throws LogicException {
         if (carportWidth < RulesAndConstants.MINWIDTH || carportWidth > RulesAndConstants.MAXWIDTH) {
-            throw new IllegalArgumentException("Number exceeds parameters!");
+            throw new LogicException("Number exceeds parameters!");
         }
         double rafterLength = carportWidth + RulesAndConstants.ROOF_WIDTH_EXTRA;
         return rafterLength;
     }
 
-    public static double angledRoofRafterBottomAmountCalc(int carportLength) {
+    public static double angledRoofRafterBottomAmountCalc(int carportLength) throws LogicException {
         if (carportLength < RulesAndConstants.MINLENGTH || carportLength > RulesAndConstants.MAXLENGTH) {
-            throw new IllegalArgumentException("Number exceeds parameters!");
+            throw new LogicException("Number exceeds parameters!");
         }
         int rafterBottomAmount = (int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS + 1);
 
         return rafterBottomAmount;
     }
 
-    public static double angledRoofRafterSidesAmountCalc(int carportLength) {
+    public static double angledRoofRafterSidesAmountCalc(int carportLength) throws LogicException {
         if (carportLength < RulesAndConstants.MINLENGTH || carportLength > RulesAndConstants.MAXLENGTH) {
-            throw new IllegalArgumentException("Number exceeds parameters!");
+            throw new LogicException("Number exceeds parameters!");
         }
         int rafterBottomAmount = (int) (carportLength / RulesAndConstants.DISTANCE_BETWEEN_ANGLEDROOF_RAFTERS + 1);
 
         return rafterBottomAmount * 2; //both sides
     }
 
-    public static double angledRoofRafterSidesLengthCalc(int carportWidth, int roofAngle) {
+    public static double angledRoofRafterSidesLengthCalc(int carportWidth, int roofAngle) throws LogicException {
         if (carportWidth < RulesAndConstants.MINLENGTH || carportWidth > RulesAndConstants.MAXLENGTH || roofAngle < RulesAndConstants.MINROOFANGLE || roofAngle > RulesAndConstants.MAXROOFANGLE) {
-            throw new IllegalArgumentException("Number exceeds parameters!");
+            throw new LogicException("Number exceeds parameters!");
         }
         double rafterSideLength = (int) ((rafterBottomLengthCalc(carportWidth) / 2) / Math.cos(degreesToRad(roofAngle))); // Cosinus relation for retviklet trekant
 
@@ -99,9 +100,9 @@ public class Calculators {
         return amountOfRafters * RulesAndConstants.MOUNT_PER_RAFTER;
     }
 
-    public static double remLengthCalc(int carportLength) {
+    public static double remLengthCalc(int carportLength) throws LogicException {
         if (carportLength < RulesAndConstants.MINLENGTH || carportLength > RulesAndConstants.MAXLENGTH) {
-            throw new IllegalArgumentException("Number exceeds parameters!");
+            throw new LogicException("Number exceeds parameters!");
         }
         return carportLength + RulesAndConstants.ROOF_LENGTH_EXTRA;
     }

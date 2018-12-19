@@ -6,7 +6,7 @@
 package PresentationLayer.Commands;
 
 import PresentationLayer.Commands.Command;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import PresentationLayer.HTMLGenerator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class Logout extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         HttpSession session = request.getSession();
         session.invalidate();
         request.setAttribute("menu", HTMLGenerator.generateMenu(request));

@@ -6,6 +6,7 @@
 package FunctionLayerTest;
 
 import FunctionLayer.Calculators;
+import FunctionLayer.Exceptions.LogicException;
 import FunctionLayer.RulesAndConstants;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -41,7 +42,7 @@ public class CalculatorTests {
 
     //Tester en succesfuld beregning
     @Test
-    public void testPostAmountCalc() {
+    public void testPostAmountCalc() throws LogicException {
         //To test if it calculates the correct value.
         int carportLength = 200;
         int carportWidth = 300;
@@ -71,15 +72,15 @@ public class CalculatorTests {
     }
 
     //Tester grænseværdiere
-    @Test(expected = IllegalArgumentException.class)
-    public void testPostAmountCalcException() {
+    @Test(expected = LogicException.class)
+    public void testPostAmountCalcException() throws LogicException {
         int caportLength = RulesAndConstants.MAXLENGTH + 1;
         int caportWidth = RulesAndConstants.MAXWIDTH;
         Calculators.postsAmountCalc(caportLength, caportWidth);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testPostAmountCalcNegative() {
+    @Test(expected = LogicException.class)
+    public void testPostAmountCalcNegative() throws LogicException {
         int caportLength = RulesAndConstants.MINLENGTH - 1;
         int caportWidth = RulesAndConstants.MINWIDTH - 1;
         Calculators.postsAmountCalc(caportLength, caportWidth);
@@ -87,81 +88,80 @@ public class CalculatorTests {
     }
 
     @Test
-    public void testpostsLengthCalc() {
+    public void testpostsLengthCalc() throws LogicException {
         int carportLength = 300;
         int expResult = 390;
         int result = (int) Calculators.postsLengthCalc(carportLength);
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testPostsLengthCalcFail() {
-        Calculators calc = new Calculators();
+    @Test(expected = LogicException.class)
+    public void testPostsLengthCalcFail() throws LogicException {
         int carportHeight = RulesAndConstants.MAXHEIGHT + 1;
-        calc.postsLengthCalc(carportHeight);
+        Calculators.postsLengthCalc(carportHeight);
         //        int expResult = 391;
         //        int result = (int) calc.postsAmountCalc(caportLength, caportWidth);
         //        assertNotEquals(expResult, result);
     }
 
     @Test
-    public void testflatRoofRafterAmountCalc() {
+    public void testflatRoofRafterAmountCalc() throws LogicException {
         int caportLength = 300;
         int expResult = 7;
         int result = (int) Calculators.flatRoofRafterAmountCalc(caportLength);
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testflatRoofRafterAmountCalcFail() {
+    @Test(expected = LogicException.class)
+    public void testflatRoofRafterAmountCalcFail() throws LogicException {
         int caportLength = RulesAndConstants.MINLENGTH - 1;
         Calculators.flatRoofRafterAmountCalc(caportLength);
     }
 
     @Test
-    public void testrafterBottomLengthCalc() {
+    public void testrafterBottomLengthCalc() throws LogicException {
         int carportWidth = 300;
         int expResult = 350;
         int result = (int) Calculators.rafterBottomLengthCalc(carportWidth);
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testrafterBottomLengthCalcFail() {
+    @Test(expected = LogicException.class)
+    public void testrafterBottomLengthCalcFail() throws LogicException {
         int carportWidth = (int) Math.sqrt(300);
         Calculators.rafterBottomLengthCalc(carportWidth);
     }
 
     @Test
-    public void testangledRoofRafterBottomAmountCalc() {
+    public void testangledRoofRafterBottomAmountCalc() throws LogicException {
         int caportLength = 300;
         int expResult = 4;
         int result = (int) Calculators.angledRoofRafterBottomAmountCalc(caportLength);
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testangledRoofRafterBottomAmountCalcFail() {
+    @Test(expected = LogicException.class)
+    public void testangledRoofRafterBottomAmountCalcFail() throws LogicException {
         int caportLength = RulesAndConstants.MAXLENGTH + 1;
         Calculators.angledRoofRafterBottomAmountCalc(caportLength);
     }
 
     @Test
-    public void testangledRoofRafterSidesAmountCalc() {
+    public void testangledRoofRafterSidesAmountCalc() throws LogicException {
         int caportLength = 500;
         int expResult = 12;
         int result = (int) Calculators.angledRoofRafterSidesAmountCalc(caportLength);
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testangledRoofRafterSidesAmountCalcFail() {
+    @Test(expected = LogicException.class)
+    public void testangledRoofRafterSidesAmountCalcFail() throws LogicException {
         int caportLength = RulesAndConstants.MINLENGTH - 1;
         Calculators.angledRoofRafterSidesAmountCalc(caportLength);
     }
 
     @Test
-    public void testangledRoofRafterSidesLengthCalc() {
+    public void testangledRoofRafterSidesLengthCalc() throws LogicException {
         int caportLength = 500;
         int roofAngle = 15;
         int expResult = 284;
@@ -169,8 +169,8 @@ public class CalculatorTests {
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testangledRoofRafterSidesLengthCalcFail() {
+    @Test(expected = LogicException.class)
+    public void testangledRoofRafterSidesLengthCalcFail() throws LogicException {
         int caportLength = RulesAndConstants.MINLENGTH;
         int roofAngle = RulesAndConstants.MINROOFANGLE - 10;
         Calculators.angledRoofRafterSidesLengthCalc(caportLength, roofAngle);
@@ -218,15 +218,15 @@ public class CalculatorTests {
     }
 
     @Test
-    public void testremLengthCalc() {
+    public void testremLengthCalc() throws LogicException {
         int carportLength = 400;
         int expResult = 450;
         int result = (int) Calculators.remLengthCalc(carportLength);
         assertEquals(expResult, result);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testremLengthCalcFail() {
+    @Test (expected = LogicException.class)
+    public void testremLengthCalcFail() throws LogicException {
         int carportLength = RulesAndConstants.MINLENGTH - 1;
         Calculators.remLengthCalc(carportLength);
     }

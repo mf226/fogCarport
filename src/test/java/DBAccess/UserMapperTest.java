@@ -1,6 +1,6 @@
 package DBAccess;
 
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.Role;
 import FunctionLayer.Entity.User;
 import java.sql.Connection;
@@ -44,20 +44,20 @@ public class UserMapperTest {
     }
 
     @Test
-    public void testLogin01() throws LoginException {
+    public void testLogin01() throws DBException {
         //Can we log in
         User user = UserMapper.login("testuser@test.com", "test");
         assertNotNull(user);
     }
 
-    @Test(expected = LoginException.class)
-    public void testLogin02() throws LoginException {
+    @Test(expected = DBException.class)
+    public void testLogin02() throws DBException {
         //We should get an exception if we use the wrong password
         User user = UserMapper.login("testuser@test.com", "testing");
     }
 
     @Test
-    public void testLoginCustomer() throws LoginException {
+    public void testLoginCustomer() throws DBException {
         //testuser is supposed to be a customer
         User user = UserMapper.login("testuser@test.com", "test");
 
@@ -65,7 +65,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void testLoginNotCustomer() throws LoginException {
+    public void testLoginNotCustomer() throws DBException {
         //testuser is not supposed to be admin or employee
         User user = UserMapper.login("testuser@test.com", "test");
 
@@ -74,7 +74,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void testCreateCustomer() throws LoginException {
+    public void testCreateCustomer() throws DBException {
         // Can we create a new user - Notice, if login fails, this will fail
         // but so would login01, so this is OK
         User user = new User("testuser2@test.com", "test2");
@@ -84,7 +84,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void testCreateCustomerRoleCheck() throws LoginException {
+    public void testCreateCustomerRoleCheck() throws DBException {
         // Can we create a new user - Notice, if login fails, this will fail
         // but so would login01, so this is OK
         User user = new User("testuser2@test.com", "test2");
@@ -105,7 +105,7 @@ public class UserMapperTest {
 //    }
 
 //    @Test
-//    public void testremoveCustomerByEmail() throws LoginException, ClassNotFoundException {
+//    public void testremoveCustomerByEmail() throws DBException, ClassNotFoundException {
 //        //findes bruger i db, assert true, delete from db, assertfalse
 //        String email = "testuser2@test.com";
 //        User user = new User(email, "test2");
@@ -118,7 +118,7 @@ public class UserMapperTest {
 //    }
 
     @After
-    public void tearDown() throws LoginException {
+    public void tearDown() throws DBException {
 
         // Add deleteCustomer to UserMapper
 //        UserMapper.removeCustomerByEmail("testuser2@test2.com");

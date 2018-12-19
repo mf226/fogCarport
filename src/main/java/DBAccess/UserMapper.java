@@ -1,6 +1,6 @@
 package DBAccess;
 
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.Role;
 import FunctionLayer.Entity.User;
 import java.sql.Connection;
@@ -18,9 +18,9 @@ public class UserMapper {
      * Creates new User in DB
      *
      * @param User user
-     * @throws LoginException
+     * @throws DBException
      */
-    static void createUser(User user) throws LoginException {
+    static void createUser(User user) throws DBException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO User (email, password, role) VALUES (?, ?, ?)";
@@ -34,7 +34,7 @@ public class UserMapper {
             int id = ids.getInt(1);
             user.setId(id);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
 
@@ -43,10 +43,10 @@ public class UserMapper {
      *
      * @param String email
      * @param String password
-     * @throws LoginException
+     * @throws DBException
      * @return User
      */
-    static User login(String email, String password) throws LoginException {
+    static User login(String email, String password) throws DBException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT UserID, role FROM User "
@@ -62,10 +62,10 @@ public class UserMapper {
                 user.setId(id);
                 return user;
             } else {
-                throw new LoginException("Could not validate user");
+                throw new DBException("Could not validate user");
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
 
@@ -73,10 +73,10 @@ public class UserMapper {
      * Selects User with given email
      *
      * @param String email
-     * @throws LoginException
+     * @throws DBException
      * @return userID
      */
-    static int getUserIDByEmail(String email) throws LoginException {
+    static int getUserIDByEmail(String email) throws DBException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT UserID FROM FogDB.User WHERE email = ?";
@@ -97,9 +97,9 @@ public class UserMapper {
     /**
      * Removes User with given UserID from DB
      * @param int UserID
-     * @throws LoginException
+     * @throws DBException
      */
-    static void removeCustomerByUserID(int UserID) throws LoginException {
+    static void removeCustomerByUserID(int UserID) throws DBException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE FROM `FogDB`.`User` "

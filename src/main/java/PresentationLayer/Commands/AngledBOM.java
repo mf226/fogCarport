@@ -6,9 +6,10 @@
 package PresentationLayer.Commands;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.WoodMaterial;
+import FunctionLayer.Exceptions.LogicException;
 import PresentationLayer.HTMLGenerator;
 import PresentationLayer.SVGGenerator;
 import java.util.List;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AngledBOM extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException, LogicException {
         String height = request.getParameter("height");
         int h = Integer.parseInt(height);
         String width = request.getParameter("width");

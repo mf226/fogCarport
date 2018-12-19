@@ -2,7 +2,7 @@ package PresentationLayer.Commands;
 
 import PresentationLayer.Commands.Command;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.Role;
 import FunctionLayer.Entity.User;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 public class Register extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String password1 = request.getParameter("password1");

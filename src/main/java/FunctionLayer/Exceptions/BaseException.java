@@ -1,28 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Idea for this is to manage logging in constructor or by method, thereby having all logging
+ * from selfmade exceptions done at throw time.
+ * 
  */
 package FunctionLayer.Exceptions;
 
 public class BaseException extends Exception {
 
-    /**
-     * Creates a new instance of <code>BaseException</code> without detail
-     * message.
-     */
-    public BaseException() {
-    }
-
-    /**
-     * Constructs an instance of <code>BaseException</code> with the specified
-     * detail message.
-     *
-     * @param msg the detail message.
-     */
     public BaseException(String msg){
         super(msg);
         
-        // do some logging
+        // do some logging, making sure all exceptions inheriting from this will log.
+        //maybe take the said exception as a parameter to constructor for acces to all info to be logged.
     }
 }

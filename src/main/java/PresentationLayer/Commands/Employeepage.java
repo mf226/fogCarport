@@ -5,7 +5,7 @@
  */
 package PresentationLayer.Commands;
 
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Employeepage extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         return "employeepage";
     }
 

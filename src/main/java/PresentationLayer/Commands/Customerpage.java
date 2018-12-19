@@ -7,7 +7,7 @@ package PresentationLayer.Commands;
 
 import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.User;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.LogicFacade;
 import PresentationLayer.HTMLGenerator;
 import java.util.List;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Customerpage extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         User user = (User) request.getSession(false).getAttribute("user");
         List<Order> orders = LogicFacade.getAllOrdersByUser(user.getId());
         String ordersTable = HTMLGenerator.showAllOrdersByUser(orders);

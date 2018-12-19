@@ -5,7 +5,7 @@
  */
 package DBAccess;
 
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.User;
 import java.sql.Connection;
@@ -25,10 +25,10 @@ public class OrderMapper {
     /**
      * Returns a List of all Orders from the database
      *
-     * @throws LoginException
+     * @throws DBException
      * @return List<Order>
      */
-    static List<Order> getAllOrders() throws LoginException {
+    static List<Order> getAllOrders() throws DBException {
         try {
             ArrayList<Order> orders = new ArrayList();
             Connection con = Connector.connection();
@@ -59,7 +59,7 @@ public class OrderMapper {
             }
             return orders;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
 
@@ -67,10 +67,10 @@ public class OrderMapper {
      * Returns a List of Orders from the database with given UserID
      *
      * @param int userID
-     * @throws LoginException
+     * @throws DBException
      * @return List<Order>
      */
-    static List<Order> getAllOrdersByUser(int id) throws LoginException {
+    static List<Order> getAllOrdersByUser(int id) throws DBException {
         try {
             ArrayList<Order> orders = new ArrayList();
             Connection con = Connector.connection();
@@ -102,7 +102,7 @@ public class OrderMapper {
             }
             return orders;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
 
@@ -110,10 +110,10 @@ public class OrderMapper {
      * Returns an Order from the database with given OrderID
      *
      * @param int orderID
-     * @throws LoginException
+     * @throws DBException
      * @return Order
      */
-    static Order getOrderByOrderID(int orderID) throws LoginException {
+    static Order getOrderByOrderID(int orderID) throws DBException {
         try {
             Order order;
             Connection con = Connector.connection();
@@ -148,7 +148,7 @@ public class OrderMapper {
                 return order;
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
         return null;
     }
@@ -157,9 +157,9 @@ public class OrderMapper {
      * Updates order-status on given Order to 'Approved'
      *
      * @param Order order
-     * @throws LoginException
+     * @throws DBException
      */
-    static void approveOrder(Order order) throws LoginException {
+    static void approveOrder(Order order) throws DBException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -171,7 +171,7 @@ public class OrderMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
 
         }
     }
@@ -181,9 +181,9 @@ public class OrderMapper {
      *
      * @param Order order
      * @param String status
-     * @throws LoginException
+     * @throws DBException
      */
-    static void editOrderStatus(Order order, String status) throws LoginException {
+    static void editOrderStatus(Order order, String status) throws DBException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -196,7 +196,7 @@ public class OrderMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
 
@@ -204,10 +204,10 @@ public class OrderMapper {
      * returns a list of all orders made by given User
      *
      * @param User user
-     * @throws LoginException
+     * @throws DBException
      * @return List<Order>
      */
-    static List<Order> getOrdersbyUserID(User user) throws LoginException {
+    static List<Order> getOrdersbyUserID(User user) throws DBException {
 
         try {
             ArrayList<Order> orders = new ArrayList();
@@ -230,7 +230,7 @@ public class OrderMapper {
             }
             return orders;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
 
     }
@@ -239,9 +239,9 @@ public class OrderMapper {
      * Adds given Order to DB
      *
      * @param Order order
-     * @throws LoginException
+     * @throws DBException
      */
-    static void addOrderToDB(Order order) throws LoginException {
+    static void addOrderToDB(Order order) throws DBException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -265,7 +265,7 @@ public class OrderMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
 
         }
 
@@ -276,9 +276,9 @@ public class OrderMapper {
      *
      * @param Order order
      * @param double newPrice
-     * @throws LoginException
+     * @throws DBException
      */
-    static void editOrderPrice(Order order, double newPrice) throws LoginException {
+    static void editOrderPrice(Order order, double newPrice) throws DBException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -291,7 +291,7 @@ public class OrderMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (ClassNotFoundException | SQLException EX) {
-            throw new LoginException(EX.getMessage());
+            throw new DBException(EX.getMessage());
 
         }
 

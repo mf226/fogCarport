@@ -6,7 +6,7 @@
 package PresentationLayer.Commands;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.Order;
 import PresentationLayer.HTMLGenerator;
 import java.util.List;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Adminpage extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         List<Order> orders = LogicFacade.getAllOrders();
         String ordersTable = HTMLGenerator.showAllOrders(orders);
         request.setAttribute("ordersTable", ordersTable);

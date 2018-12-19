@@ -1,6 +1,7 @@
 package PresentationLayer.Commands;
 
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
+import FunctionLayer.Exceptions.LogicException;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +41,6 @@ public abstract class Command {
     }
 
     public abstract String execute(HttpServletRequest request, HttpServletResponse response)
-            throws LoginException;
+            throws DBException, LogicException;
 
 }

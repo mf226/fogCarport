@@ -5,8 +5,9 @@ import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.WoodMaterial;
 import FunctionLayer.Entity.WoodDetails;
 import FunctionLayer.Entity.MetalDetails;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.MaterialDetails;
+import FunctionLayer.Exceptions.LogicException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,10 +22,10 @@ public class createCarport {
      * @param int roofAngle
      * @param int roofType
      *
-     * @throws LoginException
+     * @throws DBException
      * @return Order
      */
-    public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws LoginException {
+    public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws DBException, LogicException {
         Order order = new Order(length, width, height, roofAngle, roofType);
         createCarport(order);
         return order;
@@ -34,9 +35,9 @@ public class createCarport {
      * Creates carport from given Order
      *
      * @param Order
-     * @throws LoginException
+     * @throws DBException
      */
-    public static void createCarport(Order order) throws LoginException {
+    public static void createCarport(Order order) throws DBException, LogicException {
         if (order.getAngle() == 0) {
             createFlatRoofRafters(order);
         } else {
@@ -51,9 +52,9 @@ public class createCarport {
      * Puts a List of MetalMaterials inside given Order
      *
      * @param Order
-     * @throws LoginException
+     * @throws DBException
      */
-    private static void addAllMetalMaterialsToList(Order order) throws LoginException {
+    private static void addAllMetalMaterialsToList(Order order) throws DBException, LogicException  {
         double concreteAmount = Calculators.concreteAmountCalc(order.getPostsAmount());
         double postMountAmount = Calculators.mountPerPost(order.getPostsAmount());
         double roofAmount = Calculators.calcRoof(order);
@@ -81,9 +82,9 @@ public class createCarport {
      * Puts a List of WoodMaterials inside given Order
      *
      * @param Order
-     * @throws LoginException
+     * @throws DBException
      */
-    private static void addAllWoodMaterialsToList(Order order) throws LoginException {
+    private static void addAllWoodMaterialsToList(Order order) throws DBException, LogicException {
         //Calculate lengths
         double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
         double remLength = Calculators.remLengthCalc(order.getLength());
@@ -100,9 +101,9 @@ public class createCarport {
      * Adds a List of rafters to given Order with flat roof
      *
      * @param Order
-     * @throws LoginException
+     * @throws DBException
      */
-    private static void createFlatRoofRafters(Order order) throws LoginException {
+    private static void createFlatRoofRafters(Order order) throws DBException, LogicException {
         WoodMaterial rafter = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
 
@@ -113,9 +114,9 @@ public class createCarport {
      * Adds a List of rafters to given Order with angled roof
      *
      * @param Order
-     * @throws LoginException
+     * @throws DBException
      */
-    private static void createAngledRoofRafters(Order order) throws LoginException {
+    private static void createAngledRoofRafters(Order order) throws DBException, LogicException {
         double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
         double sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
         double cmLengthEachSideRafter = Calculators.angledRoofRafterSidesLengthCalc(order.getWidth(), order.getAngle());
@@ -129,9 +130,9 @@ public class createCarport {
      * Adds a shed to given Order
      *
      * @param Order
-     * @throws LoginException
+     * @throws DBException
      */
-    public static void createShed(Order order) throws LoginException {
+    public static void createShed(Order order) throws DBException {
         MetalMaterial screw = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_SCREWS);
         MetalMaterial door = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_DOOR);
         WoodMaterial wallMaterial = LogicFacade.getWoodMaterial(order.getWallType());

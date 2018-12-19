@@ -6,7 +6,7 @@
 package PresentationLayer.Commands;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.Order;
 import FunctionLayer.RulesAndConstants;
 import PresentationLayer.HTMLGenerator;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class EditOrder extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         Order order = (Order) request.getSession(false).getAttribute("order");
         String status = request.getParameter("status");
         String newPrice_str = request.getParameter("newPrice");

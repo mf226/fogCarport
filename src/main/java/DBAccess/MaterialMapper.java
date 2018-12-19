@@ -1,6 +1,6 @@
 package DBAccess;
 
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.MetalMaterial;
 import FunctionLayer.Entity.WoodMaterial;
 import java.sql.Connection;
@@ -19,10 +19,10 @@ public class MaterialMapper {
     /**
      * Returns a List of woodMaterials from the database
      *
-     * @throws LoginException
+     * @throws DBException
      * @return List<WoodMaterial>
      */
-    static List<WoodMaterial> getAllMaterials() throws LoginException {
+    static List<WoodMaterial> getAllMaterials() throws DBException {
         try {
             ArrayList<WoodMaterial> materials = new ArrayList();
             Connection con = Connector.connection();
@@ -41,7 +41,7 @@ public class MaterialMapper {
             }
             return materials;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
 
@@ -49,10 +49,10 @@ public class MaterialMapper {
      * Returns a WoodMaterial from the database with the given itemNumber
      *
      * @param int itemNumber
-     * @throws LoginException
+     * @throws DBException
      * @return WoodMaterial
      */
-    static WoodMaterial getWoodMaterial(int itemNumber) throws LoginException {
+    static WoodMaterial getWoodMaterial(int itemNumber) throws DBException {
         try {
 
             Connection con = Connector.connection();
@@ -70,10 +70,10 @@ public class MaterialMapper {
                 int amountInStock = rs.getInt("inStock");
                 return new WoodMaterial(itemNumber, materialName, unit, price, lengthInStock, amountInStock);
             } else {
-                throw new LoginException("Material doesn't exist.");
+                throw new DBException("Material doesn't exist.");
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
 
@@ -81,10 +81,10 @@ public class MaterialMapper {
      * Returns a MetalMaterial from the database with the given itemNumber
      *
      * @param int itemNumber
-     * @throws LoginException
+     * @throws DBException
      * @return MetalMaterial
      */
-    static MetalMaterial getMetalMaterial(int itemNumber) throws LoginException {
+    static MetalMaterial getMetalMaterial(int itemNumber) throws DBException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM FogDB.Materials "
@@ -101,20 +101,20 @@ public class MaterialMapper {
                 int amountInStock = rs.getInt("inStock");
                 return new MetalMaterial(itemNumber, materialName, unit, price, soldInPacksOf, amountInStock);
             } else {
-                throw new LoginException("Material doesn't exist.");
+                throw new DBException("Material doesn't exist.");
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
 
     /**
      * Returns a List of WoodMaterial from the database for creating angled roof
      *
-     * @throws LoginException
+     * @throws DBException
      * @return List<WoodMaterial>
      */
-    static List<WoodMaterial> getAngledRoofMat() throws LoginException {
+    static List<WoodMaterial> getAngledRoofMat() throws DBException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
@@ -132,7 +132,7 @@ public class MaterialMapper {
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
 
     }
@@ -140,10 +140,10 @@ public class MaterialMapper {
     /**
      * Returns a List of WoodMaterial from the database for creating shed-sides
      *
-     * @throws LoginException
+     * @throws DBException
      * @return List<WoodMaterial>
      */
-    static List<WoodMaterial> getSideMat() throws LoginException {
+    static List<WoodMaterial> getSideMat() throws DBException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
@@ -162,16 +162,16 @@ public class MaterialMapper {
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
     /**
      * Returns a List of WoodMaterial from the database for creating flat roof
      *
-     * @throws LoginException
+     * @throws DBException
      * @return List<WoodMaterial>
      */
-    static List<WoodMaterial> getFlatRoofMat() throws LoginException {
+    static List<WoodMaterial> getFlatRoofMat() throws DBException {
         try {
             ArrayList<WoodMaterial> material = new ArrayList();
             Connection con = Connector.connection();
@@ -190,7 +190,7 @@ public class MaterialMapper {
             }
             return material;
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
 
     }
@@ -198,9 +198,9 @@ public class MaterialMapper {
      * Updates amount in stock with given amount on given itemNumber
      * @param int newAmountInStock
      * @param int itemNumber
-     * @throws LoginException
+     * @throws DBException
      */
-    static void updateStock(int newAmountInStock, int itemNumber) throws LoginException {
+    static void updateStock(int newAmountInStock, int itemNumber) throws DBException {
         try {
             Connection con = Connector.connection();
             con.setAutoCommit(false);
@@ -212,7 +212,7 @@ public class MaterialMapper {
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new DBException(ex.getMessage());
         }
     }
 

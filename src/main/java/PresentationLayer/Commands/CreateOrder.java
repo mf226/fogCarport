@@ -6,7 +6,7 @@
 package PresentationLayer.Commands;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Exceptions.LoginException;
+import FunctionLayer.Exceptions.DBException;
 import FunctionLayer.Entity.Order;
 import FunctionLayer.Entity.User;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateOrder extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         User user;
         user = (User) request.getSession(false).getAttribute("user");
         Order order = (Order) request.getSession(false).getAttribute("order");
@@ -33,7 +33,7 @@ public class CreateOrder extends Command {
                 order.setPrice(order.getTotalOrderPrice());
                 LogicFacade.addOrderToDB(order);
                 return "index";
-            } catch (LoginException ex) {
+            } catch (DBException ex) {
                 System.out.println(ex.getMessage());
             }
         }
