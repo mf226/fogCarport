@@ -12,12 +12,30 @@ import java.util.HashMap;
 
 public class createCarport {
 
+    /**
+     * Creates order from given data
+     *
+     * @param int length
+     * @param int width
+     * @param int height
+     * @param int roofAngle
+     * @param int roofType
+     *
+     * @throws LoginException
+     * @return Order
+     */
     public static Order createOrder(int length, int width, int height, int roofAngle, int roofType) throws LoginException {
         Order order = new Order(length, width, height, roofAngle, roofType);
         createCarport(order);
         return order;
     }
 
+    /**
+     * Creates carport from given Order
+     *
+     * @param Order
+     * @throws LoginException
+     */
     public static void createCarport(Order order) throws LoginException {
         if (order.getAngle() == 0) {
             createFlatRoofRafters(order);
@@ -29,6 +47,12 @@ public class createCarport {
         addAllMetalMaterialsToList(order);
     }
 
+    /**
+     * Puts a List of MetalMaterials inside given Order
+     *
+     * @param Order
+     * @throws LoginException
+     */
     private static void addAllMetalMaterialsToList(Order order) throws LoginException {
         double concreteAmount = Calculators.concreteAmountCalc(order.getPostsAmount());
         double postMountAmount = Calculators.mountPerPost(order.getPostsAmount());
@@ -53,6 +77,12 @@ public class createCarport {
         order.getCarportMetalMaterials().put(m.getDescription(), m);
     }
 
+    /**
+     * Puts a List of WoodMaterials inside given Order
+     *
+     * @param Order
+     * @throws LoginException
+     */
     private static void addAllWoodMaterialsToList(Order order) throws LoginException {
         //Calculate lengths
         double cmLengthEach = Calculators.postsLengthCalc(order.getHeight());
@@ -66,6 +96,12 @@ public class createCarport {
 
     }
 
+    /**
+     * Adds a List of rafters to given Order with flat roof
+     *
+     * @param Order
+     * @throws LoginException
+     */
     private static void createFlatRoofRafters(Order order) throws LoginException {
         WoodMaterial rafter = LogicFacade.getWoodMaterial(RulesAndConstants.PREFERRED_MATERIAL_RAFTERS);
         double cmLengthEach = Calculators.rafterBottomLengthCalc(order.getWidth());
@@ -73,6 +109,12 @@ public class createCarport {
         putIntoList(order.getCarportWoodMaterials(), new WoodDetails(rafter, order.getAmountOfRoofRafters(), cmLengthEach, RulesAndConstants.CARPORT_RAFTER_FLATROOF_DESCRIPTON));
     }
 
+    /**
+     * Adds a List of rafters to given Order with angled roof
+     *
+     * @param Order
+     * @throws LoginException
+     */
     private static void createAngledRoofRafters(Order order) throws LoginException {
         double cmLengthEachBottomRafter = Calculators.rafterBottomLengthCalc(order.getWidth());
         double sideRafterAmount = Calculators.angledRoofRafterSidesAmountCalc(order.getLength());
@@ -83,6 +125,12 @@ public class createCarport {
         putIntoList(order.getCarportWoodMaterials(), new WoodDetails(rafter, sideRafterAmount, cmLengthEachSideRafter, RulesAndConstants.CARPORT_RAFTER_ANGLEDROOF_SIDE_DESCRIPTION));
     }
 
+    /**
+     * Adds a shed to given Order
+     *
+     * @param Order
+     * @throws LoginException
+     */
     public static void createShed(Order order) throws LoginException {
         MetalMaterial screw = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_SCREWS);
         MetalMaterial door = LogicFacade.getMetalMaterial(RulesAndConstants.PREFERRED_MATERIAL_DOOR);
@@ -97,6 +145,12 @@ public class createCarport {
         putIntoList(order.getShedMetalMaterials(), new MetalDetails(screw, screwAmount, RulesAndConstants.SCREWS_DESCRIPTION));
     }
 
+    /**
+     * Puts MaterialDetails into given HashMap
+     *
+     * @param HashMap
+     * @param MaterialDetails
+     */
     private static void putIntoList(HashMap map, MaterialDetails mat) {
         map.put(mat.getDescription(), mat);
     }
