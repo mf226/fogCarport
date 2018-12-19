@@ -53,13 +53,13 @@ public class RulesAndConstants {
 
     //Calculator parameters
     public final static int MAXLENGTH = 500;
-    public final static int MINLENGTH = 150;
+    public final static int MINLENGTH = 200;
     public final static int MAXWIDTH = 500;
-    public final static int MINWIDTH = 150;
-    public final static int MINHEIGHT = 100;
-    public final static int MAXHEIGHT = 500;
-    public final static int MINROOFANGLE = 1;
-    public final static int MAXROOFANGLE = 80;
+    public final static int MINWIDTH = 300;
+    public final static int MINHEIGHT = 200;
+    public final static int MAXHEIGHT = 300;
+    public final static int MINROOFANGLE = 0;
+    public final static int MAXROOFANGLE = 40;
     
     //Prices
     public final static double MAXDISCOUNT = 0.15;
